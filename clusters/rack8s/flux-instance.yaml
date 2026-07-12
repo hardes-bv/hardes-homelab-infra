@@ -1,0 +1,19 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: FluxInstance
+metadata:
+  name: flux
+  namespace: flux-system
+spec:
+  distribution:
+    version: "2.9.1"
+    registry: "ghcr.io/fluxcd"
+  cluster:
+    type: kubernetes
+    size: medium
+  sync:
+    kind: GitRepository
+    provider: github
+    url: "https://github.com/hardes-bv/hardes-homelab-infra.git"
+    ref: "refs/heads/main"
+    path: "clusters/desk8s"
+    pullSecret: "flux-system"
