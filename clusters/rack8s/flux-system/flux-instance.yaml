@@ -9,7 +9,7 @@ metadata:
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:
   distribution:
-    version: "2.9.1"
+    version: "2.9.x"
     registry: "ghcr.io/fluxcd"
   cluster:
     type: kubernetes
