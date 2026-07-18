@@ -19,5 +19,5 @@ spec:
     provider: github
     url: "https://github.com/hardes-bv/hardes-homelab-infra.git"
     ref: "refs/heads/main"
-    path: "clusters/rack8s"
+    path: "kubernetes/clusters/desk8s"
     pullSecret: "flux-system"
