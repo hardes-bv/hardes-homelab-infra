@@ -1,0 +1,23 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: FluxInstance
+metadata:
+  name: flux
+  namespace: flux-system
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "1h"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  distribution:
+    version: "2.9.x"
+    registry: "ghcr.io/fluxcd"
+  cluster:
+    type: kubernetes
+    size: medium
+  sync:
+    kind: GitRepository
+    provider: github
+    url: "https://github.com/hardes-bv/hardes-homelab-infra.git"
+    ref: "refs/heads/main"
+    path: "kubernetes/clusters/desk8s"
+    pullSecret: "flux-system"
