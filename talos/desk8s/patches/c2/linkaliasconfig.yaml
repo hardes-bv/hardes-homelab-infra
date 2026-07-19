@@ -1,0 +1,6 @@
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: ethernet # Alias for the link.
+# Selector to match the link to alias.
+selector:
+  match: glob("e4:5f:01:e1:0f:44", mac(link.permanent_addr)) # The Common Expression Language (CEL) expression to match the link.

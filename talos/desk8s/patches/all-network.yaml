@@ -1,0 +1,11 @@
+cluster:
+    # https://www.talos.dev/v1.8/kubernetes-guides/network/deploying-cilium/#machine-config-preparation
+    # Provides cluster specific network configuration options.
+    network:
+        # The CNI used.
+        cni:
+            name: none # Name of CNI to use.
+    # Kube-proxy server-specific configuration options
+    proxy:
+        # Disable kube-proxy deployment on cluster bootstrap.
+        disabled: true

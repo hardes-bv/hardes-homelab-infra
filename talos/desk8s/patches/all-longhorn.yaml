@@ -1,0 +1,22 @@
+machine:
+    # Used to provide additional options to the kubelet.
+    kubelet:
+        # The `extraMounts` field is used to add additional mounts to the kubelet container.
+        # https://longhorn.io/docs/1.8.0/advanced-resources/os-distro-specific/talos-linux-support/#data-path-mounts
+        extraMounts:
+            - destination: /var/lib/longhorn # Destination is the absolute path where the mount will be placed in the container.
+              type: bind # Type specifies the mount kind.
+              source: /var/lib/longhorn # Source specifies the source path of the mount.
+              # Options are fstab style mount options.
+              options:
+                - bind
+                - rshared
+                - rw
+    # Below is required for Longhorn v2 Data Engine
+    # https://longhorn.io/docs/1.8.0/advanced-resources/os-distro-specific/talos-linux-support/#v2-data-engine  
+    sysctls:
+        vm.nr_hugepages: "1024"
+    kernel:
+      modules:
+        - name: nvme_tcp
+        - name: vfio_pci

@@ -1,0 +1,10 @@
+# rack8s.yaml
+# image schematic id: f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d
+overlay:
+  image: siderolabs/sbc-raspberrypi
+  name: rpi_generic
+customization:
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/iscsi-tools
+      - siderolabs/util-linux-tools

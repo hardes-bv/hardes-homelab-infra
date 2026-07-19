@@ -1,0 +1,205 @@
+
+= Rack ComputeBlade Kubernetes Cluster Bootstrap
+
+See the `00 - Talos Linux` page in Obsidian
+
+https://docs.siderolabs.com/talos/v1.13/getting-started/support-matrix[Support matrix] between underlying Talos Linux version & supported Kubernetes versions.
+
+== Image & Extensions
+
+Talos Extensions must be added to the base image using the https://factory.talos.dev/[Image Factory].
+
+The definition of the image including the required extensions can be found in ./image/rack8s.yaml[rack8s.yaml].
+
+=== First Boot
+
+Use the following disk image for Raspberry Pi Series:
+
+Disk Image:
+
+    https://factory.talos.dev/image/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d/v1.13.2/metal-arm64.raw.xz
+
+=== Upgrading Talos Linux
+
+To upgrade Talos Linux on the machine, use the following command:
+
+    talosctl upgrade -n 172.16.30.[11-19] --image factory.talos.dev/metal-installer/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d:v1.13.2
+
+The full upgrade command can be found in the https://docs.siderolabs.com/talos/v1.13/configure-your-talos-cluster/lifecycle-management/upgrading-talos#talosctl-upgrade[official Talos documentation].
+
+https://docs.siderolabs.com/kubernetes-guides/advanced-guides/upgrading-kubernetes[Upgrading Kubernetes] needs to be done separately.
+
+== Initial configuration of the Talos Cluster nodes
+
+Below contains the respective commands to apply the initial config to each of the nodes.
+DHCP assigned IP addresses can be found in the Ubiquiti Unifi Controller portal.
+
+=== RPi1 - Control Plane Node
+
+[source,shell]
+----
+talosctl apply-config -n 172.16.30.11 \
+    --file controlplane.yaml \
+    -p @patches/all-network.yaml \
+    -p @patches/all-resolver.yaml \
+    -p @patches/all-longhorn.yaml \
+    -p @patches/all-tuppr.yaml \
+    -p @patches/controlplane-are-workers.yaml \
+    -p @patches/c01/hostname.yaml \
+    -p @patches/c01/linkaliasconfig.yaml \
+    -p @patches/c01/linkconfig.yaml
+----
+
+=== RPi2 - Control Plane Node
+
+[source,shell]
+----
+talosctl apply-config -n 172.16.30.12 \
+    --file controlplane.yaml \
+    -p @patches/all-network.yaml \
+    -p @patches/all-resolver.yaml \
+    -p @patches/all-longhorn.yaml \
+    -p @patches/all-tuppr.yaml \
+    -p @patches/controlplane-are-workers.yaml \
+    -p @patches/c02/hostname.yaml \
+    -p @patches/c02/linkaliasconfig.yaml \
+    -p @patches/c02/linkconfig.yaml
+----
+
+=== RPi3 - Control Plane Node
+
+[source,shell]
+----
+talosctl apply-config -n 172.16.30.13 \
+    --file controlplane.yaml \
+    -p @patches/all-network.yaml \
+    -p @patches/all-resolver.yaml \
+    -p @patches/all-longhorn.yaml \
+    -p @patches/all-tuppr.yaml \
+    -p @patches/controlplane-are-workers.yaml \
+    -p @patches/c03/hostname.yaml \
+    -p @patches/c03/linkaliasconfig.yaml \
+    -p @patches/c03/linkconfig.yaml
+----
+
+=== RPi4 - Worker Node
+
+[source,shell]
+----
+talosctl apply-config -n 172.16.30.14 \
+    --file worker.yaml \
+    -p @patches/all-network.yaml \
+    -p @patches/all-resolver.yaml \
+    -p @patches/all-longhorn.yaml \
+    -p @patches/w04/hostname.yaml \
+    -p @patches/w04/linkaliasconfig.yaml \
+    -p @patches/w04/linkconfig.yaml
+----
+
+=== RPi5 - Worker Node
+
+[source,shell]
+----
+talosctl apply-config -n 172.16.30.15 \
+    --file worker.yaml \
+    -p @patches/all-network.yaml \
+    -p @patches/all-resolver.yaml \
+    -p @patches/all-longhorn.yaml \
+    -p @patches/w05/hostname.yaml \
+    -p @patches/w05/linkaliasconfig.yaml \
+    -p @patches/w05/linkconfig.yaml
+----
+
+=== RPi6 - Worker Node
+
+[source,shell]
+----
+talosctl apply-config -n 172.16.30.16 \
+    --file worker.yaml \
+    -p @patches/all-network.yaml \
+    -p @patches/all-resolver.yaml \
+    -p @patches/all-longhorn.yaml \
+    -p @patches/w06/hostname.yaml \
+    -p @patches/w06/linkaliasconfig.yaml \
+    -p @patches/w06/linkconfig.yaml
+----
+
+=== RPi7 - Worker Node
+
+[source,shell]
+----
+talosctl apply-config -n 172.16.30.17 \
+    --file worker.yaml \
+    -p @patches/all-network.yaml \
+    -p @patches/all-resolver.yaml \
+    -p @patches/all-longhorn.yaml \
+    -p @patches/w07/hostname.yaml \
+    -p @patches/w07/linkaliasconfig.yaml \
+    -p @patches/w07/linkconfig.yaml
+----
+
+=== RPi8 - Worker Node
+
+[source,shell]
+----
+talosctl apply-config -n 172.16.30.18 \
+    --file worker.yaml \
+    -p @patches/all-network.yaml \
+    -p @patches/all-resolver.yaml \
+    -p @patches/all-longhorn.yaml \
+    -p @patches/w08/hostname.yaml \
+    -p @patches/w08/linkaliasconfig.yaml \
+    -p @patches/w08/linkconfig.yaml
+----
+
+=== RPi9 - Worker Node
+
+[source,shell]
+----
+talosctl apply-config -n 172.16.30.19 \
+    --file worker.yaml \
+    -p @patches/all-network.yaml \
+    -p @patches/all-resolver.yaml \
+    -p @patches/all-longhorn.yaml \
+    -p @patches/w09/hostname.yaml \
+    -p @patches/w09/linkaliasconfig.yaml \
+    -p @patches/w09/linkconfig.yaml
+----
+
+The 10th blade is a free device for now and not used as a Kubernetes worker node.
+
+== Bootstrapping the Kubernetes Cluster
+
+Once the Talos nodes have been configured, the cluster can be bootstrapped using the following command:
+
+[source,shell]
+----
+talosctl bootstrap --nodes 172.16.30.11 --endpoints 172.16.30.11
+----
+
+and after a few minutes, the cluster should be up and running. Fetch the kubeconfig file using the following command:
+
+[source,shell]
+----
+talosctl kubeconfig --nodes 172.16.30.11 --endpoints 172.16.30.11
+----
+
+== Upgrading the Kubernetes Cluster
+
+The automated upgrade command can be found in the https://docs.siderolabs.com/kubernetes-guides/advanced-guides/upgrading-kubernetes[Talos documentation].
+The command below is a copy from the docs:
+
+[source,shell]
+----
+talosctl --nodes 172.16.30.11 upgrade-k8s --to 1.35.5
+----
+
+To keep the manual config in sync with the executed command, update the following properties to the same image version:
+
+* `machine.kubelet.image`
+* `cluster.apiServer.image`
+* `cluster.controllermanager.image`
+* `cluster.scheduler.image`
+* `cluster.proxy.image`
+
+in `controlplane.yaml` and `worker.yaml` files.

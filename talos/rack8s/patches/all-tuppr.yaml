@@ -1,0 +1,11 @@
+machine:
+    features:
+       # Configure Talos API access from Kubernetes pods for the Tuppr operator
+       kubernetesTalosAPIAccess:
+           enabled: true # Enable Talos API access from Kubernetes pods.
+           # The list of Talos API roles which can be granted for access from Kubernetes pods.
+           allowedRoles:
+               - os:admin
+           # The list of Kubernetes namespaces Talos API access is available from.
+           allowedKubernetesNamespaces:
+               - operator-tuppr

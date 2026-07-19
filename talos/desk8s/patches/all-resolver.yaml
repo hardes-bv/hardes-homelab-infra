@@ -1,0 +1,5 @@
+apiVersion: v1alpha1
+kind: ResolverConfig
+# A list of nameservers (DNS servers) to use for resolving domain names.
+nameservers:
+    - address: 172.16.20.10 # The IP address of the nameserver.
