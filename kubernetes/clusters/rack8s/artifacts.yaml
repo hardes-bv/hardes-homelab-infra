@@ -15,8 +15,8 @@ spec:
       copy:
         - from: "@monorepo/kubernetes/infrastructure/base/**"
           to: "@artifact/base/"
-#        - from: "@monorepo/kubernetes/infrastructure/rack8s/**"
-#          to: "@artifact/rack8s/"
+        - from: "@monorepo/kubernetes/infrastructure/rack8s/**"
+          to: "@artifact/rack8s/"
 #    - name: apps
 #      originRevision: "@monorepo"
 #      copy:
