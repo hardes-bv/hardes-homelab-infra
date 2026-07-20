@@ -9,8 +9,7 @@ spec:
     kind: OCIRepository
     name: tuppr
   interval: 2h
-  values:
-    replicaCount: 2
+#  values:
 #    monitoring:
 #      serviceMonitor:
 #        enabled: true

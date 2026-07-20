@@ -11,6 +11,6 @@ spec:
   sourceRef:
     kind: ExternalArtifact
     name: infrastructure
-  path: ./base
+  path: ./desk8s
   prune: true
   wait: true
