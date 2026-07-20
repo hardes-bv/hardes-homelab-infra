@@ -4,9 +4,7 @@ apiVersion: tuppr.home-operations.com/v1alpha1
 kind: TalosUpgrade
 metadata:
   name: talos
-spec:
-  talos:
-    version: v1.13.5
+#spec:
 #  policy:
 #    rebootMode: powercycle
 #  healthChecks:

@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../base/system-upgrade/tuppr/upgrades
+
+patches:
+  - target:
+      group: tuppr.home-operations.com
+      version: v1alpha1
+      kind: KubernetesUpgrade
+      name: kubernetes
+    path: kubernetes-upgrade-patch.yaml
+  - target:
+      group: tuppr.home-operations.com
+      version: v1alpha1
+      kind: TalosUpgrade
+      name: talos
+    path: talos-upgrade-patch.yaml

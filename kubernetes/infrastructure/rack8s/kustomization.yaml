@@ -13,4 +13,10 @@ patches:
       version: v1
       kind: Kustomization
       name: tuppr
-    path: system-upgrade/patches.yaml
+    path: system-upgrade/tuppr-app-patch.yaml
+  - target:
+      group: kustomize.toolkit.fluxcd.io
+      version: v1
+      kind: Kustomization
+      name: tuppr-upgrades
+    path: system-upgrade/tuppr-upgrades-patch.yaml
