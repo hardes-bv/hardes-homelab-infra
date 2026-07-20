@@ -27,8 +27,8 @@ spec:
   path: ./base/system-upgrade/tuppr/upgrades
   prune: true
   sourceRef:
-    kind: GitRepository
-    name: flux-system
+    kind: ExternalArtifact
+    name: infrastructure
     namespace: flux-system
   targetNamespace: system-upgrade
   wait: false
