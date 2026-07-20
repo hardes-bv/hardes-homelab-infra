@@ -8,4 +8,4 @@ machine:
                - os:admin
            # The list of Kubernetes namespaces Talos API access is available from.
            allowedKubernetesNamespaces:
-               - operator-tuppr
+               - system-upgrade
