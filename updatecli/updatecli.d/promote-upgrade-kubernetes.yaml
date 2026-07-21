@@ -1,0 +1,37 @@
+name: "Promote upgrade the Kubernetes version"
+pipelineid: "rack8s-upgrade-kubernetes"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  testedVersion:
+    name: Get tested Kubernetes version from `desk8s`
+    kind: yaml
+    spec:
+      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/upgrades/kubernetes-upgrade-patch.yaml
+      key: "$.spec.kubernetes.version"
+
+targets:
+  kubernetesUpgrade:
+    name: 'deps: rack8s - update Kubernetes version to {{ source "testedVersion" }} in `KubernetesUpgrade` resource'
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/rack8s/system-upgrade/tuppr/upgrades/kubernetes-upgrade-patch.yaml
+      key: '$.spec.kubernetes.version'
+
+actions:
+  default:
+    title: 'deps: rack8s - update Kubernetes version to {{ source "testedVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default

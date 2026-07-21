@@ -1,0 +1,42 @@
+name: "Test upgrade the Kubernetes version"
+pipelineid: "desk8s-upgrade-kubernetes"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  latestVersion:
+    name: Get latest Kubernetes release
+    kind: githubrelease
+    spec:
+      owner: "kubernetes"
+      repository: "kubernetes"
+      typefilter:
+        draft: false
+        prerelease: false
+      versionfilter:
+        kind: semver
+
+targets:
+  fluxPatch:
+    name: 'deps: desk8s - update Kubernetes version to {{ source "latestVersion" }} in `KubernetesUpgrade` resource'
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/upgrades/kubernetes-upgrade-patch.yaml
+      key: '$.spec.kubernetes.version'
+
+actions:
+  default:
+    title: 'deps: desk8s - update Kubernetes version to {{ source "latestVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default
