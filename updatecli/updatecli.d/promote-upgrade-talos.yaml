@@ -19,14 +19,14 @@ sources:
 
 targets:
   talosUpgrade:
-    name: 'deps: update Talos Linux version to {{ source "testedVersion" }}'
+    name: 'deps: rack8s - update Talos Linux version to {{ source "testedVersion" }} in `TalosUpgrade` resource'
     kind: yaml
     scmid: default
     spec:
       file: kubernetes/infrastructure/rack8s/system-upgrade/tuppr/upgrades/talos-upgrade-patch.yaml
       key: '$.spec.talos.version'
   readme:
-    name: 'deps: bump Talos version to {{ source "testedVersion" }}'
+    name: 'deps: rack8s - update Talos Linux version to {{ source "testedVersion" }} in Talos cluster configuration'
     kind: file
     scmid: default
     sourceid: testedVersion
@@ -39,7 +39,7 @@ targets:
 
 actions:
   default:
-    title: 'deps: rack8s - bump Talos Linux version to {{ source "testedVersion" }}'
+    title: 'deps: rack8s - update Talos Linux version to {{ source "testedVersion" }}'
     kind: github/pullrequest
     spec:
       labels:

@@ -1,0 +1,53 @@
+name: "Test upgrade the Talos Linux version"
+pipelineid: "desk8s-upgrade-talos"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  latestVersion:
+    name: Get latest Talos Linux release
+    kind: githubrelease
+    spec:
+      owner: "siderolabs"
+      repository: "talos"
+      typefilter:
+        draft: false
+        prerelease: false
+      versionfilter:
+        kind: semver
+
+targets:
+  fluxPatch:
+    name: 'deps: desk8s - update Talos Linux version to {{ source "latestVersion" }} in `TalosUpgrade` resource'
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/upgrades/talos-upgrade-patch.yaml
+      key: '$.spec.talos.version'
+  readme:
+    name: 'deps: desk8s - update Talos Linux version to {{ source "latestVersion" }} in Talos cluster configuration'
+    kind: file
+    scmid: default
+    sourceid: latestVersion
+    spec:
+      files:
+        - talos/desk8s/patches/all-install-image.yaml
+        - talos/desk8s/README.adoc
+      matchpattern: 'f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d([\/:])v\d*\.\d*\.\d*'
+      replacepattern: 'f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d${1}{{ source "latestVersion" }}'
+
+actions:
+  default:
+    title: 'deps: desk8s - update Talos Linux version to {{ source "latestVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default

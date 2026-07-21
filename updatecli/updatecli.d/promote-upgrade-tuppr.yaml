@@ -19,7 +19,7 @@ sources:
 
 targets:
   tupprUpgrade:
-    name: 'docs: update `tuppr` version to {{ source "testedVersion" }}'
+    name: 'docs: rack8s - update `tuppr` version to {{ source "testedVersion" }} in `OCIRepository` resource'
     kind: yaml
     scmid: default
     spec:
@@ -28,7 +28,7 @@ targets:
 
 actions:
   default:
-    title: 'deps: rack8s - bump tuppr operator version to {{ source "testedVersion" }}'
+    title: 'deps: rack8s - update `tuppr` operator version to {{ source "testedVersion" }}'
     kind: github/pullrequest
     spec:
       labels:

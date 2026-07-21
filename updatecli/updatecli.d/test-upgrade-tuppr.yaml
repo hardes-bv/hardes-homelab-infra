@@ -11,7 +11,7 @@ scms:
 
 sources:
   latestVersion:
-    name: Get latest tuppr release
+    name: "Get latest `tuppr` release"
     kind: githubrelease
     spec:
       owner: "home-operations"
@@ -24,14 +24,14 @@ sources:
 
 conditions:
   container:
-    name: "Ensure latest tuppr container image is published"
+    name: "Ensure latest `tuppr` container image is published"
     kind: dockerimage
     spec:
       image: ghcr.io/home-operations/tuppr
 
 targets:
-  tupprUpgrade:
-    name: 'docs: update `tuppr` version to {{ source "latestVersion" }}'
+  fluxPatch:
+    name: 'docs: desk8s - update `tuppr` version to {{ source "latestVersion" }} in `OCIRepository` resource'
     kind: yaml
     scmid: default
     spec:
@@ -40,7 +40,7 @@ targets:
 
 actions:
   default:
-    title: 'deps: desk8s - bump tuppr operator version to {{ source "latestVersion" }}'
+    title: 'deps: desk8s - update `tuppr` operator version to {{ source "latestVersion" }}'
     kind: github/pullrequest
     spec:
       labels:
