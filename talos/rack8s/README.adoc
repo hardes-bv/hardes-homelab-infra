@@ -40,6 +40,7 @@ DHCP assigned IP addresses can be found in the Ubiquiti Unifi Controller portal.
 ----
 talosctl apply-config -n 172.16.30.11 \
     --file controlplane.yaml \
+    -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
@@ -56,6 +57,7 @@ talosctl apply-config -n 172.16.30.11 \
 ----
 talosctl apply-config -n 172.16.30.12 \
     --file controlplane.yaml \
+    -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
@@ -72,6 +74,7 @@ talosctl apply-config -n 172.16.30.12 \
 ----
 talosctl apply-config -n 172.16.30.13 \
     --file controlplane.yaml \
+    -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
@@ -88,6 +91,7 @@ talosctl apply-config -n 172.16.30.13 \
 ----
 talosctl apply-config -n 172.16.30.14 \
     --file worker.yaml \
+    -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
@@ -102,6 +106,7 @@ talosctl apply-config -n 172.16.30.14 \
 ----
 talosctl apply-config -n 172.16.30.15 \
     --file worker.yaml \
+    -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
@@ -116,6 +121,7 @@ talosctl apply-config -n 172.16.30.15 \
 ----
 talosctl apply-config -n 172.16.30.16 \
     --file worker.yaml \
+    -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
@@ -130,6 +136,7 @@ talosctl apply-config -n 172.16.30.16 \
 ----
 talosctl apply-config -n 172.16.30.17 \
     --file worker.yaml \
+    -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
@@ -144,6 +151,7 @@ talosctl apply-config -n 172.16.30.17 \
 ----
 talosctl apply-config -n 172.16.30.18 \
     --file worker.yaml \
+    -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
@@ -158,6 +166,7 @@ talosctl apply-config -n 172.16.30.18 \
 ----
 talosctl apply-config -n 172.16.30.19 \
     --file worker.yaml \
+    -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \

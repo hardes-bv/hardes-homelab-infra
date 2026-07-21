@@ -37,8 +37,6 @@ targets:
     spec:
       file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/app/tuppr-oci-repository.yaml
       key: "$.spec.ref.tag"
-#      matchpattern: 'tag: .*'
-#      replacepattern: 'tag: {{ source "latestVersion" }}'
 
 actions:
   default:
