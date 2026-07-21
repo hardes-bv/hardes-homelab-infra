@@ -1,0 +1,7 @@
+name: "UpdateCLI Policies to apply"
+policies:
+  - name: Update Flux & Flux-managed deployments
+    config:
+      - updatecli/updatecli.d/
+    values:
+      - updatecli/values.d/scm.yaml

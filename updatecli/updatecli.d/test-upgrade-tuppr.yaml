@@ -1,0 +1,51 @@
+name: "Upgrade the Tuppr Operator"
+pipelineid: "desk8s-upgrade-tuppr"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  latestVersion:
+    name: Get latest tuppr release
+    kind: githubrelease
+    spec:
+      owner: "home-operations"
+      repository: "tuppr"
+      typefilter:
+        draft: false
+        prerelease: false
+      versionfilter:
+        kind: semver
+
+conditions:
+  container:
+    name: "Ensure latest tuppr container image is published"
+    kind: dockerimage
+    spec:
+      image: ghcr.io/home-operations/tuppr
+
+targets:
+  tupprUpgrade:
+    name: 'docs: update `tuppr` version to {{ source "latestVersion" }}'
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/app/tuppr-oci-repository.yaml
+      key: "$.spec.ref.tag"
+#      matchpattern: 'tag: .*'
+#      replacepattern: 'tag: {{ source "latestVersion" }}'
+
+actions:
+  default:
+    title: 'deps: bump tuppr operator version to {{ source "latestVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default
