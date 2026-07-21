@@ -5,4 +5,4 @@ metadata:
   name: tuppr
 spec:
   ref:
-    tag: 0.2.7
+    tag: 0.3.2
