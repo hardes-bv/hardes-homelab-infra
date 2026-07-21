@@ -6,9 +6,15 @@ resources:
   - ../../../../base/system-upgrade/tuppr/app
 
 patches:
-  - path: patches.yaml
-    target:
+  - target:
       group: helm.toolkit.fluxcd.io
       version: v2
       kind: HelmRelease
       name: tuppr
+    path: tuppr-helm-release.yaml
+  - target:
+      group: source.toolkit.fluxcd.io
+      version: v1
+      kind: OCIRepository
+      name: tuppr
+    path: tuppr-oci-repository.yaml

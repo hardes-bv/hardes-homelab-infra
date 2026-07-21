@@ -6,3 +6,11 @@ metadata:
 spec:
   values:
     replicaCount: 2
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: tuppr
+spec:
+  ref:
+    tag: 0.2.7
