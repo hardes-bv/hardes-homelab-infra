@@ -1,4 +1,4 @@
 machine:
   install:
     # Allows for supplying the image used to perform the installation.
-    image: factory.talos.dev/metal-installer/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d:v1.13.5
+    image: factory.talos.dev/metal-installer/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d:v1.13.6

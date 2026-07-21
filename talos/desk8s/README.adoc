@@ -17,13 +17,13 @@ Use the following disk image for Raspberry Pi Series:
 
 Disk Image:
 
-    https://factory.talos.dev/image/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d/v1.13.5/metal-arm64.raw.xz
+    https://factory.talos.dev/image/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d/v1.13.6/metal-arm64.raw.xz
 
 === Upgrading Talos Linux
 
 To upgrade Talos Linux on the machine, use the following command:
 
-    talosctl upgrade -n 172.16.35.[5-9] --image factory.talos.dev/metal-installer/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d:v1.13.5
+    talosctl upgrade -n 172.16.35.[5-9] --image factory.talos.dev/metal-installer/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d:v1.13.6
 
 The full upgrade command can be found in the https://docs.siderolabs.com/talos/v1.13/configure-your-talos-cluster/lifecycle-management/upgrading-talos#talosctl-upgrade[official Talos documentation].
 
