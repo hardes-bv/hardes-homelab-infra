@@ -1,4 +1,4 @@
-name: "Upgrade the Tuppr Operator"
+name: "Test upgrade of the Tuppr Operator"
 pipelineid: "desk8s-upgrade-tuppr"
 
 scms:
@@ -42,7 +42,7 @@ targets:
 
 actions:
   default:
-    title: 'deps: bump tuppr operator version to {{ source "latestVersion" }}'
+    title: 'deps: desk8s - bump tuppr operator version to {{ source "latestVersion" }}'
     kind: github/pullrequest
     spec:
       labels:

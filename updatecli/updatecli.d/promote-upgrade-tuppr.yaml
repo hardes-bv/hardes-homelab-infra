@@ -1,0 +1,37 @@
+name: "Promote upgrade of the Tuppr Operator"
+pipelineid: "rack8s-upgrade-tuppr"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  testedVersion:
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/app/tuppr-oci-repository.yaml
+      key: "$.spec.ref.tag"
+
+targets:
+  tupprUpgrade:
+    name: 'docs: update `tuppr` version to {{ source "testedVersion" }}'
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/rack8s/system-upgrade/tuppr/app/tuppr-oci-repository.yaml
+      key: "$.spec.ref.tag"
+
+actions:
+  default:
+    title: 'deps: rack8s - bump tuppr operator version to {{ source "testedVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default
