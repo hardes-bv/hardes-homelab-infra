@@ -1,0 +1,48 @@
+name: "Promote upgrade the Talos Linux version"
+pipelineid: "rack8s-upgrade-talos"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  testedVersion:
+    name: Get tested Talos Linux version from `desk8s`
+    kind: yaml
+    spec:
+      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/upgrades/talos-upgrade-patch.yaml
+      key: "$.spec.talos.version"
+
+targets:
+  talosUpgrade:
+    name: 'deps: update Talos Linux version to {{ source "testedVersion" }}'
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/rack8s/system-upgrade/tuppr/upgrades/talos-upgrade-patch.yaml
+      key: '$.spec.talos.version'
+  readme:
+    name: 'deps: bump Talos version to {{ source "testedVersion" }}'
+    kind: file
+    scmid: default
+    sourceid: testedVersion
+    spec:
+      files:
+        - talos/rack8s/patches/all-install-image.yaml
+        - talos/rack8s/README.adoc
+      matchpattern: 'f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d([\/:])v\d*\.\d*\.\d*'
+      replacepattern: 'f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d${1}{{ source "testedVersion" }}'
+
+actions:
+  default:
+    title: 'deps: rack8s - bump Talos Linux version to {{ source "testedVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default
