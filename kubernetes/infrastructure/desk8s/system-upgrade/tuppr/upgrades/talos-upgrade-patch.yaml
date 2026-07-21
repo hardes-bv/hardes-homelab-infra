@@ -6,4 +6,4 @@ metadata:
   name: talos
 spec:
   talos:
-    version: v1.13.6
+    version: v1.13.7
