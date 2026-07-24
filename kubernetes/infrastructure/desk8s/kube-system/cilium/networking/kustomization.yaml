@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../base/kube-system/cilium/networking
+
+patches:
+  - target:
+      group: cilium.io
+      version: v2
+      kind: CiliumLoadBalancerIPPool
+      name: lb-ip-pool
+    path: cilium-loadbalancer-ip-pool.yaml
