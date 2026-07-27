@@ -1,0 +1,45 @@
+cgroup:
+  automount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+hubble:
+  #  https://docs.cilium.io/en/stable/gettingstarted/hubble_setup/
+  relay:
+    enabled: false
+  ui:
+    enabled: false
+#  https://docs.cilium.io/en/stable/network/servicemesh/ingress/
+ingressController:
+  enabled: true
+  default: true
+  loadbalancerMode: shared
+ipam:
+  mode: kubernetes
+ipv4:
+  enabled: true
+ipv6:
+  enabled: false
+k8sServiceHost: "127.0.0.1"
+k8sServicePort: 7445
+kubeProxyReplacement: true
+# https://docs.cilium.io/en/stable/network/l2-announcements/
+l2announcements:
+  enabled: true
+securityContext:
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE
