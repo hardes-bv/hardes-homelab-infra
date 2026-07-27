@@ -1,0 +1,54 @@
+name: "Test upgrade the Cilium version"
+pipelineid: "desk8s-upgrade-cilium"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  latestVersion:
+    name: Get latest Cilium release
+    kind: githubrelease
+    spec:
+      owner: "cilium"
+      repository: "cilium"
+      typefilter:
+        draft: false
+        prerelease: false
+      versionfilter:
+        kind: semver
+    transformers:
+      - trimprefix: "v"
+
+targets:
+  fluxPatch:
+    name: 'deps: desk8s - update Cilium version to {{ source "latestVersion" }} in `OCIRepository` resource'
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/desk8s/kube-system/cilium/app/cilium-oci-repository.yaml
+      key: '$.spec.ref.tag'
+  bootstrap:
+    name: 'deps: desk8s - update Cilium version to {{ source "latestVersion" }} in boostrap README'
+    kind: file
+    scmid: default
+    sourceid: latestVersion
+    spec:
+      files:
+        - bootstrap/cilium/README.md
+      matchpattern: '--version \d*\.\d*\.\d*'
+      replacepattern: '--version {{ source "latestVersion" }}'
+
+actions:
+  default:
+    title: 'deps: desk8s - update Cilium version to {{ source "latestVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default

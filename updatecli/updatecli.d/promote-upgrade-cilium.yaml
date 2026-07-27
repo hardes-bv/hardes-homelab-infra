@@ -1,0 +1,37 @@
+name: "Promote upgrade the Cilium version"
+pipelineid: "rack8s-upgrade-cilium"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  testedVersion:
+    name: Get tested Cilium version from `desk8s`
+    kind: yaml
+    spec:
+      file: kubernetes/infrastructure/desk8s/kube-system/cilium/app/cilium-oci-repository.yaml
+      key: "$.spec.ref.tag"
+
+targets:
+  ciliumUpgrade:
+    name: 'deps: rack8s - update Cilium version to {{ source "testedVersion" }} in `OCIRepository` resource'
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/rack8s/kube-system/cilium/app/cilium-oci-repository.yaml
+      key: '$.spec.ref.tag'
+
+actions:
+  default:
+    title: 'deps: rack8s - update Cilium version to {{ source "testedVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default
