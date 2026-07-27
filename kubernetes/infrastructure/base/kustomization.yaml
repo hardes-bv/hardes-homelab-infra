@@ -5,3 +5,4 @@ kind: Kustomization
 
 resources:
   - ./system-upgrade
+  - ./kube-system
