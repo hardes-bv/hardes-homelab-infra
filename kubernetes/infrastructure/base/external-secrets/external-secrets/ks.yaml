@@ -12,5 +12,5 @@ spec:
     kind: ExternalArtifact
     name: infrastructure
     namespace: flux-system
-  targetNamespace: kube-system
+  targetNamespace: external-secrets
   wait: false
