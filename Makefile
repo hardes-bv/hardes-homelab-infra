@@ -6,6 +6,7 @@ CLUSTERS := \
 	rack8s
 
 DEPLOYMENTS := \
+	external-secrets/external-secrets/app \
 	kube-system/cilium/app \
 	kube-system/cilium/networking \
 	system-upgrade/tuppr/app \
