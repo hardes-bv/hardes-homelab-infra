@@ -1,0 +1,47 @@
+name: "Upgrade the UpdateCLI version"
+pipelineid: "upgrade-updatecli"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  latestVersion:
+    name: Get latest UpdateCLI release
+    kind: githubrelease
+    spec:
+      owner: "updatecli"
+      repository: "updatecli"
+      typefilter:
+        draft: false
+        prerelease: false
+      versionfilter:
+        kind: semver
+    transformers:
+      - trimprefix: "v"
+
+targets:
+  miseConfig:
+    name: 'deps: update UpdateCLI version to {{ source "latestVersion" }} in .config/mise.toml'
+    kind: file
+    scmid: default
+    sourceid: latestVersion
+    spec:
+      files:
+        - .config/mise.toml
+      matchpattern: '"github:updatecli/updatecli" = "\d*\.\d*\.\d*"'
+      replacepattern: '"github:updatecli/updatecli" = "{{ source "latestVersion" }}"'
+
+actions:
+  default:
+    title: 'deps: update UpdateCLI version to {{ source "latestVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default
