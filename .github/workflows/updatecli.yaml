@@ -3,7 +3,7 @@ name: Update Packages
 on:
   workflow_dispatch:
   schedule:
-    - cron: 0 16 * * 1,5 # Every Monday & Thursday at 16h UTC
+    - cron: 0 16 * * 1,5 # Every Monday & Friday at 16h UTC
 permissions:
   contents: read
 jobs:
