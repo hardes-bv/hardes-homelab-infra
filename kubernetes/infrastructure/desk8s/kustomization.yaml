@@ -35,5 +35,11 @@ patches:
       group: kustomize.toolkit.fluxcd.io
       version: v1
       kind: Kustomization
+      name: spegel
+    path: kube-system/spegel-app-patch.yaml
+  - target:
+      group: kustomize.toolkit.fluxcd.io
+      version: v1
+      kind: Kustomization
       name: external-secrets
     path: external-secrets/external-secrets-app-patch.yaml
