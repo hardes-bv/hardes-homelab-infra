@@ -9,6 +9,7 @@ DEPLOYMENTS := \
 	external-secrets/external-secrets/app \
 	kube-system/cilium/app \
 	kube-system/cilium/networking \
+	kube-system/spegel/app \
 	system-upgrade/tuppr/app \
 	system-upgrade/tuppr/upgrades
 
