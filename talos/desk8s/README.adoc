@@ -44,6 +44,7 @@ talosctl apply-config -n 172.16.35.5 \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
+    -p @patches/all-spegel.yaml \
     -p @patches/all-tuppr.yaml \
     -p @patches/controlplane-are-workers.yaml \
     -p @patches/c1/hostname.yaml \
@@ -61,6 +62,7 @@ talosctl apply-config -n 172.16.35.6 \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
+    -p @patches/all-spegel.yaml \
     -p @patches/all-tuppr.yaml \
     -p @patches/controlplane-are-workers.yaml \
     -p @patches/c2/hostname.yaml \
@@ -78,6 +80,7 @@ talosctl apply-config -n 172.16.35.7 \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
+    -p @patches/all-spegel.yaml \
     -p @patches/all-tuppr.yaml \
     -p @patches/controlplane-are-workers.yaml \
     -p @patches/c3/hostname.yaml \
@@ -95,6 +98,7 @@ talosctl apply-config -n 172.16.35.8 \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
+    -p @patches/all-spegel.yaml \
     -p @patches/w4/hostname.yaml \
     -p @patches/w4/linkaliasconfig.yaml \
     -p @patches/w4/linkconfig.yaml
@@ -110,6 +114,7 @@ talosctl apply-config -n 172.16.35.9 \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
+    -p @patches/all-spegel.yaml \
     -p @patches/w5/hostname.yaml \
     -p @patches/w5/linkaliasconfig.yaml \
     -p @patches/w5/linkconfig.yaml
