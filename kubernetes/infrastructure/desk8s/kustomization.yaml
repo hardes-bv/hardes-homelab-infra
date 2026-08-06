@@ -43,3 +43,9 @@ patches:
       kind: Kustomization
       name: external-secrets
     path: external-secrets/external-secrets-app-patch.yaml
+  - target:
+      group: kustomize.toolkit.fluxcd.io
+      version: v1
+      kind: Kustomization
+      name: onepassword-sdk-hardes
+    path: external-secrets/onepassword-sdk-hardes-app-patch.yaml
