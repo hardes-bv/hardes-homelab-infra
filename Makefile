@@ -7,6 +7,7 @@ CLUSTERS := \
 
 DEPLOYMENTS := \
 	external-secrets/external-secrets/app \
+	external-secrets/onepassword-sdk-hardes/app \
 	kube-system/cilium/app \
 	kube-system/cilium/networking \
 	kube-system/spegel/app \
