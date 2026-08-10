@@ -6,6 +6,7 @@ CLUSTERS := \
 	rack8s
 
 DEPLOYMENTS := \
+	cert-manager/cert-manager/app \
 	external-secrets/external-secrets/app \
 	external-secrets/onepassword-sdk-hardes/app \
 	kube-system/cilium/app \
