@@ -7,6 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: external-secrets
+      namespace: external-secrets
     - name: cert-manager
   interval: 1h
   path: ./base/cert-manager/cert-manager/scaleway-webhook
