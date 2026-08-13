@@ -55,3 +55,9 @@ patches:
       kind: Kustomization
       name: cert-manager
     path: cert-manager/cert-manager-app-patch.yaml
+  - target:
+      group: kustomize.toolkit.fluxcd.io
+      version: v1
+      kind: Kustomization
+      name: scaleway-certmanager-webhook
+    path: cert-manager/scaleway-webhook-app-patch.yaml

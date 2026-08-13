@@ -7,6 +7,7 @@ CLUSTERS := \
 
 DEPLOYMENTS := \
 	cert-manager/cert-manager/app \
+	cert-manager/scaleway-webhook/app \
 	external-secrets/external-secrets/app \
 	external-secrets/onepassword-sdk-hardes/app \
 	kube-system/cilium/app \
