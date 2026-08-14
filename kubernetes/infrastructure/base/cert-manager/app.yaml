@@ -17,6 +17,7 @@ spec:
       kind: OCIRepository
       metadata:
         name: cert-manager
+        namespace: cert-manager
       spec:
         ref:
           tag: << inputs.tag >>
@@ -29,6 +30,7 @@ spec:
       kind: HelmRelease
       metadata:
         name: cert-manager
+        namespace: cert-manager
       spec:
         chartRef:
           kind: OCIRepository
