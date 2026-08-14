@@ -1,0 +1,62 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: cert-manager-scaleway-webhook
+  namespace: cert-manager
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  dependsOn:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: cert-manager
+      namespace: cert-manager
+      ready: true
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      name: cert-manager-scaleway-webhook
+  resources:
+    - apiVersion: external-secrets.io/v1
+      kind: ExternalSecret
+      metadata:
+        name: scaleway-certmanager-webhook
+      spec:
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: onepassword-sdk-hardes
+        target:
+          name: scaleway-certmanager-webhook
+          template:
+            data:
+              SCW_ACCESS_KEY: "{{ .accessKey }}"
+              SCW_SECRET_KEY: "{{ .secretKey }}"
+        dataFrom:
+          - extract:
+              key: scaleway-certmanager-webhook
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: OCIRepository
+      metadata:
+        name: scaleway-certmanager-webhook
+      spec:
+        ref:
+          tag: << inputs.tag >>
+        interval: 15m
+        layerSelector:
+          mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+          operation: copy
+        url: oci://ghcr.io/scaleway/helm-charts/scaleway-certmanager-webhook
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: scaleway-certmanager-webhook
+      spec:
+        chartRef:
+          kind: OCIRepository
+          name: scaleway-certmanager-webhook
+        interval: 1h
+        values:
+          secret:
+            externalSecretName: scaleway-certmanager-webhook
