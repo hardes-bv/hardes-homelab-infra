@@ -9,4 +9,6 @@ metadata:
 spec:
   type: Static
   defaultValues:
-    name: rack8s
+    cluster:
+      name: rack8s
+      environment: production

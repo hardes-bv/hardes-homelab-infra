@@ -9,4 +9,6 @@ metadata:
 spec:
   type: Static
   defaultValues:
-    name: desk8s
+    cluster:
+      name: desk8s
+      environment: test
