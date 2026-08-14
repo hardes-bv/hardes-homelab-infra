@@ -1,0 +1,41 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: cert-manager
+  namespace: cert-manager
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      name: cert-manager
+  resources:
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: OCIRepository
+      metadata:
+        name: cert-manager
+      spec:
+        ref:
+          tag: << inputs.tag >>
+        interval: 15m
+        layerSelector:
+          mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+          operation: copy
+        url: oci://quay.io/jetstack/charts/cert-manager
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: cert-manager
+      spec:
+        chartRef:
+          kind: OCIRepository
+          name: cert-manager
+        interval: 1h
+        values:
+          crds:
+            enabled: true
+          dns01RecursiveNameservers: 8.8.8.8:53,1.1.1.1:53
+          dns01RecursiveNameserversOnly: true

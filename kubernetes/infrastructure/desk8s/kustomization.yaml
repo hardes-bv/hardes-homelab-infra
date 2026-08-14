@@ -5,6 +5,7 @@ kind: Kustomization
 
 resources:
   - ../base
+  - cert-manager/cert-manager-inputs.yaml
   - cert-manager/scaleway-webhook-inputs.yaml
   - cert-manager/issuers-inputs.yaml
 
@@ -51,9 +52,3 @@ patches:
       kind: Kustomization
       name: onepassword-sdk-hardes
     path: external-secrets/onepassword-sdk-hardes-app-patch.yaml
-  - target:
-      group: kustomize.toolkit.fluxcd.io
-      version: v1
-      kind: Kustomization
-      name: cert-manager
-    path: cert-manager/cert-manager-app-patch.yaml
