@@ -1,0 +1,39 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: gateway-api
+  namespace: kube-system
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      name: gateway-api
+  resources:
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: GitRepository
+      metadata:
+        name: gateway-api
+        namespace: kube-system
+      spec:
+        interval: 5m0s
+        url: https://github.com/kubernetes-sigs/gateway-api
+        ref:
+          tag: << inputs.tag >>
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1
+      kind: Kustomization
+      metadata:
+        name: gateway-api
+        namespace: kube-system
+      spec:
+        interval: 1h
+        path: ./config/crd
+        prune: true
+        sourceRef:
+          kind: GitRepository
+          name: gateway-api
+          namespace: kube-system
+        wait: true

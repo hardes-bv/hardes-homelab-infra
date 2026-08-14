@@ -5,6 +5,7 @@ kind: Kustomization
 
 resources:
   - ../base
+  - kube-system/gateway-api-inputs.yaml
   - cert-manager/cert-manager-inputs.yaml
   - cert-manager/scaleway-webhook-inputs.yaml
   - cert-manager/issuers-inputs.yaml
