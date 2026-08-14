@@ -9,3 +9,6 @@ spec:
     kind: OCIRepository
     name: scaleway-certmanager-webhook
   interval: 1h
+  values:
+    secret:
+      externalSecretName: scaleway-certmanager-webhook
