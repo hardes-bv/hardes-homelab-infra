@@ -1,0 +1,37 @@
+name: "Promote upgrade the cert-manager Scaleway webhook version"
+pipelineid: "rack8s-upgrade-cert-manager-scaleway-webhook"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  testedVersion:
+    name: Get tested cert-manager Scaleway webhook version from `desk8s`
+    kind: yaml
+    spec:
+      file: kubernetes/infrastructure/desk8s/cert-manager/scaleway-webhook-inputs.yaml
+      key: "$.spec.defaultValues.tag"
+
+targets:
+  ciliumUpgrade:
+    name: 'deps: rack8s - update cert-manager Scaleway webhook version to {{ source "testedVersion" }} in `ResourceSetInputProvider` resource'
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/rack8s/cert-manager/scaleway-webhook-inputs.yaml
+      key: '$.spec.defaultValues.tag'
+
+actions:
+  default:
+    title: 'deps: rack8s - update cert-manager Scaleway webhook version to {{ source "testedVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default

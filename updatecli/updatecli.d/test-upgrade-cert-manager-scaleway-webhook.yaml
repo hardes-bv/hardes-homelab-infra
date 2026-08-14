@@ -1,0 +1,37 @@
+name: "Test upgrade the cert-manager Scaleway webhook version"
+pipelineid: "desk8s-upgrade-cert-manager-scaleway-webhook"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  latestVersion:
+    name: Get latest cert-manager scaleway webhook release
+    kind: helmchart
+    spec:
+      url: oci://ghcr.io/scaleway/helm-charts
+      name: scaleway-certmanager-webhook
+
+targets:
+  fluxPatch:
+    name: 'deps: desk8s - update cert-manager Scaleway webhook version to {{ source "latestVersion" }} in `ResourceSetInputProvider` resource'
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/desk8s/cert-manager/scaleway-webhook-inputs.yaml
+      key: '$.spec.defaultValues.tag'
+
+actions:
+  default:
+    title: 'deps: desk8s - update cert-manager Scaleway webhook version to {{ source "latestVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default

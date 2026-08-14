@@ -1,0 +1,42 @@
+name: "Test upgrade the cert-manager version"
+pipelineid: "desk8s-upgrade-cert-manager"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  latestVersion:
+    name: Get latest cert-manager release
+    kind: githubrelease
+    spec:
+      owner: "cert-manager"
+      repository: "cert-manager"
+      typefilter:
+        draft: false
+        prerelease: false
+      versionfilter:
+        kind: semver
+
+targets:
+  fluxPatch:
+    name: 'deps: desk8s - update cert-manager version to {{ source "latestVersion" }} in `ResourceSetInputProvider` resource'
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/desk8s/cert-manager/cert-manager-inputs.yaml
+      key: '$.spec.defaultValues.tag'
+
+actions:
+  default:
+    title: 'deps: desk8s - update cert-manager version to {{ source "latestVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default
