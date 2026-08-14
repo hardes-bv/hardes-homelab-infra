@@ -10,4 +10,5 @@ spec:
   type: Static
   defaultValues:
     tenant: rack8s
-    dnsZone: home.hardes.be
+    dnszone: home.hardes.be
+    email: ringo@hardes.be

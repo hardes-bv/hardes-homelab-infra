@@ -10,4 +10,5 @@ spec:
   type: Static
   defaultValues:
     tenant: desk8s
-    dnsZone: test.hardes.be
+    dnszone: test.hardes.be
+    email: ringo@hardes.be
