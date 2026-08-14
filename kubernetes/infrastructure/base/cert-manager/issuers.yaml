@@ -24,10 +24,10 @@ spec:
           privateKeySecretRef:
             name: certmanager-scaleway-private-key-<< inputs.tenant >>
           solvers:
-            selector:
-              dnsZones:
-                - << inputs.dnszone >>
-            dns01:
-              webhook:
-                groupName: acme.scaleway.com
-                solverName: scaleway
+            - selector:
+                dnsZones:
+                  - << inputs.dnszone >>
+              dns01:
+                webhook:
+                  groupName: acme.scaleway.com
+                  solverName: scaleway
