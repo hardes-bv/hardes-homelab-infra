@@ -16,6 +16,8 @@ spec:
       hostRoot: /sys/fs/cgroup
     cleanState: false
     cleanBpfState: false
+    gatewayAPI:
+      enabled: true
     hubble:
       #  https://docs.cilium.io/en/stable/gettingstarted/hubble_setup/
       relay:
@@ -24,9 +26,7 @@ spec:
         enabled: false
     #  https://docs.cilium.io/en/stable/network/servicemesh/ingress/
     ingressController:
-      enabled: true
-      default: true
-      loadbalancerMode: shared
+      enabled: false
     ipam:
       mode: kubernetes
     ipv4:

@@ -2,6 +2,9 @@ cgroup:
   automount:
     enabled: false
   hostRoot: /sys/fs/cgroup
+# Can't bootstrap with Gateway API support because the Gateway API CRD's have not been deployed yet.
+# gatewayAPI:
+#   enabled: true
 hubble:
   #  https://docs.cilium.io/en/stable/gettingstarted/hubble_setup/
   relay:
@@ -10,9 +13,7 @@ hubble:
     enabled: false
 #  https://docs.cilium.io/en/stable/network/servicemesh/ingress/
 ingressController:
-  enabled: true
-  default: true
-  loadbalancerMode: shared
+  enabled: false
 ipam:
   mode: kubernetes
 ipv4:
