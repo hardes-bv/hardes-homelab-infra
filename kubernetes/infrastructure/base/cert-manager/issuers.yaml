@@ -1,0 +1,33 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: cert-manager-issuers
+  namespace: cert-manager
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      name: cert-manager-issuers
+  resources:
+    - apiVersion: cert-manager.io/v1
+      kind: ClusterIssuer
+      metadata:
+        name: scaleway-issuer-<< inputs.tenant >>
+      spec:
+        acme:
+          email: << inputs.email >>
+          server: https://acme-v02.api.letsencrypt.org/directory
+          privateKeySecretRef:
+            name: certmanager-scaleway-private-key-<< inputs.tenant >>
+          solvers:
+            selector:
+              dnsZones:
+                - << inputs.dnszone >>
+            dns01:
+              webhook:
+                groupName: acme.scaleway.com
+                solverName: scaleway

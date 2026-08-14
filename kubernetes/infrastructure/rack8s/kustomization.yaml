@@ -5,6 +5,7 @@ kind: Kustomization
 
 resources:
   - ../base
+  - cert-manager/issuers-inputs.yaml
 
 patches:
   - target:
