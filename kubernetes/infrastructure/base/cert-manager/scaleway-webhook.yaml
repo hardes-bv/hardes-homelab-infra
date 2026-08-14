@@ -23,6 +23,7 @@ spec:
       kind: ExternalSecret
       metadata:
         name: scaleway-certmanager-webhook
+        namespace: cert-manager
       spec:
         secretStoreRef:
           kind: ClusterSecretStore
@@ -40,6 +41,7 @@ spec:
       kind: OCIRepository
       metadata:
         name: scaleway-certmanager-webhook
+        namespace: cert-manager
       spec:
         ref:
           tag: << inputs.tag >>
@@ -52,6 +54,7 @@ spec:
       kind: HelmRelease
       metadata:
         name: scaleway-certmanager-webhook
+        namespace: cert-manager
       spec:
         chartRef:
           kind: OCIRepository
