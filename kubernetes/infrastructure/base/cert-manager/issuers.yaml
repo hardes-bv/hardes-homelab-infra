@@ -11,22 +11,18 @@ spec:
   inputsFrom:
     - apiVersion: fluxcd.controlplane.io/v1
       kind: ResourceSetInputProvider
-      name: flux-runtime-info
-      namespace: flux-system
-    - apiVersion: fluxcd.controlplane.io/v1
-      kind: ResourceSetInputProvider
       name: cert-manager-issuers
   resources:
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
       metadata:
-        name: scaleway-issuer-<< inputs.cluster.name >>
+        name: scaleway-issuer-<< inputs.tenant >>
       spec:
         acme:
           email: << inputs.email >>
           server: https://acme-v02.api.letsencrypt.org/directory
           privateKeySecretRef:
-            name: certmanager-scaleway-private-key-<< inputs.cluster.name >>
+            name: certmanager-scaleway-private-key-<< inputs.tenant >>
           solvers:
             - selector:
                 dnsZones:
