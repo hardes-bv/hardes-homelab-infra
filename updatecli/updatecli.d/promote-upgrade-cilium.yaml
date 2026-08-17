@@ -14,17 +14,17 @@ sources:
     name: Get tested Cilium version from `desk8s`
     kind: yaml
     spec:
-      file: kubernetes/infrastructure/desk8s/kube-system/cilium/app/cilium-oci-repository.yaml
-      key: "$.spec.ref.tag"
+      file: kubernetes/infrastructure/desk8s/kube-system/cilium-inputs.yaml
+      key: '$.spec.defaultValues.tag'
 
 targets:
   ciliumUpgrade:
-    name: 'deps: rack8s - update Cilium version to {{ source "testedVersion" }} in `OCIRepository` resource'
+    name: 'deps: rack8s - update Cilium version to {{ source "testedVersion" }} in `ResourceSetInputProvider` resource'
     kind: yaml
     scmid: default
     spec:
-      file: kubernetes/infrastructure/rack8s/kube-system/cilium/app/cilium-oci-repository.yaml
-      key: '$.spec.ref.tag'
+      file: kubernetes/infrastructure/rack8s/kube-system/cilium-inputs.yaml
+      key: '$.spec.defaultValues.tag'
 
 actions:
   default:
