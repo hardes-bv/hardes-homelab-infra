@@ -9,6 +9,7 @@ resources:
   - cert-manager/cert-manager-inputs.yaml
   - cert-manager/scaleway-webhook-inputs.yaml
   - cert-manager/issuers-inputs.yaml
+  - network/unifi-dns-inputs.yaml
 
 patches:
   - target:
