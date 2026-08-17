@@ -1,0 +1,94 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: &app cilium
+  namespace: &ns kube-system
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  dependsOn:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      name: gateway-api
+      namespace: kube-system
+      ready: true
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      name: *app
+  resources:
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: OCIRepository
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        interval: 15m
+        layerSelector:
+          mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+          operation: copy
+        url: oci://quay.io/cilium/charts/cilium
+        ref:
+          tag: << inputs.tag >>
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        chartRef:
+          kind: OCIRepository
+          name: *app
+          namespace: *ns
+        interval: 1h
+        values:
+          cgroup:
+            automount:
+              enabled: false
+            hostRoot: /sys/fs/cgroup
+          cleanState: false
+          cleanBpfState: false
+          gatewayAPI:
+            enabled: true
+          hubble:
+            #  https://docs.cilium.io/en/stable/gettingstarted/hubble_setup/
+            relay:
+              enabled: false
+            ui:
+              enabled: false
+          #  https://docs.cilium.io/en/stable/network/servicemesh/ingress/
+          ingressController:
+            enabled: false
+          ipam:
+            mode: kubernetes
+          ipv4:
+            enabled: true
+          ipv6:
+            enabled: false
+          k8sServiceHost: 127.0.0.1
+          k8sServicePort: 7445
+          kubeProxyReplacement: true
+          # https://docs.cilium.io/en/stable/network/l2-announcements/
+          l2announcements:
+            enabled: true
+          rollOutCiliumPods: true
+          securityContext:
+            capabilities:
+              ciliumAgent:
+                - CHOWN
+                - KILL
+                - NET_ADMIN
+                - NET_RAW
+                - IPC_LOCK
+                - SYS_ADMIN
+                - SYS_RESOURCE
+                - DAC_OVERRIDE
+                - FOWNER
+                - SETGID
+                - SETUID
+              cleanCiliumState:
+                - NET_ADMIN
+                - SYS_ADMIN
+                - SYS_RESOURCE
