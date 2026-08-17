@@ -22,10 +22,10 @@ spec:
           kind: ClusterSecretStore
           name: onepassword-sdk-hardes
         target:
-          name: unifi-api-key
+          name: &secret unifi-api-key
           template:
             data:
-              UNIFI_API_KEY: "{{ .UNIFI_API_KEY }}"
+              UNIFI_API_KEY: "{{ .unifiApiKey }}"
         dataFrom:
           - extract:
               key: external-dns-unifi
@@ -65,7 +65,7 @@ spec:
                 - name: UNIFI_API_KEY
                   valueFrom:
                     secretKeyRef:
-                      name: &secret unifi-api-key
+                      name: *secret
                       key: UNIFI_API_KEY
               livenessProbe:
                 httpGet:
