@@ -90,7 +90,7 @@ spec:
           txtPrefix: k8s.main.%{record_type}-
           domainFilters:
             - << inputs.domain >>
-          serviceMonitor:
-            enabled: true
+#          serviceMonitor:
+#            enabled: true
           podAnnotations:
             secret.reloader.stakater.com/reload: *secret
