@@ -17,10 +17,10 @@ spec:
           to: "@artifact/base/"
         - from: "@monorepo/kubernetes/infrastructure/desk8s/**"
           to: "@artifact/desk8s/"
-#    - name: apps
-#      originRevision: "@monorepo"
-#      copy:
-#        - from: "@monorepo/kubernetes/apps/base/**"
-#          to: "@artifact/base/"
-#        - from: "@monorepo/kubernetes/apps/desk8s/**"
-#          to: "@artifact/desk8s/"
+    - name: apps
+      originRevision: "@monorepo"
+      copy:
+        - from: "@monorepo/kubernetes/apps/base/**"
+          to: "@artifact/base/"
+        - from: "@monorepo/kubernetes/apps/desk8s/**"
+          to: "@artifact/desk8s/"

@@ -1,0 +1,13 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSetInputProvider
+metadata:
+  name: podinfo
+  namespace: default
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "5m"
+spec:
+  type: Static
+  defaultValues:
+    tag: 6.14.1
+    zone: test.hardes.be
