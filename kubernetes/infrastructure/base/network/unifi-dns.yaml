@@ -17,6 +17,7 @@ spec:
       kind: ExternalSecret
       metadata:
         name: unifi-dns
+        namespace: &ns network
       spec:
         secretStoreRef:
           kind: ClusterSecretStore
@@ -33,7 +34,7 @@ spec:
       kind: OCIRepository
       metadata:
         name: unifi-dns
-        namespace: network
+        namespace: *ns
       spec:
         ref:
           tag: << inputs.externalDns.tag >>
@@ -46,6 +47,7 @@ spec:
       kind: HelmRelease
       metadata:
         name: &app unifi-dns
+        namespace: *ns
       spec:
         chartRef:
           kind: OCIRepository
