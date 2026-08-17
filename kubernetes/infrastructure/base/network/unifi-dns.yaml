@@ -63,12 +63,14 @@ spec:
                 tag: << inputs.unifiWebhook.tag >>
               env:
                 - name: UNIFI_HOST
-                  value: http://172.16.10.1
+                  value: https://172.16.10.1
                 - name: UNIFI_API_KEY
                   valueFrom:
                     secretKeyRef:
                       name: *secret
                       key: UNIFI_API_KEY
+                - name: LOG_LEVEL
+                  value: debug
               livenessProbe:
                 httpGet:
                   path: /healthz
