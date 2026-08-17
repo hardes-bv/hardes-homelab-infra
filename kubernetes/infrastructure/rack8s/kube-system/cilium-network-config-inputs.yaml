@@ -10,3 +10,4 @@ spec:
   type: Static
   defaultValues:
     cidr: 172.16.30.64/27
+    zone: home.hardes.be
