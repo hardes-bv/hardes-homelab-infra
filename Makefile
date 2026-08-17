@@ -8,7 +8,6 @@ CLUSTERS := \
 INFRASTRUCTURE := \
 	external-secrets/external-secrets/app \
 	external-secrets/onepassword-sdk-hardes/app \
-	kube-system/cilium/networking \
 	kube-system/spegel/app \
 	system-upgrade/tuppr/app \
 	system-upgrade/tuppr/upgrades

@@ -1,7 +1,0 @@
-apiVersion: cilium.io/v2
-kind: CiliumLoadBalancerIPPool
-metadata:
-  name: lb-ip-pool
-spec:
-  blocks:
-    - cidr: 172.16.30.64/27

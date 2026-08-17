@@ -7,6 +7,7 @@ resources:
   - ../base
   - kube-system/gateway-api-inputs.yaml
   - kube-system/cilium-inputs.yaml
+  - kube-system/cilium-network-config-inputs.yaml
   - cert-manager/cert-manager-inputs.yaml
   - cert-manager/scaleway-webhook-inputs.yaml
   - cert-manager/issuers-inputs.yaml
@@ -25,12 +26,6 @@ patches:
       kind: Kustomization
       name: tuppr-upgrades
     path: system-upgrade/tuppr-upgrades-patch.yaml
-  - target:
-      group: kustomize.toolkit.fluxcd.io
-      version: v1
-      kind: Kustomization
-      name: cilium-networking
-    path: kube-system/cilium-networking-patch.yaml
   - target:
       group: kustomize.toolkit.fluxcd.io
       version: v1

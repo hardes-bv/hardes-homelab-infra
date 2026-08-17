@@ -8,5 +8,5 @@ resources:
   - ./namespace.yaml
   - ./gateway-api.yaml
   - ./cilium.yaml
-  - ./cilium/ks.yaml
+  - ./cilium-network-config.yaml
   - ./spegel/ks.yaml

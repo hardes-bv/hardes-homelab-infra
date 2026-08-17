@@ -1,0 +1,35 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: &app cilium-network-config
+  namespace: &ns kube-system
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  dependsOn:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      name: cilium
+      namespace: *ns
+      ready: true
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      name: *app
+  resources:
+    - apiVersion: cilium.io/v2alpha1
+      kind: CiliumL2AnnouncementPolicy
+      metadata:
+        name: announce-all
+      spec:
+        loadBalancerIPs: true
+    - apiVersion: cilium.io/v2
+      kind: CiliumLoadBalancerIPPool
+      metadata:
+        name: lb-ip-pool
+      spec:
+        allowFirstLastIPs: "No"
+        blocks:
+          - cidr: << inputs.cidr >>

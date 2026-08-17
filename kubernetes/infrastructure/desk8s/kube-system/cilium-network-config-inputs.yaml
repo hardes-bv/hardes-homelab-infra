@@ -1,0 +1,12 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSetInputProvider
+metadata:
+  name: cilium-network-config
+  namespace: kube-system
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "5m"
+spec:
+  type: Static
+  defaultValues:
+    cidr: 172.16.35.64/27
