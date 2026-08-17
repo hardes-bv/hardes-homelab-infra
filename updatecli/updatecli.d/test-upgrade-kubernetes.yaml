@@ -21,15 +21,39 @@ sources:
         prerelease: false
       versionfilter:
         kind: semver
+  latestTrimmedVersion:
+    name: Get latest Kubernetes release
+    kind: githubrelease
+    spec:
+      owner: "kubernetes"
+      repository: "kubernetes"
+      typefilter:
+        draft: false
+        prerelease: false
+      versionfilter:
+        kind: semver
+    transformers:
+      - trimprefix: "v"
 
 targets:
   fluxPatch:
     name: 'deps: desk8s - update Kubernetes version to {{ source "latestVersion" }} in `KubernetesUpgrade` resource'
     kind: yaml
     scmid: default
+    sourceid: latestVersion
     spec:
       file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/upgrades/kubernetes-upgrade-patch.yaml
       key: '$.spec.kubernetes.version'
+  readme:
+    name: 'deps: desk8s - update Kubernetes version to {{ source "latestTrimmedVersion" }} in Talos cluster configuration'
+    kind: file
+    scmid: default
+    sourceid: latestTrimmedVersion
+    spec:
+      files:
+        - talos/desk8s/README.adoc
+      matchpattern: 'upgrade-k8s --to \d*\.\d*\.\d*'
+      replacepattern: 'upgrade-k8s --to {{ source "latestTrimmedVersion" }}'
 
 actions:
   default:
