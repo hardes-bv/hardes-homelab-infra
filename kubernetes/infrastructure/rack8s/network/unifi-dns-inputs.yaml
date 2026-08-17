@@ -9,6 +9,8 @@ metadata:
 spec:
   type: Static
   defaultValues:
-    tag: 0.4.3
-    unifi-tag: 0.10.9
+    externalDns:
+      tag: 0.4.3
+    unifiWebhook:
+      tag: 0.10.9
     domain: home.hardes.be

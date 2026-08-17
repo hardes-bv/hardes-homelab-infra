@@ -36,7 +36,7 @@ spec:
         namespace: network
       spec:
         ref:
-          tag: << inputs.tag >>
+          tag: << inputs.externalDns.tag >>
         interval: 15m
         layerSelector:
           mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
@@ -58,7 +58,7 @@ spec:
             webhook:
               image:
                 repository: ghcr.io/home-operations/external-dns-unifi-webhook
-                tag: << inputs.unifi-tag >>
+                tag: << inputs.unifiWebhook.tag >>
               env:
                 - name: UNIFI_HOST
                   value: http://172.16.10.1
