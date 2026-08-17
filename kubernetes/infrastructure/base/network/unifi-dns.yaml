@@ -87,7 +87,7 @@ spec:
           txtOwnerId: main
           txtPrefix: k8s.main.%{record_type}-
           domainFilters:
-            - hardes.be
+            - << inputs.domain >>
           serviceMonitor:
             enabled: true
           podAnnotations:
