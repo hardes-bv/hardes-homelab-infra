@@ -14,3 +14,4 @@ spec:
     unifiWebhook:
       tag: 0.10.9
     domain: home.hardes.be
+    cluster: rack8s

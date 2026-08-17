@@ -86,8 +86,8 @@ spec:
           sources:
             - gateway-httproute
             - service
-          txtOwnerId: main
-          txtPrefix: k8s.main.%{record_type}-
+          txtOwnerId: << inputs.cluster >>
+          txtPrefix: k8s.<< inputs.cluster >>.%{record_type}-
           domainFilters:
             - << inputs.domain >>
 #          serviceMonitor:
