@@ -41,6 +41,8 @@ spec:
           httpRoute:
             enabled: true
             parentRefs:
-              - internal
+              - name: internal
+                namespace: kube-system
+                sectionName: http
             hostnames:
               - podinfo.<< inputs.zone >>
