@@ -41,7 +41,7 @@ spec:
           httpRoute:
             enabled: true
             parentRefs:
-              - name: internal
+              - name: apps
                 namespace: kube-system
                 sectionName: http
             hostnames:
