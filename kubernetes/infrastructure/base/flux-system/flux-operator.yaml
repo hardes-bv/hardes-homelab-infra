@@ -38,7 +38,7 @@ spec:
               - group: ""
                 kind: Service
                 name: *app
-                port: 8080
+                port: 9080
                 weight: 1
             matches:
               - path:
