@@ -1,7 +1,7 @@
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
 metadata:
-  name: &app flux-operator
+  name: &app flux-operator-route
   namespace: &ns flux-system
   annotations:
     fluxcd.controlplane.io/reconcile: "enabled"
