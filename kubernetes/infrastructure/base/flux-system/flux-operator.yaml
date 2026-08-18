@@ -37,7 +37,7 @@ spec:
           - backendRefs:
               - group: ""
                 kind: Service
-                name: *app
+                name: flux-operator
                 port: 9080
                 weight: 1
             matches:
