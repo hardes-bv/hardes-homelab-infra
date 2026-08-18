@@ -10,4 +10,4 @@ spec:
   type: Static
   defaultValues:
     tag: 0.43.0
-    zone: test.hardes.be
+    zone: home.hardes.be
