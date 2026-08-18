@@ -64,3 +64,65 @@ spec:
 #              certificateRefs:
 #                - kind: Secret
 #                  name: hardes-zone-tls
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: Gateway
+      metadata:
+        name: services
+        namespace: *ns
+        annotations:
+          external-dns.alpha.kubernetes.io/target: services.<< inputs.zone >>
+      spec:
+        gatewayClassName: cilium
+        infrastructure:
+          annotations:
+            external-dns.alpha.kubernetes.io/hostname: services.<< inputs.zone >>
+        listeners:
+          - name: http
+            protocol: HTTP
+            port: 80
+            hostname: "*.<< inputs.zone >>"
+            allowedRoutes:
+              namespaces:
+                from: All
+#          - name: https
+#            protocol: HTTPS
+#            port: 443
+#            hostname: "*.<< inputs.zone >>"
+#            allowedRoutes:
+#              namespaces:
+#                from: All
+#            tls:
+#              certificateRefs:
+#                - kind: Secret
+#                  name: hardes-zone-tls
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: Gateway
+      metadata:
+        name: apps
+        namespace: *ns
+        annotations:
+          external-dns.alpha.kubernetes.io/target: apps.<< inputs.zone >>
+      spec:
+        gatewayClassName: cilium
+        infrastructure:
+          annotations:
+            external-dns.alpha.kubernetes.io/hostname: apps.<< inputs.zone >>
+        listeners:
+          - name: http
+            protocol: HTTP
+            port: 80
+            hostname: "*.<< inputs.zone >>"
+            allowedRoutes:
+              namespaces:
+                from: All
+#          - name: https
+#            protocol: HTTPS
+#            port: 443
+#            hostname: "*.<< inputs.zone >>"
+#            allowedRoutes:
+#              namespaces:
+#                from: All
+#            tls:
+#              certificateRefs:
+#                - kind: Secret
+#                  name: hardes-zone-tls

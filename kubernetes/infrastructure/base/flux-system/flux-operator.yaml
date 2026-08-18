@@ -11,7 +11,7 @@ spec:
   dependsOn:
     - apiVersion: gateway.networking.k8s.io/v1
       kind: Gateway
-      name: internal
+      name: services
       namespace: kube-system
       ready: true
   inputsFrom:
@@ -30,7 +30,7 @@ spec:
         parentRefs:
           - group: gateway.networking.k8s.io
             kind: Gateway
-            name: internal
+            name: services
             namespace: kube-system
             sectionName: http
         rules:
