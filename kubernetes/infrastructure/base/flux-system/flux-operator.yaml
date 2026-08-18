@@ -1,0 +1,46 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: &app flux-operator
+  namespace: &ns flux-system
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  dependsOn:
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: Gateway
+      name: internal
+      namespace: kube-system
+      ready: true
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      name: *app
+  resources:
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        hostnames:
+          - flux.<< inputs.zone >>
+        parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: Gateway
+            name: internal
+            namespace: kube-system
+            sectionName: http
+        rules:
+          - backendRefs:
+              - group: ""
+                kind: Service
+                name: *app
+                port: 8080
+                weight: 1
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /
