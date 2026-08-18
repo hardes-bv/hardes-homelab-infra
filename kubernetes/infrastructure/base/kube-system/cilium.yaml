@@ -62,7 +62,9 @@ spec:
               enabled: false
           #  https://docs.cilium.io/en/stable/network/servicemesh/ingress/
           ingressController:
-            enabled: false
+            enabled: true
+            default: false
+            loadbalancerMode: shared
           ipam:
             mode: kubernetes
           ipv4:
