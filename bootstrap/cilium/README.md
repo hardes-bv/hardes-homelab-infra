@@ -6,7 +6,7 @@ Command to install the Helm chart, after which Flux will take over.
 helm install \
     cilium \
     oci://quay.io/cilium/charts/cilium \
-    --version 1.20.0 \
+    --version 1.20.1 \
     --namespace kube-system \
     --values values.yaml
 ```
