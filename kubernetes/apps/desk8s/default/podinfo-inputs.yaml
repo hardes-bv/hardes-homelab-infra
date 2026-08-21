@@ -10,4 +10,3 @@ spec:
   type: Static
   defaultValues:
     tag: 6.14.1
-    zone: test.hardes.be
