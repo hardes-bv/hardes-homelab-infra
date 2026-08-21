@@ -143,7 +143,7 @@ The command below is a copy from the docs:
 
 [source,shell]
 ----
-talosctl --nodes 172.16.35.5 upgrade-k8s --to 1.36.3
+talosctl --nodes 172.16.35.5 upgrade-k8s --to 1.36.4
 ----
 
 To keep the manual config in sync with the executed command, update the following properties to the same image version:
