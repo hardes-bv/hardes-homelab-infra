@@ -50,4 +50,4 @@ spec:
                 namespace: *ns
                 sectionName: http
             hostnames:
-              - headlamp.<< inputs.zone >>
+              - headlamp.${cluster_domain}
