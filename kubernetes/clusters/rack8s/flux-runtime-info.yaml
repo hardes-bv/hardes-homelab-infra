@@ -12,3 +12,13 @@ spec:
     cluster:
       name: rack8s
       environment: production
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flux-runtime-info
+  namespace: flux-system
+data:
+  cluster_name: rack8s
+  cluster_environment: production
+  cluster_domain: home.hardes.be

@@ -31,6 +31,8 @@ spec:
       metadata:
         name: *app
         namespace: *ns
+        labels:
+          domain: ${cluster_domain}
       spec:
         chartRef:
           kind: OCIRepository

@@ -16,3 +16,8 @@ spec:
   path: ./rack8s
   prune: true
   wait: true
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: flux-runtime-info
+        optional: true

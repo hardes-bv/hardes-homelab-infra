@@ -12,3 +12,13 @@ spec:
     cluster:
       name: desk8s
       environment: test
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flux-runtime-info
+  namespace: flux-system
+data:
+  cluster_name: desk8s
+  cluster_environment: test
+  cluster_domain: test.hardes.be
