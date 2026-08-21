@@ -32,7 +32,7 @@ spec:
         name: *app
         namespace: *ns
         labels:
-          domain: ${cluster_domain}
+          domain: ${cluster_domain:=unknown}
       spec:
         chartRef:
           kind: OCIRepository
