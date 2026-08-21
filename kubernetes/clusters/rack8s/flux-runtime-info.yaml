@@ -1,18 +1,3 @@
-apiVersion: fluxcd.controlplane.io/v1
-kind: ResourceSetInputProvider
-metadata:
-  name: flux-runtime-info
-  namespace: flux-system
-  annotations:
-    fluxcd.controlplane.io/reconcile: "enabled"
-    fluxcd.controlplane.io/reconcileEvery: "5m"
-spec:
-  type: Static
-  defaultValues:
-    cluster:
-      name: rack8s
-      environment: production
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
