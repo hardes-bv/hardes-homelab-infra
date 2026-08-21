@@ -10,4 +10,3 @@ spec:
   type: Static
   defaultValues:
     cidr: 172.16.35.64/27
-    zone: test.hardes.be

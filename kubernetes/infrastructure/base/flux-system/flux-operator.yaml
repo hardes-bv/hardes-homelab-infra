@@ -14,10 +14,6 @@ spec:
       name: services
       namespace: kube-system
       ready: true
-  inputsFrom:
-    - apiVersion: fluxcd.controlplane.io/v1
-      kind: ResourceSetInputProvider
-      name: *app
   resources:
     - apiVersion: cilium.io/v2
       kind: CiliumNetworkPolicy
@@ -45,7 +41,7 @@ spec:
         namespace: *ns
       spec:
         hostnames:
-          - flux.<< inputs.zone >>
+          - flux.${cluster_domain}
         parentRefs:
           - group: gateway.networking.k8s.io
             kind: Gateway

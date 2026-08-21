@@ -39,24 +39,24 @@ spec:
         name: services
         namespace: *ns
         annotations:
-          external-dns.alpha.kubernetes.io/target: services.<< inputs.zone >>
+          external-dns.alpha.kubernetes.io/target: services.${cluster_domain}
       spec:
         gatewayClassName: cilium
         infrastructure:
           annotations:
-            external-dns.alpha.kubernetes.io/hostname: services.<< inputs.zone >>
+            external-dns.alpha.kubernetes.io/hostname: services.${cluster_domain}
         listeners:
           - name: http
             protocol: HTTP
             port: 80
-            hostname: "*.<< inputs.zone >>"
+            hostname: "*.${cluster_domain}"
             allowedRoutes:
               namespaces:
                 from: All
 #          - name: https
 #            protocol: HTTPS
 #            port: 443
-#            hostname: "*.<< inputs.zone >>"
+#            hostname: "*.${cluster_domain}"
 #            allowedRoutes:
 #              namespaces:
 #                from: All
@@ -70,24 +70,24 @@ spec:
         name: apps
         namespace: *ns
         annotations:
-          external-dns.alpha.kubernetes.io/target: apps.<< inputs.zone >>
+          external-dns.alpha.kubernetes.io/target: apps.${cluster_domain}
       spec:
         gatewayClassName: cilium
         infrastructure:
           annotations:
-            external-dns.alpha.kubernetes.io/hostname: apps.<< inputs.zone >>
+            external-dns.alpha.kubernetes.io/hostname: apps.${cluster_domain}
         listeners:
           - name: http
             protocol: HTTP
             port: 80
-            hostname: "*.<< inputs.zone >>"
+            hostname: "*.${cluster_domain}"
             allowedRoutes:
               namespaces:
                 from: All
 #          - name: https
 #            protocol: HTTPS
 #            port: 443
-#            hostname: "*.<< inputs.zone >>"
+#            hostname: "*.${cluster_domain}"
 #            allowedRoutes:
 #              namespaces:
 #                from: All
