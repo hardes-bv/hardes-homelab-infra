@@ -306,7 +306,7 @@ cluster:
   secret: Zj1E0qC1BRcUwJPZB3yHyRrbmwZfhGNX+31iR20d9V8= # Shared secret of cluster (base64 encoded random 32 bytes).
   # Provides control plane specific configuration options.
   controlPlane:
-    endpoint: https://desk8s.home.atriso.be:6443 # Endpoint is the canonical controlplane endpoint, which can be an IP address or a DNS hostname.
+    endpoint: https://k8s.test.hardes.be:6443 # Endpoint is the canonical controlplane endpoint, which can be an IP address or a DNS hostname.
   clusterName: desk8s # Configures the cluster's name.
   # Provides cluster specific network configuration options.
   network:
