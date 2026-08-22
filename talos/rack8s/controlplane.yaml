@@ -18,7 +18,7 @@ machine:
 
     # Used to provide additional options to the kubelet.
     kubelet:
-        image: ghcr.io/siderolabs/kubelet:v1.35.5 # The `image` field is an optional reference to an alternative kubelet image.
+        image: ghcr.io/siderolabs/kubelet:v1.36.4 # The `image` field is an optional reference to an alternative kubelet image.
         defaultRuntimeSeccompProfileEnabled: true # Enable container runtime default Seccomp profile.
         disableManifestsDirectory: true # The `disableManifestsDirectory` field configures the kubelet to get static pod manifests from the /etc/kubernetes/manifests directory.
         
@@ -306,7 +306,7 @@ cluster:
         key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlKS1FJQkFBS0NBZ0VBNFVQWk10bGFJVmxNN0NBaElPemdRRDJ5aXl0MWNXa20zRGJIeTRPbkVrY2JsWmZBCkVWRzd6M0ttYmJlZklzZVUvMGZUS1FBSHViV2l6L0trQllSdVltZFRwM2tBUzQxbnhLQ1grR1AvUS9FR2t6VVIKbjdwZW04TU43YzNvaTU0M3VHWDBEUndUUTZRTHFoMnk3RVNNOXdtemdaZFdJSG5mbUJPWXZnSzBDRThNTjBsZAp0U3RTcjk1OERNQXVPR0tabnhMZHVxdjhhOGVON1pFOTlNaG9JRG8raDNudG9CcWdGcUxISWppNE9CZmdKSGMzCmZIZmdCSGNHT3cxcjdCeHRrYnUxSnFqR3UzcW1kclM2WHJtN1lsQlQyc2pWK0RLUldYWXU1M0NqRG5XUEdLOUYKeTFjVHI2SjFGSmtaK3pFUXdqUVMzMlk3cXRLbHZVcWNscFRIODJFM1FiNWJxZGp1QjNYUXptVzZiZTBFRCtmVAoydkJJc1pITlpFL0dObDR3R05yYm9GYWVSVU5iOUt1dGIzMlRDRTlTT1dsb1BXWDNKK3JaV3BMNFcvajE0VzBICkJtRnpPVHlFdWEzOXB2TFZHdlFjZFZKL3k5MlpzOXBzOS84dWpvTkM4MHIxRG1DbC8wdnhyVEpIaVJ1RjhqVWoKdlpTUS9BV1NrSXZ2MUs0bjZGNE5oS01CbnFOREJPTmpyQmFBaWUyVFZ0a3RNdGpUcnZNVUpmYVdMazZTcEhqUQpaeEpCK2hvcjkyanNMYlI5RkJVWHRhaXR0UEJnNmZMVG9vR1EzbGwyS0t6MVlaeE1TdHYwTTZWUVJjbmFtNUsxCkVyTzJBaDlWaThadW9Bb1NHVXAvZzN5MVpTMWpLNnhmdTFFbnlKZHFGYmtiYWQvTTZlc0VydW44ZHRVQ0F3RUEKQVFLQ0FnQUw0QTNJdlpGMVBtSmVuMmsxQTg3azFCUzFRdEFoNzRnTHpUaGlzMGp0ZEMvNFRjV3FoNS9hVlZrcQo3L3ZTL2pkakN5Qkh1d3NlL253VXhrL1NZTnd6aEVQVjBJcUNWS3pxb2M5YUJKOFFrMmdBcVZMZTk2Y2FDaDZTCkZUTTdKenFLK2MrZVEvalp5Z0dyYWUrZGFkME9WSEJmT2hvTUE4dHAraElNWmRNeURkTnA3Ty81dGJDRXE1NGcKdlEvNTBrLzJkeEJlTk9ReEI3S0lZWmhzR1ljd0tmYzJ5OHRmVnVSdWZ0VDNSbTZqU0NmU3kycU85bFYvWDZZTQpxUi9PUDFYYUNuaE84dnJNWUxCc2c5Qk9lOXJDSUxlNUxaV3RvWGQ3T3pJc2VORXhnL0YzQStTZ2VMR1QzeXZ1ClBXTVRzT3VYUDRqYXVFb1lFaWxyN3pELzJQaCt1dkUxKzFRNXY4TnJKd1NNSk1acW1UclpQcWI0T3NVbENzUXcKQTNJUWRub0hRTEwxSmdXZ0p2U0dmQURLV1dYRGY0cWFyOW5XbkJkVW9RUXdNdTJlYThHNXQvcGJrdytLVjRwaQo3dXhJMFgzVzlHUHREM2xEelVoaUVzTExMTFM0N2FJME0rOE9kUFhhNjlQaEpHYXQ0VzgyMWFXaFlhZS8xK3hBCk04WnUyNndJbEFOSlN5ampjV2Fqb1krNXdUeTZ5Tms5NDd5Tjk2VW1JZmViRERRU2NkQVV3a2p5cG5TMEFBVmsKM2RJN0ZqcGpsRDZsZzZzNWZPeitlVnNDWU9zZDFIbzhCQVowRjhDbjVpZzNTUk5LSzdmQlN6bVBpQmx1Q2VYagp1YUwvRnlEQ1FQTUJTVkNSZU1CbXlGT05kV3pkNVhVZGZld2Q0Y0p3eVl5dkpNVzdpUUtDQVFFQTQ2MVAxTUJoCjd0VERiK0lUYzVaWVgrdnNjNjFzOVQ5SUpwNlVaaCtNQjFRcnVKZ0o0anZKYjhJSGNsWWI3RGF4R0lDK3MxVjkKTmd3djd2ZWt2WU41U3VBTUVQa2tRTEgzL0FSNGx5Y1pramh0dndUOExaZ3dreUN1Q2FPY2V3Q1kvNTd6NnJNUApTbThnQ3JlYVlzQVhEeDFRUFFaU0s5bkE5U3BUanhCQXFZWkpYZlZSNzU5VWVabjhvUUUzZzlsV2tSL245c205Ck9RNW1RQmFqR01iZkVzUVRvdUNYL1VGelEwTGlodHdQc2dpWWxTTm15a1N2U09PL2Y4R2V1MzNqYUhpNWdXclcKMTJXQ21iNjN1QkN3dnp0ZHdlSzgwaThPYjlvRVlzWnladkxlS2RubFNROGVoTVJZTE91SWd4MGRGdUNhK1JXYgpOV2dWN0gvQnpPcXcrd0tDQVFFQS9VbTVaTG0yZ0pRLzhLNHlDL09PS01wTTc2V3VVUjU0TWdsUGE5TzVSRmo5Cm5LeXo1K3VKRWw2ZnZvcGc1RG9LaEVTSE9ZaU1lTm5mY0tZWVRTRkUyUzdWeHRrczNKbmMwNnZheFIvNlRTcUUKTEV5aVJaVWRmM3J1WFlJaEpkWDViRnNZNjkwY3JOK1g4bHc4SHJwdjJaeVl0NTJFS1VsVzZvK1ZTMG1uNnY1RwpPa2VXK3RFNkswakxEbG1EOXBtWkVqZ21SenBBQXdkTUJtVDk3cmhPdjRmTkV5blEzeU8vUDVrYTk4UTA1WU5xClF4eUpVUi81Z2UwL0RrVUh2MWdNeFh0RDdWUjl3eFdLQmFOQmt0c1FBSlZKYXVvMGJpMFJ0Q29Na2ZCNkZKNUQKbk4rY1psT24vY3NCcmxkZG1BcVdwZmphTmNqMmRRVDh1M21nNGVRT2J3S0NBUUVBenJST3dpMVh2R25XZGdHZQovMVlFTGpJWG5uNVphZDltTmduTFdWeFMyV1NGdlRYcjQwVzhnSVo4RkVZeFc2ZmI2UThhRTk4TnFzQXQxSnRwCktkWHZqUmNVWFdTVWtWZ0NlUC9tSy9VSHRrVWMva3djVjVqUW9RTU9meG5YdTZTelE0Q2dtdml1YlRtdXNZdzMKMG1mcmg0RnBrNzNsWklKeU9TT1FjVmFrSGtVWTN3RVd2cUs5SXhtMnpzWTRETENKYzRDd0xOTER4TVZaOTkyVgpmYTB3WWUwNmxxbXAwL2hVR1VEa1FPUVNLK1M2QXN6OVNhNUtKYmIvNlpGejkyMDN4V1cxcGRYRjhCRHRIWUNWCmM3dFRmSXI5ZUVYT2dGVFFtcVFwVHpRME1WdFdjRkN2WmtFZnlCSXFxNzI3VnE1YjlxVThqZUFiNWNUMkFwMksKNmV3NWVRS0NBUUJyMHdXc1BtN1Z2OGFVYytOME9RT01rOG82dnFJOWdDWVV6dWZUZERkTFJFTDZmbjY3dlFZRwpIdWdNR2laekljNDJUbUh1ZVJXcm9MeEEzVVE5R1d1UXRTSm1XeStBM2JNbkhPS3R4aFlzNFd1UTNESzhRbVZqClRuYklzY3ZncW4xYXhsRU9uM3RFa0k3RHFzWWhJcWJZMFpRbG5sV1RxZGZwVktSdWYzV1BVUjJlVTdtUEhxQ1AKcXBaZWpuYmg5TE00RVZVaVAwYmV3eTEzRDJrV1JibW9TV3hndXcxaTRIbmEzaGVmNEJQUW5LZ1ExOFlSRmZhRwplL082NUdJTzc3SElJOWhmNFBjRXBGZTBYTEplalFqNzVwRnhoVEE2c3M3MWptejVkNURRMUNyZVRrYnJQTE9vCkU5S3NZQjdFeWNVbDlKRVlFbXZ3bHVYci9UUWkxWTNiQW9JQkFRRGJzcmQ3TkMwYSt6UmllYVZYZXh2ZmxkbU0KaDl5OFVkblQ3aGcxSFB4UHdJMlhONlRuZkxkRHZFSVZSWlQzK0dkb2ZnZ2hXU2dMbnVCbW9udlVoaStqUWNxZgpWWDNQalE0YVBtcEdTVHdtVnQyNUQzV1NERE5IcDJrRHNackFxSDNKM0kvWHpIaGVtL3hhdFQyVGZIVllVbUlRCjBJV25CalJhaTRSK04rbldESkNQRlRhV2VGNlB0TXRpbkc0eFlJMzlXaDlsa1R4dW5yaW5DSUNaYllpU1ByZXgKQjFUU3NHa3NxMlJCMjFDQ0FhNGxaWU94SXFVQk5zUC82d2FNK25nNUtaV1RkODBNMitDOHFFZW9uNGZaaFZ5ZQpHcHlYWmc3b21JV2N4cE1LVGpwbldSblpkbWpGVUVBVFB6UHdQRVAwbkh4azZWbnhLQmVuNEdyRHJzK24KLS0tLS1FTkQgUlNBIFBSSVZBVEUgS0VZLS0tLS0K
     # API server specific configuration options.
     apiServer:
-        image: registry.k8s.io/kube-apiserver:v1.35.5 # The container image used in the API server manifest.
+        image: registry.k8s.io/kube-apiserver:v1.36.4 # The container image used in the API server manifest.
         # Extra certificate subject alternative names for the API server's certificate.
         certSANs:
             - 172.16.30.11
@@ -364,16 +364,16 @@ cluster:
         #         timeout: 3s
     # Controller manager server specific configuration options.
     controllerManager:
-        image: registry.k8s.io/kube-controller-manager:v1.35.5 # The container image used in the controller manager manifest.
+        image: registry.k8s.io/kube-controller-manager:v1.36.4 # The container image used in the controller manager manifest.
     # Kube-proxy server-specific configuration options
     proxy:
-        image: registry.k8s.io/kube-proxy:v1.35.5 # The container image used in the kube-proxy manifest.
+        image: registry.k8s.io/kube-proxy:v1.36.4 # The container image used in the kube-proxy manifest.
         
         # # Disable kube-proxy deployment on cluster bootstrap.
         # disabled: false
     # Scheduler server specific configuration options.
     scheduler:
-        image: registry.k8s.io/kube-scheduler:v1.35.5 # The container image used in the scheduler manifest.
+        image: registry.k8s.io/kube-scheduler:v1.36.4 # The container image used in the scheduler manifest.
     # Configures cluster member discovery.
     discovery:
         enabled: true # Enable the cluster membership discovery feature.
