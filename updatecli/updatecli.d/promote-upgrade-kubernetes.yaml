@@ -35,7 +35,7 @@ targets:
       file: kubernetes/infrastructure/rack8s/system-upgrade/tuppr/upgrades/kubernetes-upgrade-patch.yaml
       key: '$.spec.kubernetes.version'
   readme:
-    name: 'deps: rack8s - update Kubernetes version to {{ source "testedTrimmedVersion" }} in Talos cluster configuration'
+    name: 'deps: rack8s - update Kubernetes version to {{ source "testedTrimmedVersion" }} in cluster README'
     kind: file
     scmid: default
     sourceid: testedTrimmedVersion
@@ -44,6 +44,17 @@ targets:
         - talos/rack8s/README.adoc
       matchpattern: 'upgrade-k8s --to \d*\.\d*\.\d*'
       replacepattern: 'upgrade-k8s --to {{ source "testedTrimmedVersion" }}'
+  clusterConfig:
+    name: 'deps: rack8s - update Kubernetes version to {{ source "testedVersion" }} in Talos cluster configuration'
+    kind: file
+    scmid: default
+    sourceid: testedVersion
+    spec:
+      files:
+        - talos/rack8s/controlplane.yaml
+        - talos/rack8s/worker.yaml
+      matchpattern: 'image: (ghcr\.io/siderolabs|registry\.k8s\.io)/(k[^:\s]+):v\d+\.\d+\.\d+'
+      replacepattern: 'image: $1/$2:{{ source "testedVersion" }}'
 
 actions:
   default:

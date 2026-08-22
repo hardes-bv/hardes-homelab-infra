@@ -45,7 +45,7 @@ targets:
       file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/upgrades/kubernetes-upgrade-patch.yaml
       key: '$.spec.kubernetes.version'
   readme:
-    name: 'deps: desk8s - update Kubernetes version to {{ source "latestTrimmedVersion" }} in Talos cluster configuration'
+    name: 'deps: desk8s - update Kubernetes version to {{ source "latestTrimmedVersion" }} in cluster README'
     kind: file
     scmid: default
     sourceid: latestTrimmedVersion
@@ -54,6 +54,17 @@ targets:
         - talos/desk8s/README.adoc
       matchpattern: 'upgrade-k8s --to \d*\.\d*\.\d*'
       replacepattern: 'upgrade-k8s --to {{ source "latestTrimmedVersion" }}'
+  clusterConfig:
+    name: 'deps: desk8s - update Kubernetes version to {{ source "latestVersion" }} in Talos cluster configuration'
+    kind: file
+    scmid: default
+    sourceid: latestVersion
+    spec:
+      files:
+        - talos/desk8s/controlplane.yaml
+        - talos/desk8s/worker.yaml
+      matchpattern: 'image: (ghcr\.io/siderolabs|registry\.k8s\.io)/(k[^:\s]+):v\d+\.\d+\.\d+'
+      replacepattern: 'image: $1/$2:{{ source "latestVersion" }}'
 
 actions:
   default:
