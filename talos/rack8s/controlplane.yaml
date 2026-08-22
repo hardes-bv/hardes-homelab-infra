@@ -273,7 +273,7 @@ cluster:
     secret: 82S0/Ka7Ha1TqbHo59njb+hB+kzwhOzXHvWnjmfJHSo= # Shared secret of cluster (base64 encoded random 32 bytes).
     # Provides control plane specific configuration options.
     controlPlane:
-        endpoint: https://172.16.30.11:6443 # Endpoint is the canonical controlplane endpoint, which can be an IP address or a DNS hostname.
+        endpoint: https://k8s.home.hardes.be:6443 # Endpoint is the canonical controlplane endpoint, which can be an IP address or a DNS hostname.
     clusterName: rack8s # Configures the cluster's name.
     # Provides cluster specific network configuration options.
     network:
