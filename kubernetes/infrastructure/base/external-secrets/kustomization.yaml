@@ -6,5 +6,5 @@ namespace: external-secrets
 
 resources:
   - ./namespace.yaml
-  - ./external-secrets/ks.yaml
-  - ./onepassword-sdk-hardes/ks.yaml
+  - ./external-secrets.yaml
+  - ./onepassword-sdk-hardes.yaml

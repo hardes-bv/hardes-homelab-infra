@@ -13,6 +13,7 @@ spec:
       kind: ResourceSet
       name: tuppr
       namespace: *ns
+      ready: true
   inputsFrom:
     - apiVersion: fluxcd.controlplane.io/v1
       kind: ResourceSetInputProvider

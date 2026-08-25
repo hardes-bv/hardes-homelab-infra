@@ -5,10 +5,6 @@ CLUSTERS := \
 	desk8s \
 	rack8s
 
-INFRASTRUCTURE := \
-	external-secrets/external-secrets/app \
-	external-secrets/onepassword-sdk-hardes/app
-
 clean:
 	rm -rf build/
 
@@ -34,5 +30,4 @@ test-%:
 	kustomize build kubernetes/infrastructure/$(CLUSTER)/$(DEPLOYMENT)/ \
 	    -o build/$(CLUSTER)/infrastructure/$(DEPLOYMENT)
 
-DEPLOY_MATRIX := $(foreach c,$(CLUSTERS),$(foreach d,$(INFRASTRUCTURE),$(c)@$(subst /,_,$(d))))
-test: $(addprefix test-root-,$(CLUSTERS)) $(addprefix test-,$(DEPLOY_MATRIX))
+test: $(addprefix test-root-,$(CLUSTERS))
