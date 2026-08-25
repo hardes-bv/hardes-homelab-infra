@@ -35,6 +35,7 @@ spec:
         chartRef:
           kind: OCIRepository
           name: *app
+          namespace: *ns
         interval: 1h
         values:
           #    grafanaDashboard:
