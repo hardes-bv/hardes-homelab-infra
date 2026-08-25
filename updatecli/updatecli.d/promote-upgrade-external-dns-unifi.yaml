@@ -1,0 +1,37 @@
+name: "Promote upgrade of External DNS Unifi Webhook"
+pipelineid: "rack8s-upgrade-external-dns-unifi"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  testedVersion:
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/desk8s/network/unifi-dns-inputs.yaml
+      key: "$.spec.defaultValues.unifiWebhook.tag"
+
+targets:
+  tupprUpgrade:
+    name: 'docs: rack8s - update `external-dns-unifi-webhook` version to {{ source "testedVersion" }} in `ResourceSetInputProvider` resource'
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/rack8s/network/unifi-dns-inputs.yaml
+      key: "$.spec.defaultValues.unifiWebhook.tag"
+
+actions:
+  default:
+    title: 'deps: rack8s - update `external-dns-unifi-webhook` version to {{ source "testedVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default

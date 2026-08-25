@@ -1,0 +1,38 @@
+name: "Test upgrade of External DNS Unifi Webhook"
+pipelineid: "desk8s-upgrade-external-dns-unifi"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      branch: "{{ .scm.branch }}"
+
+sources:
+  latestVersion:
+    name: "Get latest `external-dns-unifi-webhook` release"
+    kind: dockerimage
+    spec:
+      image: ghcr.io/home-operations/external-dns-unifi-webhook
+      versionfilter:
+        kind: semver
+
+targets:
+  fluxPatch:
+    name: 'docs: desk8s - update `external-dns-unifi-webhook` version to {{ source "latestVersion" }} in `ResourceSetInputProvider` resource'
+    kind: yaml
+    scmid: default
+    spec:
+      file: kubernetes/infrastructure/desk8s/network/unifi-dns-inputs.yaml
+      key: "$.spec.defaultValues.unifiWebhook.tag"
+
+actions:
+  default:
+    title: 'deps: desk8s - update `external-dns-unifi-webhook` version to {{ source "latestVersion" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+    scmid: default
