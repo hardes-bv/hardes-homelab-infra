@@ -38,14 +38,6 @@ spec:
         interval: 1h
         values:
           replicaCount: 2
-          httpRoute:
-            enabled: true
-            parentRefs:
-              - name: apps
-                namespace: kube-system
-                sectionName: http
-            hostnames:
-              - podinfo.${cluster_domain}
     - apiVersion: cert-manager.io/v1
       kind: Certificate
       metadata:
@@ -72,3 +64,38 @@ spec:
           # We can reference ClusterIssuers by changing the kind here.
           # The default value is Issuer (i.e. a locally namespaced Issuer)
           kind: ClusterIssuer
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: ListenerSet
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        parentRef:
+          group: gateway.networking.k8s.io
+          kind: Gateway
+          name: apps
+          namespace: kube-system
+        listeners:
+          - name: http
+            hostname: podinfo.${cluster_domain}
+            protocol: HTTP
+            port: 80
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: ListenerSet
+            name: *app
+            namespace: *ns
+            sectionName: http
+        rules:
+          - backendRefs:
+              - group: ""
+                kind: Service
+                name: *app
+                port: 9898
+                weight: 1
