@@ -19,6 +19,58 @@ spec:
       kind: ResourceSetInputProvider
       name: *app
   resources:
+    - apiVersion: cert-manager.io/v1
+      kind: Certificate
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        # Secret names are always required.
+        secretName: headlamp-tls
+
+        duration: 504h # 21d
+        renewBefore: 168h # 7d
+
+        subject:
+          organizations:
+            - cert-manager
+
+        # At least one of commonName (possibly through literalSubject), dnsNames, uris, emailAddresses, ipAddresses or otherNames is required.
+        dnsNames:
+          - headlamp.${cluster_domain}
+
+        # Issuer references are always required.
+        issuerRef:
+          name: scaleway-issuer-${cluster_name}
+          # We can reference ClusterIssuers by changing the kind here.
+          # The default value is Issuer (i.e. a locally namespaced Issuer)
+          kind: ClusterIssuer
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: ListenerSet
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        parentRef:
+          group: gateway.networking.k8s.io
+          kind: Gateway
+          name: services
+          namespace: kube-system
+        listeners:
+          - name: http
+            hostname: headlamp.${cluster_domain}
+            protocol: HTTP
+            port: 80
+          - name: https
+            hostname: headlamp.${cluster_domain}
+            protocol: HTTPS
+            port: 443
+            tls:
+              mode: Terminate
+              certificateRefs:
+                - kind: Secret
+                  group: ""
+                  name: headlamp-tls
     - apiVersion: source.toolkit.fluxcd.io/v1
       kind: HelmRepository
       metadata:
@@ -46,8 +98,30 @@ spec:
           httpRoute:
             enabled: true
             parentRefs:
-              - name: services
+              - group: gateway.networking.k8s.io
+                kind: ListenerSet
+                name: *app
                 namespace: *ns
-                sectionName: http
+                sectionName: https
             hostnames:
               - headlamp.${cluster_domain}
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      metadata:
+        name: headlamp-http-redirect
+        namespace: *ns
+      spec:
+        parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: ListenerSet
+            name: *app
+            namespace: *ns
+            sectionName: http
+        hostnames:
+          - headlamp.${cluster_domain}
+        rules:
+          - filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  scheme: https
+                  statusCode: 301
