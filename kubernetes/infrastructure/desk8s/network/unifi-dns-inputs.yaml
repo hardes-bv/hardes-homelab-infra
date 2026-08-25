@@ -13,5 +13,3 @@ spec:
       tag: 1.21.1
     unifiWebhook:
       tag: 0.10.9
-    domain: test.hardes.be
-    cluster: desk8s

@@ -87,10 +87,10 @@ spec:
           sources:
             - gateway-httproute
             - service
-          txtOwnerId: << inputs.cluster >>
-          txtPrefix: k8s.<< inputs.cluster >>.%{record_type}-
+          txtOwnerId: ${cluster_name}
+          txtPrefix: k8s.${cluster_name}.%{record_type}-
           domainFilters:
-            - << inputs.domain >>
+            - ${cluster_domain}
 #          serviceMonitor:
 #            enabled: true
           podAnnotations:
