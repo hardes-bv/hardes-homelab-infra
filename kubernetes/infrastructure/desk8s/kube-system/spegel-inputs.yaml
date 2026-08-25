@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
   annotations:
     fluxcd.controlplane.io/reconcile: "enabled"
-    fluxcd.controlplane.io/reconcileEvery: "5m"
+    fluxcd.controlplane.io/reconcileEvery: "15m"
 spec:
   type: Static
   defaultValues:
