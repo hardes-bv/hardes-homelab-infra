@@ -44,6 +44,9 @@ spec:
       metadata:
         name: *app
         namespace: *ns
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: podinfo.${cluster_domain}
+          external-dns.alpha.kubernetes.io/target: apps.${cluster_domain}
       spec:
         parentRef:
           group: gateway.networking.k8s.io
