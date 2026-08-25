@@ -16,7 +16,8 @@ spec:
     - apiVersion: source.toolkit.fluxcd.io/v1
       kind: OCIRepository
       metadata:
-        name: spegel
+        name: *app
+        namespace: *ns
       spec:
         interval: 15m
         layerSelector:
@@ -28,11 +29,12 @@ spec:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       metadata:
-        name: spegel
+        name: *app
+        namespace: *ns
       spec:
         chartRef:
           kind: OCIRepository
-          name: spegel
+          name: *app
         interval: 1h
         values:
           #    grafanaDashboard:
