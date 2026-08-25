@@ -13,31 +13,6 @@ spec:
       kind: ResourceSetInputProvider
       name: *app
   resources:
-    - apiVersion: source.toolkit.fluxcd.io/v1
-      kind: OCIRepository
-      metadata:
-        name: *app
-        namespace: *ns
-      spec:
-        ref:
-          tag: << inputs.tag >>
-        interval: 15m
-        layerSelector:
-          mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-          operation: copy
-        url: oci://ghcr.io/stefanprodan/charts/podinfo
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      metadata:
-        name: *app
-        namespace: *ns
-      spec:
-        chartRef:
-          kind: OCIRepository
-          name: *app
-        interval: 1h
-        values:
-          replicaCount: 2
     - apiVersion: cert-manager.io/v1
       kind: Certificate
       metadata:
@@ -80,24 +55,38 @@ spec:
             hostname: podinfo.${cluster_domain}
             protocol: HTTP
             port: 80
-    - apiVersion: gateway.networking.k8s.io/v1
-      kind: HTTPRoute
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: OCIRepository
       metadata:
         name: *app
         namespace: *ns
       spec:
-        hostnames:
-          - podinfo.${cluster_domain}
-        parentRefs:
-          - group: gateway.networking.k8s.io
-            kind: ListenerSet
-            name: *app
-            namespace: *ns
-            sectionName: http
-        rules:
-          - backendRefs:
-              - group: ""
-                kind: Service
+        ref:
+          tag: << inputs.tag >>
+        interval: 15m
+        layerSelector:
+          mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+          operation: copy
+        url: oci://ghcr.io/stefanprodan/charts/podinfo
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        chartRef:
+          kind: OCIRepository
+          name: *app
+        interval: 1h
+        values:
+          replicaCount: 2
+          httproute:
+            enabled: true
+            parentRefs:
+              - group: gateway.networking.k8s.io
+                kind: ListenerSet
                 name: *app
-                port: 9898
-                weight: 1
+                namespace: *ns
+                sectionName: http
+            hostnames:
+              - podinfo.${cluster_domain}
