@@ -14,20 +14,10 @@ resources:
   - cert-manager/scaleway-webhook-inputs.yaml
   - cert-manager/issuers-inputs.yaml
   - network/unifi-dns-inputs.yaml
+  - system-upgrade/tuppr-inputs.yaml
+  - system-upgrade/tuppr-upgrade-inputs.yaml
 
 patches:
-  - target:
-      group: kustomize.toolkit.fluxcd.io
-      version: v1
-      kind: Kustomization
-      name: tuppr
-    path: system-upgrade/tuppr-app-patch.yaml
-  - target:
-      group: kustomize.toolkit.fluxcd.io
-      version: v1
-      kind: Kustomization
-      name: tuppr-upgrades
-    path: system-upgrade/tuppr-upgrades-patch.yaml
   - target:
       group: kustomize.toolkit.fluxcd.io
       version: v1

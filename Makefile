@@ -7,9 +7,7 @@ CLUSTERS := \
 
 INFRASTRUCTURE := \
 	external-secrets/external-secrets/app \
-	external-secrets/onepassword-sdk-hardes/app \
-	system-upgrade/tuppr/app \
-	system-upgrade/tuppr/upgrades
+	external-secrets/onepassword-sdk-hardes/app
 
 clean:
 	rm -rf build/

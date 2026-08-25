@@ -1,0 +1,62 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: &app tuppr-upgrade
+  namespace: &ns system-upgrade
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  dependsOn:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      name: tuppr
+      namespace: *ns
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      name: *app
+  resources:
+    - apiVersion: tuppr.home-operations.com/v1alpha1
+      kind: TalosUpgrade
+      metadata:
+        name: talos
+      spec:
+        talos:
+          version: << inputs.talos.tag >>
+      #  policy:
+      #    rebootMode: powercycle
+      #  healthChecks:
+      #    - apiVersion: kopiur.home-operations.com/v1alpha1
+      #      kind: Snapshot
+      #      expr: |-
+      #        status.phase != 'Running'
+      #    - apiVersion: kopiur.home-operations.com/v1alpha1
+      #      kind: Restore
+      #      expr: |-
+      #        !(status.phase in ['Resolving', 'Restoring'])
+      #    - apiVersion: ceph.rook.io/v1
+      #      kind: CephCluster
+      #      expr: |-
+      #        status.ceph.health in ['HEALTH_OK']
+    - apiVersion: tuppr.home-operations.com/v1alpha1
+      kind: KubernetesUpgrade
+      metadata:
+        name: kubernetes
+      spec:
+        kubernetes:
+          version: << inputs.kubernetes.tag >>
+      #  healthChecks:
+      #    - apiVersion: kopiur.home-operations.com/v1alpha1
+      #      kind: Snapshot
+      #      expr: |-
+      #        status.phase != 'Running'
+      #    - apiVersion: kopiur.home-operations.com/v1alpha1
+      #      kind: Restore
+      #      expr: |-
+      #        !(status.phase in ['Resolving', 'Restoring'])
+      #    - apiVersion: ceph.rook.io/v1
+      #      kind: CephCluster
+      #      expr: |-
+      #        status.ceph.health in ['HEALTH_OK']

@@ -1,0 +1,52 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: &app tuppr
+  namespace: &ns system-upgrade
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      name: *app
+  resources:
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: OCIRepository
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        interval: 15m
+        layerSelector:
+          mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+          operation: copy
+        url: oci://ghcr.io/home-operations/charts/tuppr
+        ref:
+          tag: << inputs.tag >>
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        chartRef:
+          kind: OCIRepository
+          name: *app
+          namespace: *ns
+        interval: 2h
+        values:
+          replicaCount: 2
+#          monitoring:
+#            serviceMonitor:
+#              enabled: true
+#            prometheusRule:
+#              enabled: true
+#            dashboards:
+#              enabled: true
+#              grafanaOperator:
+#                enabled: true
+#                matchLabels:
+#                  dashboards: grafana

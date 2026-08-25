@@ -1,0 +1,15 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSetInputProvider
+metadata:
+  name: tuppr-upgrade
+  namespace: system-upgrade
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "5m"
+spec:
+  type: Static
+  defaultValues:
+    kubernetes:
+      tag: v1.36.4
+    talos:
+      tag: v1.13.9
