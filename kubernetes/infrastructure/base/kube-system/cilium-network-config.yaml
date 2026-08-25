@@ -43,7 +43,7 @@ spec:
       spec:
         allowedListeners:
           namespaces:
-            from: Same
+            from: All
         gatewayClassName: cilium
         infrastructure:
           annotations:
@@ -73,7 +73,7 @@ spec:
       spec:
         allowedListeners:
           namespaces:
-            from: Same
+            from: All
         gatewayClassName: cilium
         infrastructure:
           annotations:
