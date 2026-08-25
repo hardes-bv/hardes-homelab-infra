@@ -49,8 +49,8 @@ spec:
     - apiVersion: cert-manager.io/v1
       kind: Certificate
       metadata:
-        name: podinfo
-        namespace: default
+        name: *app
+        namespace: *ns
       spec:
         # Secret names are always required.
         secretName: podinfo-hardes-tls
@@ -65,9 +65,6 @@ spec:
         # At least one of commonName (possibly through literalSubject), dnsNames, uris, emailAddresses, ipAddresses or otherNames is required.
         dnsNames:
           - podinfo.${cluster_domain}
-
-        emailAddresses:
-          - ringo@hardes.be
 
         # Issuer references are always required.
         issuerRef:
