@@ -54,6 +54,8 @@ spec:
           name: unifi-dns
         interval: 1h
         values:
+          extraArgs:
+            - --gateway-listener-sets
           fullnameOverride: *app
           provider:
             name: webhook
