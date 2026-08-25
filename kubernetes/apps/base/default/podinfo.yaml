@@ -80,7 +80,7 @@ spec:
         interval: 1h
         values:
           replicaCount: 2
-          httproute:
+          httpRoute:
             enabled: true
             parentRefs:
               - group: gateway.networking.k8s.io
