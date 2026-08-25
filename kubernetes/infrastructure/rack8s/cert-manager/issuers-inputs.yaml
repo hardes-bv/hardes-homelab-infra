@@ -9,6 +9,4 @@ metadata:
 spec:
   type: Static
   defaultValues:
-    tenant: rack8s
-    dnszone: home.hardes.be
     email: ringo@hardes.be

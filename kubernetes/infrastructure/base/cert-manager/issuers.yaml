@@ -22,17 +22,17 @@ spec:
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
       metadata:
-        name: scaleway-issuer-<< inputs.tenant >>
+        name: scaleway-issuer-${cluster_name}
       spec:
         acme:
           email: << inputs.email >>
           server: https://acme-v02.api.letsencrypt.org/directory
           privateKeySecretRef:
-            name: certmanager-scaleway-private-key-<< inputs.tenant >>
+            name: certmanager-scaleway-private-key-${cluster_name}
           solvers:
             - selector:
                 dnsZones:
-                  - << inputs.dnszone >>
+                  - ${cluster_domain}
               dns01:
                 webhook:
                   groupName: acme.scaleway.com
