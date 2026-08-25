@@ -41,6 +41,9 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: services.${cluster_domain}
       spec:
+        allowedListeners:
+          namespaces:
+            from: Same
         gatewayClassName: cilium
         infrastructure:
           annotations:
@@ -53,17 +56,13 @@ spec:
             allowedRoutes:
               namespaces:
                 from: All
-#          - name: https
-#            protocol: HTTPS
-#            port: 443
-#            hostname: "*.${cluster_domain}"
-#            allowedRoutes:
-#              namespaces:
-#                from: All
-#            tls:
-#              certificateRefs:
-#                - kind: Secret
-#                  name: hardes-zone-tls
+          - name: https
+            protocol: HTTPS
+            port: 443
+            hostname: "*.${cluster_domain}"
+            allowedRoutes:
+              namespaces:
+                from: All
     - apiVersion: gateway.networking.k8s.io/v1
       kind: Gateway
       metadata:
@@ -72,6 +71,9 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: apps.${cluster_domain}
       spec:
+        allowedListeners:
+          namespaces:
+            from: Same
         gatewayClassName: cilium
         infrastructure:
           annotations:
@@ -84,14 +86,10 @@ spec:
             allowedRoutes:
               namespaces:
                 from: All
-#          - name: https
-#            protocol: HTTPS
-#            port: 443
-#            hostname: "*.${cluster_domain}"
-#            allowedRoutes:
-#              namespaces:
-#                from: All
-#            tls:
-#              certificateRefs:
-#                - kind: Secret
-#                  name: hardes-zone-tls
+          - name: https
+            protocol: HTTPS
+            port: 443
+            hostname: "*.${cluster_domain}"
+            allowedRoutes:
+              namespaces:
+                from: All
