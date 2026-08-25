@@ -86,6 +86,8 @@ spec:
         name: *app
         namespace: *ns
       spec:
+        hostnames:
+          - podinfo.${cluster_domain}
         parentRefs:
           - group: gateway.networking.k8s.io
             kind: ListenerSet
