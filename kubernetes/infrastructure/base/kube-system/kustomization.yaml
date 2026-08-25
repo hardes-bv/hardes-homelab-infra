@@ -6,7 +6,7 @@ namespace: kube-system
 
 resources:
   - ./namespace.yaml
-  - ./spegel/ks.yaml
+  - ./spegel.yaml
   - ./gateway-api.yaml
   - ./cilium.yaml
   - ./cilium-network-config.yaml
