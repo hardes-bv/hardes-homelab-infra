@@ -14,26 +14,26 @@ sources:
     name: Get tested Kubernetes version from `desk8s`
     kind: yaml
     spec:
-      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/upgrades/kubernetes-upgrade-patch.yaml
-      key: "$.spec.kubernetes.version"
+      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr-upgrade-inputs.yaml
+      key: "$.spec.defaultValues.kubernetes.tag"
   testedTrimmedVersion:
     name: Get tested Kubernetes version from `desk8s`
     kind: yaml
     spec:
-      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/upgrades/kubernetes-upgrade-patch.yaml
-      key: "$.spec.kubernetes.version"
+      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr-upgrade-inputs.yaml
+      key: "$.spec.defaultValues.kubernetes.tag"
     transformers:
       - trimprefix: "v"
 
 targets:
   kubernetesUpgrade:
-    name: 'deps: rack8s - update Kubernetes version to {{ source "testedVersion" }} in `KubernetesUpgrade` resource'
+    name: 'deps: rack8s - update Kubernetes version to {{ source "testedVersion" }} in `ResourceSetInputProvider` resource'
     kind: yaml
     scmid: default
     sourceid: testedVersion
     spec:
-      file: kubernetes/infrastructure/rack8s/system-upgrade/tuppr/upgrades/kubernetes-upgrade-patch.yaml
-      key: '$.spec.kubernetes.version'
+      file: kubernetes/infrastructure/rack8s/system-upgrade/tuppr-upgrade-inputs.yaml
+      key: "$.spec.defaultValues.kubernetes.tag"
   readme:
     name: 'deps: rack8s - update Kubernetes version to {{ source "testedTrimmedVersion" }} in cluster README'
     kind: file

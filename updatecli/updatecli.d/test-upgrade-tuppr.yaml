@@ -31,12 +31,12 @@ conditions:
 
 targets:
   fluxPatch:
-    name: 'docs: desk8s - update `tuppr` version to {{ source "latestVersion" }} in `OCIRepository` resource'
+    name: 'docs: desk8s - update `tuppr` version to {{ source "latestVersion" }} in `ResourceSetInputProvider` resource'
     kind: yaml
     scmid: default
     spec:
-      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/app/tuppr-oci-repository.yaml
-      key: "$.spec.ref.tag"
+      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr-inputs.yaml
+      key: "$.spec.defaultValues.tag"
 
 actions:
   default:

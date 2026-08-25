@@ -14,17 +14,17 @@ sources:
     kind: yaml
     scmid: default
     spec:
-      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/app/tuppr-oci-repository.yaml
-      key: "$.spec.ref.tag"
+      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr-inputs.yaml
+      key: "$.spec.defaultValues.tag"
 
 targets:
   tupprUpgrade:
-    name: 'docs: rack8s - update `tuppr` version to {{ source "testedVersion" }} in `OCIRepository` resource'
+    name: 'docs: rack8s - update `tuppr` version to {{ source "testedVersion" }} in `ResourceSetInputProvider` resource'
     kind: yaml
     scmid: default
     spec:
-      file: kubernetes/infrastructure/rack8s/system-upgrade/tuppr/app/tuppr-oci-repository.yaml
-      key: "$.spec.ref.tag"
+      file: kubernetes/infrastructure/rack8s/system-upgrade/tuppr-inputs.yaml
+      key: "$.spec.defaultValues.tag"
 
 actions:
   default:

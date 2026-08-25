@@ -24,12 +24,12 @@ sources:
 
 targets:
   fluxPatch:
-    name: 'deps: desk8s - update Talos Linux version to {{ source "latestVersion" }} in `TalosUpgrade` resource'
+    name: 'deps: desk8s - update Talos Linux version to {{ source "latestVersion" }} in `ResourceSetInputProvider` resource'
     kind: yaml
     scmid: default
     spec:
-      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr/upgrades/talos-upgrade-patch.yaml
-      key: '$.spec.talos.version'
+      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr-upgrade-inputs.yaml
+      key: "$.spec.defaultValues.talos.tag"
   readme:
     name: 'deps: desk8s - update Talos Linux version to {{ source "latestVersion" }} in Talos cluster configuration'
     kind: file
