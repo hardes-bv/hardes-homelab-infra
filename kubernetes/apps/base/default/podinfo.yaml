@@ -46,3 +46,32 @@ spec:
                 sectionName: http
             hostnames:
               - podinfo.${cluster_domain}
+    - apiVersion: cert-manager.io/v1
+      kind: Certificate
+      metadata:
+        name: podinfo
+        namespace: default
+      spec:
+        # Secret names are always required.
+        secretName: podinfo-hardes-tls
+
+        duration: 504h # 21d
+        renewBefore: 168h # 7d
+
+        subject:
+          organizations:
+            - cert-manager
+
+        # At least one of commonName (possibly through literalSubject), dnsNames, uris, emailAddresses, ipAddresses or otherNames is required.
+        dnsNames:
+          - podinfo.${cluster_domain}
+
+        emailAddresses:
+          - ringo@hardes.be
+
+        # Issuer references are always required.
+        issuerRef:
+          name: scaleway-issuer-${cluster_name}
+          # We can reference ClusterIssuers by changing the kind here.
+          # The default value is Issuer (i.e. a locally namespaced Issuer)
+          kind: ClusterIssuer
