@@ -18,3 +18,4 @@ resources:
   - network/unifi-dns-inputs.yaml
   - system-upgrade/tuppr-inputs.yaml
   - system-upgrade/tuppr-upgrade-inputs.yaml
+  - longhorn-system/longhorn-inputs.yaml
