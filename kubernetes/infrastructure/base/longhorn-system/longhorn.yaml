@@ -105,7 +105,7 @@ spec:
           httproute:
             enabled: true
             hostnames:
-              - headlamp.${cluster_domain}
+              - longhorn.${cluster_domain}
             parentRefs:
               - group: gateway.networking.k8s.io
                 kind: ListenerSet
