@@ -99,6 +99,7 @@ spec:
             deletingConfirmationFlag: true
             v1DataEngine: false
             v2DataEngine: true
+            createDefaultDiskLabeledNodes: true
           httproute:
             enabled: true
             hostnames:
