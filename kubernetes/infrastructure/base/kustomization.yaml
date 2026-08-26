@@ -10,4 +10,4 @@ resources:
   - ./external-secrets
   - ./cert-manager
   - ./network
-  - ./longhorn-system
+#  - ./longhorn-system
