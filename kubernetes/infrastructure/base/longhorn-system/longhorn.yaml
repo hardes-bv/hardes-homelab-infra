@@ -99,9 +99,6 @@ spec:
             deletingConfirmationFlag: true
             v1DataEngine: false
             v2DataEngine: true
-          persistence:
-            dataEngine: "v2"
-            defaultFsType: "xfs"
           httproute:
             enabled: true
             hostnames:
@@ -112,6 +109,12 @@ spec:
                 name: *app
                 namespace: *ns
                 sectionName: https
+          persistence:
+            dataEngine: "v2"
+            defaultFsType: "xfs"
+          service:
+            ui:
+              type: "ClusterIP"
     - apiVersion: gateway.networking.k8s.io/v1
       kind: HTTPRoute
       metadata:
