@@ -26,7 +26,7 @@ spec:
         namespace: *ns
       spec:
         # Secret names are always required.
-        secretName: longhorn-tls
+        secretName: longhorn-ui-tls
 
         duration: 504h # 21d
         renewBefore: 168h # 7d
@@ -70,7 +70,7 @@ spec:
               certificateRefs:
                 - kind: Secret
                   group: ""
-                  name: longhorn-tls
+                  name: longhorn-ui-tls
     - apiVersion: source.toolkit.fluxcd.io/v1
       kind: HelmRepository
       metadata:
