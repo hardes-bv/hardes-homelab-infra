@@ -1,0 +1,18 @@
+# https://longhorn.io/docs/1.12.1/advanced-resources/os-distro-specific/talos-linux-support/
+# https://docs.siderolabs.com/kubernetes-guides/csi/longhorn
+machine:
+    # To migrate to `SysctlConfig` resource in Talos v1.14
+    sysctls:
+        vm.nr_hugepages: "1024"
+    # To migrate to `KernelModuleConfig` resource in Talos v1.14
+    kernel:
+      modules:
+        - name: nvme_tcp
+        - name: vfio_pci
+        - name: uio_pci_generic
+        - name: ublk_drv
+    # To migrate to `KubeNodeConfig` resource in Talos v1.14
+    nodeLabels:
+      node.longhorn.io/create-default-disk: "config"
+    nodeAnnotations:
+      node.longhorn.io/default-disks-config: '[{"name":"longhorn-v2","path":"/dev/disk/by-partlabel/r-longhorn","diskType":"block","allowScheduling":true}]'
