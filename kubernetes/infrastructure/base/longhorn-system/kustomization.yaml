@@ -7,3 +7,4 @@ namespace: longhorn-system
 resources:
   - ./namespace.yaml
   - ./longhorn.yaml
+  - ./storageclasses.yaml
