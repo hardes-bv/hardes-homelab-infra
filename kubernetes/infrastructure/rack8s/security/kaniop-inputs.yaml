@@ -1,0 +1,12 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSetInputProvider
+metadata:
+  name: kaniop
+  namespace: security
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "15m"
+spec:
+  type: Static
+  defaultValues:
+    tag: 0.16.0
