@@ -47,9 +47,6 @@ spec:
             enabled: true
             certManager:
               enabled: true
-              issuerRef:
-                name: scaleway-issuer-${cluster_name}
-                kind: ClusterIssuer
       #    leaderElect: true
       #   serviceMonitor:
       #     enabled: true
