@@ -6,6 +6,6 @@ namespace: cert-manager
 
 resources:
   - ./namespace.yaml
-  - ./app.yaml
+  - ./cert-manager.yaml
   - ./scaleway-webhook.yaml
   - ./issuers.yaml
