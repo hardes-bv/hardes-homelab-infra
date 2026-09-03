@@ -1,0 +1,130 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: &app kanidm
+  namespace: &ns security
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "15m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  dependsOn:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      # Needs cert-manager before issuing a `Certificate` resource
+      name: cert-manager
+      namespace: cert-manager
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      # Needs the deployed `Gateway` resources
+      name: cilium-network-config
+      namespace: kube-system
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      # Needs the deployed `StorageClass` resource named `longhorn-local`
+      name: longhorn-storage-classes
+      namespace: longhorn-system
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      # Needs the kaniop operator before a `Kanidm` resource can be deployed
+      name: kaniop
+      namespace: *ns
+  resources:
+    - apiVersion: cert-manager.io/v1
+      kind: Certificate
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        secretName: kanidm-cert
+        duration: 504h # 21d
+        renewBefore: 168h # 7d
+        subject:
+          organizations:
+            - cert-manager
+        dnsNames:
+          - auth.${cluster_domain}
+        issuerRef:
+          name: scaleway-issuer-${cluster_name}
+          kind: ClusterIssuer
+    - apiVersion: kaniop.rs/v1beta1
+      kind: Kanidm
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        domain: auth.${cluster_domain}
+        replicaGroups:
+          - name: default
+            replicas: 2
+            primaryNode: true
+        logLevel: info
+        tlsSecretName: kanidm-cert
+        storage:
+          volumeClaimTemplate:
+            spec:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 350Mi
+              storageClassName: longhorn-local
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: ListenerSet
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        parentRef:
+          group: gateway.networking.k8s.io
+          kind: Gateway
+          name: secure
+          namespace: kube-system
+        listeners:
+          - name: http
+            hostname: auth.${cluster_domain}
+            protocol: HTTP
+            port: 80
+          - name: https
+            protocol: TLS
+            port: 443
+            tls:
+              mode: Passthrough
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      metadata:
+        name: kanidm-http-redirect
+        namespace: *ns
+      spec:
+        parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: ListenerSet
+            name: *app
+            namespace: *ns
+            sectionName: http
+        hostnames:
+          - auth.${cluster_domain}
+        rules:
+          - filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  scheme: https
+                  statusCode: 301
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: TLSRoute
+      metadata:
+        name: kanidm-https
+        namespace: *ns
+      spec:
+        parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: ListenerSet
+            name: *app
+            namespace: *ns
+            sectionName: https
+        hostnames:
+          - auth.${cluster_domain}
+        rules:
+          - backendRefs:
+              - name: *app
+                port: 8443
