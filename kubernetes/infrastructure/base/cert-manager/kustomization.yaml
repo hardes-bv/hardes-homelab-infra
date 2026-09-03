@@ -9,3 +9,4 @@ resources:
   - ./cert-manager.yaml
   - ./scaleway-webhook.yaml
   - ./issuers.yaml
+  - ./trust-manager.yaml

@@ -15,6 +15,7 @@ resources:
   - cert-manager/cert-manager-inputs.yaml
   - cert-manager/scaleway-webhook-inputs.yaml
   - cert-manager/issuers-inputs.yaml
+  - cert-manager/trust-manager-inputs.yaml
   - network/unifi-dns-inputs.yaml
   - system-upgrade/tuppr-inputs.yaml
   - system-upgrade/tuppr-upgrade-inputs.yaml

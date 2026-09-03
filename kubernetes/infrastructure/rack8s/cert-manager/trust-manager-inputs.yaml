@@ -1,0 +1,12 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSetInputProvider
+metadata:
+  name: trust-manager
+  namespace: cert-manager
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "15m"
+spec:
+  type: Static
+  defaultValues:
+    tag: v0.23.0
