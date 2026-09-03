@@ -25,7 +25,7 @@ spec:
       volumeBindingMode: Immediate
       parameters:
         backupTargetName: "default"
-        dataEngine: "v1"
+        dataEngine: "v2"
         numberOfReplicas: "1"
         fromBackup: ""
         fsType: "xfs"
