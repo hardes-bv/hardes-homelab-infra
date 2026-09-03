@@ -52,6 +52,8 @@ spec:
           cleanBpfState: false
           gatewayAPI:
             enabled: true
+            enableAlpn: true
+            enableAppProtocol: true
             gatewayClass:
               create: true
           hubble:
