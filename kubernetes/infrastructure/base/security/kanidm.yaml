@@ -54,6 +54,7 @@ spec:
         namespace: *ns
       spec:
         domain: auth.${cluster_domain}
+        groupNamespaceSelector: {}
         replicaGroups:
           - name: default
             replicas: 2
