@@ -1,0 +1,42 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: &app kanidm-identities
+  namespace: &ns security
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "15m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  dependsOn:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      # Needs a deployed `kanidm` cluster
+      name: kanidm
+      namespace: *ns
+  resources:
+    - apiVersion: kaniop.rs/v1beta1
+      kind: KanidmPersonAccount
+      metadata:
+        name: ringo
+        namespace: *ns
+      spec:
+        kanidmRef:
+          name: kanidm
+        personAttributes:
+          displayname: Ringo De Smet
+          mail:
+            - ringo@de-smet.name
+            - ringo@hardes.be
+#    - apiVersion: kaniop.rs/v1beta1
+#      kind: KanidmPersonAccount
+#      metadata:
+#        name: joanna
+#        namespace: *ns
+#      spec:
+#        kanidmRef:
+#          name: kanidm
+#        personAttributes:
+#          displayname: Joanna Arens
+#          mail:
+#            - arens.joanna@gmail.com

@@ -21,3 +21,4 @@ resources:
   - system-upgrade/tuppr-upgrade-inputs.yaml
   - longhorn-system/longhorn-inputs.yaml
   - security/kaniop-inputs.yaml
+  - security/kanidm-identities.yaml
