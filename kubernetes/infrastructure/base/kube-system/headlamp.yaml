@@ -102,7 +102,7 @@ spec:
           - kind: Secret
             name: headlamp-app-kanidm-oauth2-credentials
             valuesKey: CLIENT_ID
-            targetPath: config.oidc.clientId
+            targetPath: config.oidc.clientID
           - kind: Secret
             name: headlamp-app-kanidm-oauth2-credentials
             valuesKey: CLIENT_SECRET
