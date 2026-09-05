@@ -55,6 +55,7 @@ spec:
       spec:
         domain: auth.${cluster_domain}
         groupNamespaceSelector: {}
+        oauth2ClientNamespaceSelector: {}
         replicaGroups:
           - name: default
             replicas: 2
