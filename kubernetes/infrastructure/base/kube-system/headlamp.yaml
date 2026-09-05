@@ -113,7 +113,7 @@ spec:
               issuerURL: https://auth.${cluster_domain}/oauth2/openid/headlamp-app
               secret:
                 name: headlamp-oidc
-            scopes: "openid profile email"
+              usePKCE: true
           replicaCount: 2
           httpRoute:
             enabled: true
