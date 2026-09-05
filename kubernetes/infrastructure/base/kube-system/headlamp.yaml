@@ -110,7 +110,9 @@ spec:
         values:
           config:
             oidc:
-              issuerURL: https://auth.${cluster_domain}
+              issuerURL: https://auth.${cluster_domain}/oauth2/openid/headlamp-app
+              secret:
+                name: headlamp-oidc
             scopes: "openid profile email"
           replicaCount: 2
           httpRoute:
