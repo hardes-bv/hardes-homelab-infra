@@ -1,0 +1,47 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: &app headlamp-oauth
+  namespace: &ns kube-system
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "15m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  dependsOn:
+    - apiVersion: kaniop.rs/v1beta1
+      kind: Kanidm
+      name: kanidm
+      namespace: security
+      ready: true
+  resources:
+    - apiVersion: kaniop.rs/v1beta1
+      kind: KanidmGroup
+      metadata:
+        name: headlamp-users
+        namespace: *ns
+      spec:
+        kanidmRef:
+          name: kanidm
+          namespace: security
+        members:
+          - ringo
+    - apiVersion: kaniop.rs/v1beta1
+      kind: KanidmOAuth2Client
+      metadata:
+        name: headlamp-app
+        namespace: *ns
+      spec:
+        kanidmRef:
+          name: kanidm
+          namespace: security
+        displayname: Headlamp
+        origin: https://headlamp.${cluster_domain}
+        redirectUrl:
+          - https://headlamp.${cluster_domain}/oidc-callback
+        scopeMap:
+          - group: headlamp-users
+            scopes:
+              - openid
+              - profile
+              - email
