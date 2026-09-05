@@ -14,6 +14,11 @@ spec:
       name: services
       namespace: *ns
       ready: true
+    - apiVersion: v1
+      kind: Secret
+      name: headlamp-app-kanidm-oauth2-credentials
+      namespace: *ns
+      ready: true
   inputsFrom:
     - apiVersion: fluxcd.controlplane.io/v1
       kind: ResourceSetInputProvider
@@ -93,7 +98,20 @@ spec:
               kind: HelmRepository
               name: *app
         interval: 1h
+        valuesFrom:
+          - kind: Secret
+            name: headlamp-app-kanidm-oauth2-credentials
+            valuesKey: CLIENT_ID
+            targetPath: config.oidc.clientId
+          - kind: Secret
+            name: headlamp-app-kanidm-oauth2-credentials
+            valuesKey: CLIENT_SECRET
+            targetPath: config.oidc.clientSecret
         values:
+          config:
+            oidc:
+              issuerURL: https://auth.${cluster_domain}
+            scopes: "openid profile email"
           replicaCount: 2
           httpRoute:
             enabled: true
