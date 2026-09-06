@@ -12,3 +12,4 @@ resources:
   - ./network
   - ./longhorn-system
   - ./security
+  - ./cnpg-system

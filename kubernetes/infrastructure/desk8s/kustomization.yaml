@@ -22,3 +22,4 @@ resources:
   - longhorn-system/longhorn-inputs.yaml
   - security/kaniop-inputs.yaml
   - security/kanidm-identities.yaml
+  - cnpg-system/cloudnative-pg-inputs.yaml
