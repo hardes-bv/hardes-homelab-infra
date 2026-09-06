@@ -111,7 +111,7 @@ spec:
           config:
             oidc:
               issuerURL: https://auth.${cluster_domain}/oauth2/openid/headlamp-app
-              scopes: "openid profile email"
+              scopes: "profile email"
               secret:
                 name: headlamp-oidc
               usePKCE: true
