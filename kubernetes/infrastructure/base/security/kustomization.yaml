@@ -6,5 +6,6 @@ namespace: security
 
 resources:
   - ./namespace.yaml
+  - ./zitadel-db.yaml
   - ./kaniop.yaml
   - ./kanidm.yaml

@@ -1,0 +1,38 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: &app zitadel-db
+  namespace: &ns security
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "15m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  dependsOn:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      # Needs cloudnative-pg before issuing a `Cluster` resource
+      name: cloudnative-pg
+      namespace: cnpg-system
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      # Needs the deployed `StorageClass` resource named `longhorn-local`
+      name: longhorn-storage-classes
+      namespace: longhorn-system
+  resources:
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        instances: 3
+        bootstrap:
+          initdb:
+            database: zitadel
+            owner: zitadel
+            secret:
+              name: zitadel-db-secret
+        storage:
+          storageClass: longhorn-local
+          size: 3Gi
