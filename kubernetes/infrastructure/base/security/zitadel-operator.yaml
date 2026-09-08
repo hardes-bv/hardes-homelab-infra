@@ -1,0 +1,76 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: &app zitadel-operator
+  namespace: &ns security
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "15m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  dependsOn:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      # Needs the deployed Zitadel service
+      name: zitadel
+      namespace: *ns
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      name: *app
+  resources:
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: OCIRepository
+      metadata:
+        name: &crds zitadel-operator-crds
+        namespace: *ns
+      spec:
+        interval: 15m
+        layerSelector:
+          mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+          operation: copy
+        url: oci://ghcr.io/truvity/charts/zitadel-operator-crds
+        ref:
+          tag: << inputs.tag >>
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: *crds
+        namespace: *ns
+      spec:
+        chartRef:
+          kind: OCIRepository
+          name: *crds
+          namespace: *ns
+        interval: 15m
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: OCIRepository
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        interval: 15m
+        layerSelector:
+          mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+          operation: copy
+        url: oci://ghcr.io/truvity/charts/zitadel-operator
+        ref:
+          tag: << inputs.tag >>
+#    - apiVersion: helm.toolkit.fluxcd.io/v2
+#      kind: HelmRelease
+#      metadata:
+#        name: *app
+#        namespace: *ns
+#      spec:
+#        chartRef:
+#          kind: OCIRepository
+#          name: *app
+#          namespace: *ns
+#        interval: 15m
+#        values:
+#          config:
+#            domain: auth.test.hardes.be
+#            binding: iam-owner
+#          credentials:
+#            secretName: iam-admin
+#            key: iam-admin.json
