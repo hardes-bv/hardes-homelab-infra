@@ -1,7 +1,7 @@
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSetInputProvider
 metadata:
-  name: kaniop
+  name: zitadel
   namespace: security
   annotations:
     fluxcd.controlplane.io/reconcile: "enabled"
@@ -9,4 +9,4 @@ metadata:
 spec:
   type: Static
   defaultValues:
-    tag: 0.16.0
+    tag: 10.0.6

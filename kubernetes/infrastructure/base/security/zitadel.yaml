@@ -1,0 +1,155 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: &app zitadel
+  namespace: &ns security
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "15m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  dependsOn:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      # Needs cert-manager deployed before issuing a `Certificate` resource
+      name: cert-manager
+      namespace: cert-manager
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      # Needs the deployed `Gateway` resources
+      name: cilium-network-config
+      namespace: kube-system
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      name: *app
+  resources:
+    - apiVersion: cert-manager.io/v1
+      kind: Certificate
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        secretName: zitadel-cert
+        duration: 504h # 21d
+        renewBefore: 168h # 7d
+        subject:
+          organizations:
+            - cert-manager
+        dnsNames:
+          - auth.${cluster_domain}
+        issuerRef:
+          name: scaleway-issuer-${cluster_name}
+          kind: ClusterIssuer
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: OCIRepository
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        interval: 15m
+        layerSelector:
+          mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+          operation: copy
+        url: oci://ghcr.io/zitadel/zitadel-charts/zitadel
+        ref:
+          tag: << inputs.tag >>
+#    - apiVersion: helm.toolkit.fluxcd.io/v2
+#      kind: HelmRelease
+#      metadata:
+#        name: *app
+#        namespace: *ns
+#      spec:
+#        chartRef:
+#          kind: OCIRepository
+#          name: *app
+#          namespace: *ns
+#        interval: 1h
+#        values:
+#          webhook:
+#            enabled: true
+#            certManager:
+#              enabled: true
+#    - apiVersion: kaniop.rs/v1beta1
+#      kind: Kanidm
+#      metadata:
+#        name: *app
+#        namespace: *ns
+#      spec:
+#        domain: auth.${cluster_domain}
+#        groupNamespaceSelector: {}
+#        oauth2ClientNamespaceSelector: {}
+#        replicaGroups:
+#          - name: default
+#            replicas: 2
+#            primaryNode: true
+#        logLevel: info
+#        tlsSecretName: zitadel-cert
+#        storage:
+#          volumeClaimTemplate:
+#            spec:
+#              accessModes:
+#                - ReadWriteOnce
+#              resources:
+#                requests:
+#                  storage: 350Mi
+#              storageClassName: longhorn-local
+#    - apiVersion: gateway.networking.k8s.io/v1
+#      kind: ListenerSet
+#      metadata:
+#        name: *app
+#        namespace: *ns
+#      spec:
+#        parentRef:
+#          group: gateway.networking.k8s.io
+#          kind: Gateway
+#          name: secure
+#          namespace: kube-system
+#        listeners:
+#          - name: http
+#            hostname: auth.${cluster_domain}
+#            protocol: HTTP
+#            port: 80
+#          - name: https
+#            protocol: TLS
+#            port: 443
+#            tls:
+#              mode: Passthrough
+#    - apiVersion: gateway.networking.k8s.io/v1
+#      kind: HTTPRoute
+#      metadata:
+#        name: kanidm-http-redirect
+#        namespace: *ns
+#      spec:
+#        parentRefs:
+#          - group: gateway.networking.k8s.io
+#            kind: ListenerSet
+#            name: *app
+#            namespace: *ns
+#            sectionName: http
+#        hostnames:
+#          - auth.${cluster_domain}
+#        rules:
+#          - filters:
+#              - type: RequestRedirect
+#                requestRedirect:
+#                  scheme: https
+#                  statusCode: 301
+#    - apiVersion: gateway.networking.k8s.io/v1
+#      kind: TLSRoute
+#      metadata:
+#        name: kanidm-https
+#        namespace: *ns
+#      spec:
+#        parentRefs:
+#          - group: gateway.networking.k8s.io
+#            kind: ListenerSet
+#            name: *app
+#            namespace: *ns
+#            sectionName: https
+#        hostnames:
+#          - auth.${cluster_domain}
+#        rules:
+#          - backendRefs:
+#              - name: *app
+#                port: 8443

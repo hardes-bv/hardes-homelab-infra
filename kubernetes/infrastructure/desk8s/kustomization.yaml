@@ -20,6 +20,6 @@ resources:
   - system-upgrade/tuppr-inputs.yaml
   - system-upgrade/tuppr-upgrade-inputs.yaml
   - longhorn-system/longhorn-inputs.yaml
-#  - security/kaniop-inputs.yaml
+  - security/zitadel-inputs.yaml
 #  - security/kanidm-identities.yaml
   - cnpg-system/cloudnative-pg-inputs.yaml
