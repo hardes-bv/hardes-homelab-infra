@@ -11,11 +11,6 @@ spec:
   dependsOn:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
-      # Needs External Secrets operator deployed before deploying a `Password` & `ExternalSecret` resource
-      name: external-secrets
-      namespace: external-secrets
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
       # Needs cloudnative-pg operator deployed before issuing a `Cluster` resource
       name: cloudnative-pg
       namespace: cnpg-system
@@ -24,36 +19,6 @@ spec:
       # Needs the deployed `StorageClass` resource named `longhorn-local`
       name: longhorn-local
   resources:
-    - apiVersion: generators.external-secrets.io/v1alpha1
-      kind: Password
-      metadata:
-        name: *app
-        namespace: *ns
-      spec:
-        length: 16
-        digits: 5
-        symbols: 5
-        symbolCharacters: "-_$@%"
-        noUpper: false
-        allowRepeat: true
-    - apiVersion: external-secrets.io/v1
-      kind: ExternalSecret
-      metadata:
-        name: zitadel-db-secret
-        namespace: *ns
-      spec:
-        target:
-          name: zitadel-db-secret
-          template:
-            data:
-              username: "zitadel"
-              password: "{{ .password }}"
-        dataFrom:
-          - sourceRef:
-              generatorRef:
-                apiVersion: generators.external-secrets.io/v1alpha1
-                kind: Password
-                name: *app
     - apiVersion: postgresql.cnpg.io/v1
       kind: Cluster
       metadata:
@@ -65,8 +30,6 @@ spec:
           initdb:
             database: zitadel
             owner: zitadel
-            secret:
-              name: zitadel-db-secret
         enableSuperuserAccess: true
         storage:
           storageClass: longhorn-local
