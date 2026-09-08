@@ -67,6 +67,7 @@ spec:
             owner: zitadel
             secret:
               name: zitadel-db-secret
+        enableSuperuserAccess: true
         storage:
           storageClass: longhorn-local
           size: 3Gi
