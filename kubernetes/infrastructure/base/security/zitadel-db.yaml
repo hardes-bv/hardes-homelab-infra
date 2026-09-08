@@ -9,17 +9,51 @@ metadata:
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:
   dependsOn:
-    - apiVersion: fluxcd.controlplane.io/v1
-      kind: ResourceSet
-      # Needs cloudnative-pg before issuing a `Cluster` resource
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      # Needs External Secrets operator deployed before deploying a `Password` & `ExternalSecret` resource
+      name: external-secrets
+      namespace: external-secrets
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      # Needs cloudnative-pg operator deployed before issuing a `Cluster` resource
       name: cloudnative-pg
       namespace: cnpg-system
-    - apiVersion: fluxcd.controlplane.io/v1
-      kind: ResourceSet
+    - apiVersion: storage.k8s.io/v1
+      kind: StorageClass
       # Needs the deployed `StorageClass` resource named `longhorn-local`
-      name: longhorn-storage-classes
-      namespace: longhorn-system
+      name: longhorn-local
   resources:
+    - apiVersion: generators.external-secrets.io/v1alpha1
+      kind: Password
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        length: 16
+        digits: 5
+        symbols: 5
+        symbolCharacters: "-_$@%"
+        noUpper: false
+        allowRepeat: true
+    - apiVersion: external-secrets.io/v1
+      kind: ExternalSecret
+      metadata:
+        name: zitadel-db-secret
+        namespace: *ns
+      spec:
+        target:
+          name: zitadel-db-secret
+          template:
+            data:
+              username: "zitadel"
+              password: "{{ .password }}"
+        dataFrom:
+          - sourceRef:
+              generatorRef:
+                apiVersion: generators.external-secrets.io/v1alpha1
+                kind: Password
+                name: *app
     - apiVersion: postgresql.cnpg.io/v1
       kind: Cluster
       metadata:
