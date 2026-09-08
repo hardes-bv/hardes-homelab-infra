@@ -11,6 +11,11 @@ spec:
   dependsOn:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
+      # Needs External Secrets Operator deployed before issuing a `Password` or `ExternalSecret` resource
+      name: external-secrets
+      namespace: external-secrets
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
       # Needs cert-manager deployed before issuing a `Certificate` resource
       name: cert-manager
       namespace: cert-manager
@@ -19,11 +24,33 @@ spec:
       # Needs the deployed `Gateway` resources
       name: cilium-network-config
       namespace: kube-system
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      # Needs the deployed PostgreSQL database
+      name: zitadel-db
+      namespace: *ns
   inputsFrom:
     - apiVersion: fluxcd.controlplane.io/v1
       kind: ResourceSetInputProvider
       name: *app
   resources:
+    - apiVersion: external-secrets.io/v1
+      kind: ExternalSecret
+      metadata:
+        name: zitadel-masterkey
+        namespace: *ns
+      spec:
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: onepassword-sdk-hardes
+        target:
+          name: zitadel-masterkey
+          template:
+            data:
+              masterkey: "{{ .password }}"
+        dataFrom:
+          - extract:
+              key: zitadel-masterkey
     - apiVersion: cert-manager.io/v1
       kind: Certificate
       metadata:
@@ -41,6 +68,52 @@ spec:
         issuerRef:
           name: scaleway-issuer-${cluster_name}
           kind: ClusterIssuer
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: ListenerSet
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        parentRef:
+          group: gateway.networking.k8s.io
+          kind: Gateway
+          name: services
+          namespace: kube-system
+        listeners:
+          - name: http
+            hostname: auth.${cluster_domain}
+            protocol: HTTP
+            port: 80
+          - name: https
+            hostname: auth.${cluster_domain}
+            protocol: HTTPS
+            port: 443
+            tls:
+              mode: Terminate
+              certificateRefs:
+                - kind: Secret
+                  group: ""
+                  name: zitadel-cert
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      metadata:
+        name: zitadel-http-redirect
+        namespace: *ns
+      spec:
+        parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: ListenerSet
+            name: *app
+            namespace: *ns
+            sectionName: http
+        hostnames:
+          - auth.${cluster_domain}
+        rules:
+          - filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  scheme: https
+                  statusCode: 301
     - apiVersion: source.toolkit.fluxcd.io/v1
       kind: OCIRepository
       metadata:
@@ -54,102 +127,121 @@ spec:
         url: oci://ghcr.io/zitadel/zitadel-charts/zitadel
         ref:
           tag: << inputs.tag >>
-#    - apiVersion: helm.toolkit.fluxcd.io/v2
-#      kind: HelmRelease
-#      metadata:
-#        name: *app
-#        namespace: *ns
-#      spec:
-#        chartRef:
-#          kind: OCIRepository
-#          name: *app
-#          namespace: *ns
-#        interval: 1h
-#        values:
-#          webhook:
-#            enabled: true
-#            certManager:
-#              enabled: true
-#    - apiVersion: kaniop.rs/v1beta1
-#      kind: Kanidm
-#      metadata:
-#        name: *app
-#        namespace: *ns
-#      spec:
-#        domain: auth.${cluster_domain}
-#        groupNamespaceSelector: {}
-#        oauth2ClientNamespaceSelector: {}
-#        replicaGroups:
-#          - name: default
-#            replicas: 2
-#            primaryNode: true
-#        logLevel: info
-#        tlsSecretName: zitadel-cert
-#        storage:
-#          volumeClaimTemplate:
-#            spec:
-#              accessModes:
-#                - ReadWriteOnce
-#              resources:
-#                requests:
-#                  storage: 350Mi
-#              storageClassName: longhorn-local
-#    - apiVersion: gateway.networking.k8s.io/v1
-#      kind: ListenerSet
-#      metadata:
-#        name: *app
-#        namespace: *ns
-#      spec:
-#        parentRef:
-#          group: gateway.networking.k8s.io
-#          kind: Gateway
-#          name: secure
-#          namespace: kube-system
-#        listeners:
-#          - name: http
-#            hostname: auth.${cluster_domain}
-#            protocol: HTTP
-#            port: 80
-#          - name: https
-#            protocol: TLS
-#            port: 443
-#            tls:
-#              mode: Passthrough
-#    - apiVersion: gateway.networking.k8s.io/v1
-#      kind: HTTPRoute
-#      metadata:
-#        name: kanidm-http-redirect
-#        namespace: *ns
-#      spec:
-#        parentRefs:
-#          - group: gateway.networking.k8s.io
-#            kind: ListenerSet
-#            name: *app
-#            namespace: *ns
-#            sectionName: http
-#        hostnames:
-#          - auth.${cluster_domain}
-#        rules:
-#          - filters:
-#              - type: RequestRedirect
-#                requestRedirect:
-#                  scheme: https
-#                  statusCode: 301
-#    - apiVersion: gateway.networking.k8s.io/v1
-#      kind: TLSRoute
-#      metadata:
-#        name: kanidm-https
-#        namespace: *ns
-#      spec:
-#        parentRefs:
-#          - group: gateway.networking.k8s.io
-#            kind: ListenerSet
-#            name: *app
-#            namespace: *ns
-#            sectionName: https
-#        hostnames:
-#          - auth.${cluster_domain}
-#        rules:
-#          - backendRefs:
-#              - name: *app
-#                port: 8443
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        chartRef:
+          kind: OCIRepository
+          name: *app
+          namespace: *ns
+        interval: 15m
+        values:
+          replicaCount: 2
+          zitadel:
+            masterkeySecretName: zitadel-masterkey
+            configmapConfig:
+              ExternalDomain: auth.${cluster_domain}
+              ExternalSecure: true
+              ExternalPort: 443
+              TLS:
+                Enabled: false
+              Database:
+                Postgres:
+                  Host: zitadel-db-rw.security.svc.cluster.local
+                  Port: 5432
+                  Database: zitadel
+                  MaxOpenConns: 20
+                  MaxIdleConns: 10
+                  MaxConnLifetime: 30m
+                  MaxConnIdleTime: 5m
+                  User:
+                    Username: zitadel
+                    SSL:
+                      Mode: verify-full
+                      RootCert: /db-ssl-ca-crt/ca.crt
+                  Admin:
+                    Username: postgres
+                    # The setup job connects to the "postgres" maintenance DB
+                    ExistingDatabase: postgres
+                    SSL:
+                      Mode: verify-full
+                      RootCert: /db-ssl-ca-crt/ca.crt
+
+            # Mount the CNPG CA at /db-ssl-ca-crt/ca.crt (chart-managed mount path)
+            dbSslCaCrtSecret: zitadel-db-ca
+
+          # Inject the two passwords from the CNPG-generated secrets as env vars.
+          # NOTE: This MUST be the top-level `env:` (applies to the zitadel container
+          # and the init/setup jobs). The `env:` under `zitadel:` targets the Login UI
+          # container only and is silently ignored by the init job.
+          env:
+            - name: ZITADEL_DATABASE_POSTGRES_USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: zitadel-db-app
+                  key: password
+            - name: ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: zitadel-db-superuser
+                  key: password
+
+          podSecurityContext:
+            runAsNonRoot: true
+            runAsUser: 11000
+            runAsGroup: 11000
+            fsGroup: 11000
+            seccompProfile:
+              type: RuntimeDefault
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: false
+          podDisruptionBudget:
+            enabled: true
+            minAvailable: 1
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      metadata:
+        name: zitadel-login
+        namespace: *ns
+      spec:
+        parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: ListenerSet
+            name: *app
+            namespace: *ns
+            sectionName: https
+        hostnames:
+          - auth.${cluster_domain}
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /ui/v2/login
+            backendRefs:
+              - name: zitadel-login
+                port: 3000
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: GRPCRoute
+      metadata:
+        name: zitadel-grpc
+        namespace: *ns
+      spec:
+        parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: ListenerSet
+            name: *app
+            namespace: *ns
+            sectionName: https
+        hostnames:
+          - auth.${cluster_domain}
+        rules:
+          - backendRefs:
+              - name: zitadel
+                port: 8080
