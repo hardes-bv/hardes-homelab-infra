@@ -10,6 +10,6 @@ spec:
   type: Static
   defaultValues:
     externalDns:
-      tag: 1.21.1
+      tag: 1.22.0
     unifiWebhook:
       tag: 0.10.12
