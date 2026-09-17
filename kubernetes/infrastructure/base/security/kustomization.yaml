@@ -6,4 +6,4 @@ namespace: security
 
 resources:
   - ./namespace.yaml
-  - ./zitadel-db.yaml
+  - pocket-id-db.yaml

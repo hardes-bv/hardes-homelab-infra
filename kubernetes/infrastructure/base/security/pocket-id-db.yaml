@@ -1,7 +1,7 @@
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
 metadata:
-  name: &app zitadel-db
+  name: &app pocket-id-db
   namespace: &ns security
   annotations:
     fluxcd.controlplane.io/reconcile: "enabled"
@@ -28,8 +28,8 @@ spec:
         instances: 3
         bootstrap:
           initdb:
-            database: zitadel
-            owner: zitadel
+            database: pocketid
+            owner: pocketid
         enableSuperuserAccess: true
         storage:
           storageClass: longhorn-local
