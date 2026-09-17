@@ -20,5 +20,4 @@ resources:
   - system-upgrade/tuppr-inputs.yaml
   - system-upgrade/tuppr-upgrade-inputs.yaml
   - longhorn-system/longhorn-inputs.yaml
-  - security/zitadel-inputs.yaml
   - cnpg-system/cloudnative-pg-inputs.yaml

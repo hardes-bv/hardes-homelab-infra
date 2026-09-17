@@ -7,4 +7,3 @@ namespace: security
 resources:
   - ./namespace.yaml
   - ./zitadel-db.yaml
-  - ./zitadel.yaml
