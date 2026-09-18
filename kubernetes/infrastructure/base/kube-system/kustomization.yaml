@@ -11,4 +11,4 @@ resources:
   - ./cilium.yaml
   - ./cilium-network-config.yaml
   - ./headlamp-oauth.yaml
-#  - ./headlamp.yaml
+  - ./headlamp.yaml

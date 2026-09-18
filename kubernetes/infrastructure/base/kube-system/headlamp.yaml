@@ -16,7 +16,7 @@ spec:
       ready: true
     - apiVersion: v1
       kind: Secret
-      name: headlamp-app-kanidm-oauth2-credentials
+      name: headlamp-oidc
       namespace: *ns
       ready: true
   inputsFrom:
@@ -98,23 +98,21 @@ spec:
               kind: HelmRepository
               name: *app
         interval: 1h
-#        valuesFrom:
-#          - kind: Secret
-#            name: headlamp-app-kanidm-oauth2-credentials
-#            valuesKey: CLIENT_ID
-#            targetPath: config.oidc.clientID
-#          - kind: Secret
-#            name: headlamp-app-kanidm-oauth2-credentials
-#            valuesKey: CLIENT_SECRET
-#            targetPath: config.oidc.clientSecret
         values:
           config:
-#            oidc:
-#              issuerURL: https://auth.${cluster_domain}/oauth2/openid/headlamp-app
-#              scopes: "profile email"
-#              secret:
-#                name: headlamp-oidc
-#              usePKCE: true
+            oidc:
+              secret:
+                create: false
+              externalSecret:
+                enabled: true
+                name: headlamp-oidc
+                hasScopes: true
+              usePKCE: true
+          env:
+            - name: OIDC_SCOPES
+              value: "profile,email,groups"
+            - name: OIDC_CALLBACK_URL
+              value: "https://headlamp.${cluster_domain}/oidc-callback"
           replicaCount: 2
           httpRoute:
             enabled: true
