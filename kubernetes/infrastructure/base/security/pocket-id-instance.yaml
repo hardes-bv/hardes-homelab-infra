@@ -1,0 +1,70 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: &app pocket-id-instance
+  namespace: &ns security
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "15m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  dependsOn:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      # Needs External Secrets Operator deployed before issuing a `Password` or `ExternalSecret` resource
+      name: external-secrets
+      namespace: external-secrets
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      # Needs cert-manager deployed before issuing a `Certificate` resource
+      name: cert-manager
+      namespace: cert-manager
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      # Needs the deployed `Gateway` resources
+      name: cilium-network-config
+      namespace: kube-system
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      # Needs the deployed PostgreSQL database
+      name: pocket-id-db
+      namespace: *ns
+#  inputsFrom:
+#    - apiVersion: fluxcd.controlplane.io/v1
+#      kind: ResourceSetInputProvider
+#      name: *app
+  resources:
+    - apiVersion: external-secrets.io/v1
+      kind: ExternalSecret
+      metadata:
+        name: &key pocket-id-masterkey
+        namespace: *ns
+      spec:
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: onepassword-sdk-hardes
+        target:
+          name: *key
+          template:
+            data:
+              masterkey: "{{ .password }}"
+        dataFrom:
+          - extract:
+              key: *key
+    - apiVersion: cert-manager.io/v1
+      kind: Certificate
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        secretName: pocket-id-tls-cert
+        duration: 504h # 21d
+        renewBefore: 168h # 7d
+        subject:
+          organizations:
+            - cert-manager
+        dnsNames:
+          - auth.${cluster_domain}
+        issuerRef:
+          name: scaleway-issuer-${cluster_name}
+          kind: ClusterIssuer

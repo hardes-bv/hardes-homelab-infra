@@ -8,3 +8,4 @@ resources:
   - namespace.yaml
   - pocket-id-operator.yaml
   - pocket-id-db.yaml
+  - pocket-id-instance.yaml
