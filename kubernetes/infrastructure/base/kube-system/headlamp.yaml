@@ -107,7 +107,6 @@ spec:
                 enabled: true
                 name: headlamp-oidc
                 hasScopes: true
-              usePKCE: true
           env:
             - name: OIDC_SCOPES
               value: "profile,email,groups"
