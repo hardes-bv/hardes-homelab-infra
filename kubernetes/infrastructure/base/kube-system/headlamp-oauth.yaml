@@ -37,7 +37,7 @@ spec:
         callbackUrls:
           - https://headlamp.${cluster_domain}/oidc-callback
         allowedUserGroups:
-          - headlamp-users
+          - name: headlamp-users
         secret:
           name: headlamp-oidc
           keys:
