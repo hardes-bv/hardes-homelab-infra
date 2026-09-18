@@ -8,6 +8,10 @@ metadata:
     fluxcd.controlplane.io/reconcileEvery: "15m"
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:
+  inputsFrom:
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSetInputProvider
+      name: *app
   resources:
     - apiVersion: source.toolkit.fluxcd.io/v1
       kind: OCIRepository
