@@ -9,39 +9,38 @@ metadata:
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:
   dependsOn:
-    - apiVersion: kaniop.rs/v1beta1
-      kind: Kanidm
-      name: kanidm
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: ResourceSet
+      # Needs the deployed Pocket-ID identities
+      name: pocket-id-identities
       namespace: security
-      ready: true
   resources:
-    - apiVersion: kaniop.rs/v1beta1
-      kind: KanidmGroup
+    - apiVersion: pocketid.internal/v1alpha1
+      kind: PocketIDUserGroup
       metadata:
         name: headlamp-users
         namespace: *ns
       spec:
-        kanidmRef:
-          name: kanidm
-          namespace: security
-        members:
-          - ringo
-    - apiVersion: kaniop.rs/v1beta1
-      kind: KanidmOAuth2Client
+        friendlyName: "Headlamp Users"
+        users:
+          userRefs:
+            - name: pocket-id-user-ringo
+              namespace: security
+    - apiVersion: pocketid.internal/v1alpha1
+      kind: PocketIDOIDCClient
       metadata:
         name: headlamp-app
         namespace: *ns
       spec:
-        kanidmRef:
-          name: kanidm
-          namespace: security
-        displayname: Headlamp
-        origin: https://headlamp.${cluster_domain}
-        redirectUrl:
+        name: Headlamp
+        launchUrl: https://headlamp.${cluster_domain}
+        callbackUrls:
           - https://headlamp.${cluster_domain}/oidc-callback
-        scopeMap:
-          - group: headlamp-users
-            scopes:
-              - openid
-              - profile
-              - email
+        allowedUserGroups:
+          - headlamp-users
+        secret:
+          name: headlamp-oidc
+          keys:
+            clientID: OIDC_CLIENT_ID
+            clientSecret: OIDC_CLIENT_SECRET
+            issuerUrl: OIDC_ISSUER_URL
