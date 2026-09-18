@@ -68,3 +68,118 @@ spec:
         issuerRef:
           name: scaleway-issuer-${cluster_name}
           kind: ClusterIssuer
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: ListenerSet
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        parentRef:
+          group: gateway.networking.k8s.io
+          kind: Gateway
+          name: services
+          namespace: kube-system
+        listeners:
+          - name: http
+            hostname: auth.${cluster_domain}
+            protocol: HTTP
+            port: 80
+          - name: https
+            hostname: auth.${cluster_domain}
+            protocol: HTTPS
+            port: 443
+            tls:
+              mode: Terminate
+              certificateRefs:
+                - kind: Secret
+                  group: ""
+                  name: pocket-id-tls-cert
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      metadata:
+        name: pocket-id-instance-http-redirect
+        namespace: *ns
+      spec:
+        parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: ListenerSet
+            name: *app
+            namespace: *ns
+            sectionName: http
+        hostnames:
+          - auth.${cluster_domain}
+        rules:
+          - filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  scheme: https
+                  statusCode: 301
+    - apiVersion: pocketid.internal/v1alpha1
+      kind: PocketIDInstance
+      metadata:
+        name: *app
+        namespace: *ns
+      spec:
+        encryptionKey:
+          valueFrom:
+            secretKeyRef:
+              name: pocket-id-masterkey
+              key: masterkey
+        appUrl: "https://auth.${cluster_domain}"
+        databaseUrl:
+          valueFrom:
+            secretKeyRef:
+              name: pocket-id-db-app
+              key: fqdn-uri
+        fileBackend: database
+        #  smtp:
+        #    host: "smtp.example.com"
+        #    port: 587
+        #    from: "noreply@example.com"
+        #    user: "smtpuser"
+        #    password:
+        #      valueFrom:
+        #        secretKeyRef:
+        #          name: smtp-creds
+        #          key: password
+        #    tls: "starttls"
+        #  emailNotifications:
+        #    loginNotification: true
+        #    oneTimeAccessAsAdmin: true
+        #    apiKeyExpiration: true
+        #    verification: true
+        ui:
+          appName: "Hardes SSO"
+          homePageUrl: "/settings/account"
+          sessionDuration: 1440
+          accentColor: "#3b82f6"
+        userManagement:
+          allowOwnAccountEdit: true
+          allowUserSignups: "disabled"
+        logging:
+          level: "info"
+          json: true
+        metrics:
+          enabled: false
+        versionCheckDisabled: true
+        auditLogRetentionDays: 30
+        timezone: "Europe/Brussels"
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      metadata:
+        name: pocket-id-instance-https
+        namespace: *ns
+      spec:
+        parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: ListenerSet
+            name: *app
+            namespace: *ns
+            sectionName: https
+        hostnames:
+          - auth.${cluster_domain}
+        rules:
+          - backendRefs:
+              - kind: Service
+                name: *app
+                port: 1411
