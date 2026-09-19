@@ -106,8 +106,8 @@ spec:
               externalSecret:
                 enabled: true
                 name: headlamp-oidc
-                usePKCE: true
               scopes: "profile,email,groups"
+              usePKCE: true
           replicaCount: 2
           httpRoute:
             enabled: true
