@@ -38,7 +38,7 @@ spec:
           - https://headlamp.${cluster_domain}/oidc-callback
         allowedUserGroups:
           - name: headlamp-users
-        pkceEnabled: true
+        #pkceEnabled: true
         isPublic: true
         secret:
           name: headlamp-oidc
