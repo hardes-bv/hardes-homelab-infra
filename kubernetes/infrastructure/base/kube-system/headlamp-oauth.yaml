@@ -43,4 +43,6 @@ spec:
         secret:
           name: headlamp-oidc
           keys:
-            clientSecret: client_secret
+            clientID: clientID
+            clientSecret: clientSecret
+            issuerUrl: issuerURL
