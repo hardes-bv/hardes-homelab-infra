@@ -98,15 +98,28 @@ spec:
               kind: HelmRepository
               name: *app
         interval: 1h
+        valuesFrom:
+          - kind: Secret
+            name: headlamp-oidc
+            valuesKey: clientID
+            targetPath: config.oidc.clientID
+          - kind: Secret
+            name: headlamp-oidc
+            valuesKey: clientSecret
+            targetPath: config.oidc.clientSecret
+          - kind: Secret
+            name: headlamp-oidc
+            valuesKey: issuerUrl
+            targetPath: config.oidc.issuerURL
         values:
           config:
             oidc:
               secret:
                 create: false
               externalSecret:
-                enabled: true
-                name: headlamp-oidc
+                enabled: false
               scopes: "profile,email,groups"
+              callbackURL: https://headlamp.${cluster_domain}/oidc-callback
               # https://github.com/kubernetes-sigs/headlamp/issues/7563
               #usePKCE: true
           replicaCount: 2

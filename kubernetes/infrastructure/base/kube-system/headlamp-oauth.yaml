@@ -42,8 +42,3 @@ spec:
         isPublic: true
         secret:
           name: headlamp-oidc
-          keys:
-            clientID: OIDC_CLIENT_ID
-            clientSecret: OIDC_CLIENT_SECRET
-            issuerUrl: OIDC_ISSUER_URL
-            callbackUrls: OIDC_CALLBACK_URL
