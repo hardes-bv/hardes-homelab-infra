@@ -122,7 +122,7 @@ spec:
               callbackURL: https://headlamp.${cluster_domain}/oidc-callback
               # https://github.com/kubernetes-sigs/headlamp/issues/7563
               #usePKCE: true
-          replicaCount: 2
+          replicaCount: 1
           httpRoute:
             enabled: true
             parentRefs:

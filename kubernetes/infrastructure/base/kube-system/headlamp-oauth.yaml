@@ -39,7 +39,6 @@ spec:
         allowedUserGroups:
           - name: headlamp-users
         #pkceEnabled: true
-        isPublic: true
         secret:
           name: headlamp-oidc
           keys:
