@@ -107,6 +107,7 @@ spec:
                 enabled: true
                 name: headlamp-oidc
                 usePKCE: true
+              scopes: "profile,email,groups"
           replicaCount: 2
           httpRoute:
             enabled: true

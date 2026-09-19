@@ -46,5 +46,4 @@ spec:
             clientID: OIDC_CLIENT_ID
             clientSecret: OIDC_CLIENT_SECRET
             issuerUrl: OIDC_ISSUER_URL
-            scopes: OIDC_SCOPES
             callbackUrls: OIDC_CALLBACK_URL
