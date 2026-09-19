@@ -5,17 +5,9 @@ kind: Kustomization
 
 resources:
   - ../base
-  - kube-system/gateway-api-inputs.yaml
-  - kube-system/cilium-inputs.yaml
-  - kube-system/cilium-network-config-inputs.yaml
-  - kube-system/headlamp-inputs.yaml
-  - kube-system/spegel-inputs.yaml
-  - external-secrets/external-secrets-inputs.yaml
-  - external-secrets/onepassword-sdk-hardes-inputs.yaml
-  - cert-manager/cert-manager-inputs.yaml
-  - cert-manager/scaleway-webhook-inputs.yaml
-  - cert-manager/issuers-inputs.yaml
-  - cert-manager/trust-manager-inputs.yaml
+  - ./kube-system
+  - ./external-secrets
+  - ./cert-manager
   - network/unifi-dns-inputs.yaml
   - system-upgrade/tuppr-inputs.yaml
   - system-upgrade/tuppr-upgrade-inputs.yaml

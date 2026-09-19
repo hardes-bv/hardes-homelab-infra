@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ./cilium-inputs.yaml
+  - ./cilium-network-config-inputs.yaml
+  - ./gateway-api-inputs.yaml
+  - ./headlamp-inputs.yaml
+  - ./spegel-inputs.yaml
