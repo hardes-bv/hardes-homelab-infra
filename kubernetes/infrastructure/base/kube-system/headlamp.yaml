@@ -106,12 +106,7 @@ spec:
               externalSecret:
                 enabled: true
                 name: headlamp-oidc
-                hasScopes: true
-          env:
-            - name: OIDC_SCOPES
-              value: "profile,email,groups"
-            - name: OIDC_CALLBACK_URL
-              value: "https://headlamp.${cluster_domain}/oidc-callback"
+                usePKCE: true
           replicaCount: 2
           httpRoute:
             enabled: true
