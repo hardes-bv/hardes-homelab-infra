@@ -101,15 +101,15 @@ spec:
         valuesFrom:
           - kind: Secret
             name: headlamp-oidc
-            valuesKey: clientID
+            valuesKey: client_id
             targetPath: config.oidc.clientID
           - kind: Secret
             name: headlamp-oidc
-            valuesKey: clientSecret
+            valuesKey: client_secret
             targetPath: config.oidc.clientSecret
           - kind: Secret
             name: headlamp-oidc
-            valuesKey: issuerUrl
+            valuesKey: issuer_url
             targetPath: config.oidc.issuerURL
         values:
           config:

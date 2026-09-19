@@ -42,3 +42,5 @@ spec:
         isPublic: true
         secret:
           name: headlamp-oidc
+          keys:
+            clientSecret: client_secret
