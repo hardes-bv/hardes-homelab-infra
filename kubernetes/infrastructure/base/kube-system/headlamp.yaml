@@ -113,12 +113,14 @@ spec:
             targetPath: config.oidc.issuerURL
         values:
           config:
+            extraArgs:
+              - -unsafe-use-service-account-token
             oidc:
               secret:
                 create: false
               externalSecret:
                 enabled: false
-              scopes: "profile,email,groups"
+              scopes: "openid,profile,email,groups,offline_access"
               callbackURL: https://headlamp.${cluster_domain}/oidc-callback
               # https://github.com/kubernetes-sigs/headlamp/issues/7563
               #usePKCE: true
