@@ -15,7 +15,7 @@ spec:
   path: ./desk8s
   prune: true
   patches:
-    - patch: |-
+    - patch: |
         - op: add
           path: /spec/healthChecks
           value:
