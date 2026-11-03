@@ -9,4 +9,4 @@ metadata:
 spec:
   type: Static
   defaultValues:
-    tag: 1.12.0
+    tag: 1.12.1
