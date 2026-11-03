@@ -17,8 +17,8 @@ spec:
   patches:
     - patch: |-
         - op: add
-           path: /spec/healthChecks
-           value:
+          path: /spec/healthChecks
+          value:
             apiVersion: apps/v1
             kind: DaemonSet
             name: longhorn-manager
