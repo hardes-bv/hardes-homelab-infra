@@ -17,5 +17,6 @@ spec:
             expr: status.desiredNumberScheduled == status.numberReady
       target:
         kind: TalosUpgrade
-        apiVersion: tuppr.home-operations.com/v1alpha1
+        group: tuppr.home-operations.com
+        version: v1alpha1
         name: talos
