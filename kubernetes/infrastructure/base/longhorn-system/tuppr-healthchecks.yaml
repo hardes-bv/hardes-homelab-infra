@@ -5,6 +5,13 @@ metadata:
   name: longhorn-tuppr-healthchecks
   namespace: longhorn-system
 spec:
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  sourceRef:
+    kind: ExternalArtifact
+    name: infrastructure
+  path: ./desk8s
   patches:
     - patch: |-
         - op: add
