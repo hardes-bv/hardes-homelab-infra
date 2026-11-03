@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: longhorn-tuppr-healthchecks
+  namespace: longhorn-system
+spec:
+  patches:
+    - patch: |-
+        - op: add
+           path: /spec/healthChecks
+           value:
+            apiVersion: apps/v1
+            kind: DaemonSet
+            name: longhorn-manager
+            namespace: longhorn-system
+            expr: status.desiredNumberScheduled == status.numberReady
+      target:
+        kind: TalosUpgrade
+        apiVersion: tuppr.home-operations.com/v1alpha1
+        name: talos
