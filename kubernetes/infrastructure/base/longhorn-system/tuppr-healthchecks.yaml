@@ -11,6 +11,7 @@ spec:
   sourceRef:
     kind: ExternalArtifact
     name: infrastructure
+    namespace: flux-system
   path: ./desk8s
   prune: true
   patches:
