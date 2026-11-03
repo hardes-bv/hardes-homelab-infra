@@ -12,6 +12,7 @@ spec:
     kind: ExternalArtifact
     name: infrastructure
   path: ./desk8s
+  prune: true
   patches:
     - patch: |-
         - op: add
