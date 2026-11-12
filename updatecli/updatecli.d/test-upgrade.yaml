@@ -1,5 +1,5 @@
-name: "Test upgrade the Cilium version"
-pipelineid: "desk8s-upgrade-cilium"
+name: "Test upgrade the {{ .package.name }} version"
+pipelineid: "desk8s-upgrade-{{ .package.name }}"
 
 scms:
   default:
@@ -11,11 +11,11 @@ scms:
 
 sources:
   latestVersion:
-    name: Get latest Cilium release
+    name: Get latest {{ .package.name }} release
     kind: githubrelease
     spec:
-      owner: "cilium"
-      repository: "cilium"
+      owner: "{{ .package.name }}"
+      repository: "{{ .package.name }}"
       typefilter:
         draft: false
         prerelease: false
@@ -26,14 +26,14 @@ sources:
 
 targets:
   fluxPatch:
-    name: 'deps: desk8s - update Cilium version to {{ source "latestVersion" }} in `ResourceSetInputProvider` resource'
+    name: 'deps: desk8s - update {{ .package.name }} version to {{ source "latestVersion" }}'
     kind: yaml
     scmid: default
     spec:
       file: kubernetes/infrastructure/desk8s/kube-system/cilium-inputs.yaml
       key: '$.spec.defaultValues.tag'
   bootstrap:
-    name: 'deps: desk8s - update Cilium version to {{ source "latestVersion" }} in boostrap README'
+    name: 'deps: desk8s - update {{ .package.name }} version to {{ source "latestVersion" }} in boostrap README'
     kind: file
     scmid: default
     sourceid: latestVersion
@@ -45,7 +45,7 @@ targets:
 
 actions:
   default:
-    title: 'deps: desk8s - update Cilium version to {{ source "latestVersion" }}'
+    title: 'deps: desk8s - update {{ .package.name }} version to {{ source "latestVersion" }}'
     kind: github/pullrequest
     spec:
       labels:

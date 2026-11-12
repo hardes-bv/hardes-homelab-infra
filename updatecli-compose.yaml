@@ -1,7 +1,121 @@
 name: "UpdateCLI Policies to apply"
 policies:
-  - name: Update Flux & Flux-managed deployments
+  - name: Upgrade updatecli
+    id: upgrade-updatecli
     config:
-      - updatecli/updatecli.d/
+      - updatecli/updatecli.d/upgrade-updatecli.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Test upgrade cert-manager
+    id: test-upgrade-cert-manager
+    config:
+      - updatecli/updatecli.d/test-upgrade-cert-manager.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Test upgrade cert-manager-scaleway-webhook
+    id: test-upgrade-cert-manager-scaleway-webhook
+    config:
+      - updatecli/updatecli.d/test-upgrade-cert-manager-scaleway-webhook.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Test upgrade cilium
+    id: test-upgrade-cilium
+    config:
+      - updatecli/updatecli.d/test-upgrade.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+      - updatecli/values.d/cilium.yaml
+
+  - name: Test upgrade external-dns
+    id: test-upgrade-external-dns
+    config:
+      - updatecli/updatecli.d/test-upgrade-external-dns.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Test upgrade external-dns-unifi
+    id: test-upgrade-external-dns-unifi
+    config:
+      - updatecli/updatecli.d/test-upgrade-external-dns-unifi.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Test upgrade kubernetes
+    id: test-upgrade-kubernetes
+    config:
+      - updatecli/updatecli.d/test-upgrade-kubernetes.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Test upgrade talos
+    id: test-upgrade-talos
+    config:
+      - updatecli/updatecli.d/test-upgrade-talos.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Test upgrade tuppr
+    id: test-upgrade-tuppr
+    config:
+      - updatecli/updatecli.d/test-upgrade-tuppr.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Promote upgrade cert-manager
+    id: promote-upgrade-cert-manager
+    config:
+      - updatecli/updatecli.d/promote-upgrade-cert-manager.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Promote upgrade cert-manager-scaleway-webhook
+    id: promote-upgrade-cert-manager-scaleway-webhook
+    config:
+      - updatecli/updatecli.d/promote-upgrade-cert-manager-scaleway-webhook.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Promote upgrade cilium
+    id: promote-upgrade-cilium
+    config:
+      - updatecli/updatecli.d/promote-upgrade-cilium.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Promote upgrade external-dns
+    id: promote-upgrade-external-dns
+    config:
+      - updatecli/updatecli.d/promote-upgrade-external-dns.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Promote upgrade external-dns-unifi
+    id: promote-upgrade-external-dns-unifi
+    config:
+      - updatecli/updatecli.d/promote-upgrade-external-dns-unifi.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Promote upgrade kubernetes
+    id: promote-upgrade-kubernetes
+    config:
+      - updatecli/updatecli.d/promote-upgrade-kubernetes.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Promote upgrade talos
+    id: promote-upgrade-talos
+    config:
+      - updatecli/updatecli.d/promote-upgrade-talos.yaml
+    values:
+      - updatecli/values.d/scm.yaml
+
+  - name: Promote upgrade tuppr
+    id: promote-upgrade-tuppr
+    config:
+      - updatecli/updatecli.d/promote-upgrade-tuppr.yaml
     values:
       - updatecli/values.d/scm.yaml
