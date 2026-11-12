@@ -1,5 +1,5 @@
-name: "Promote upgrade the Cilium version"
-pipelineid: "rack8s-upgrade-cilium"
+name: "Promote the {{ .package.name }} version"
+pipelineid: "rack8s-promote-{{ .package.name }}"
 
 scms:
   default:
@@ -11,7 +11,7 @@ scms:
 
 sources:
   testedVersion:
-    name: Get tested Cilium version from `desk8s`
+    name: Get tested {{ .package.name }} version from `desk8s`
     kind: yaml
     spec:
       file: kubernetes/infrastructure/desk8s/kube-system/cilium-inputs.yaml
@@ -19,7 +19,7 @@ sources:
 
 targets:
   ciliumUpgrade:
-    name: 'deps: rack8s - update Cilium version to {{ source "testedVersion" }} in `ResourceSetInputProvider` resource'
+    name: 'deps: rack8s - update {{ .package.name }} version to {{ source "testedVersion" }}'
     kind: yaml
     scmid: default
     spec:
@@ -28,7 +28,7 @@ targets:
 
 actions:
   default:
-    title: 'deps: rack8s - update Cilium version to {{ source "testedVersion" }}'
+    title: 'deps: rack8s - update {{ .package.name }} version to {{ source "testedVersion" }}'
     kind: github/pullrequest
     spec:
       labels:

@@ -15,14 +15,16 @@ sources:
     kind: githubrelease
     spec:
       owner: "{{ .package.name }}"
-      repository: "{{ .package.name }}"
+      repository: "{{ .package.owner }}"
       typefilter:
         draft: false
         prerelease: false
       versionfilter:
         kind: semver
+#{{- if .package.stripVersionPrefix }}
     transformers:
       - trimprefix: "v"
+#{{- end}}
 
 targets:
   fluxPatch:

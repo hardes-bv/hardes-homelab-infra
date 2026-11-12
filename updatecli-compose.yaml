@@ -24,7 +24,7 @@ policies:
   - name: Test upgrade cilium
     id: test-upgrade-cilium
     config:
-      - updatecli/updatecli.d/test-upgrade.yaml
+      - updatecli/updatecli.d/test-upgrade-githubrelease.yaml
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/cilium.yaml
@@ -79,11 +79,12 @@ policies:
       - updatecli/values.d/scm.yaml
 
   - name: Promote upgrade cilium
-    id: promote-upgrade-cilium
+    id: promote-cilium
     config:
-      - updatecli/updatecli.d/promote-upgrade-cilium.yaml
+      - updatecli/updatecli.d/promote-version.yaml
     values:
       - updatecli/values.d/scm.yaml
+      - updatecli/values.d/cilium.yaml
 
   - name: Promote upgrade external-dns
     id: promote-upgrade-external-dns

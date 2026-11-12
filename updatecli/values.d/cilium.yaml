@@ -1,2 +1,4 @@
 package:
   name: cilium
+  owner: cilium
+  stripVersionPrefix: true
