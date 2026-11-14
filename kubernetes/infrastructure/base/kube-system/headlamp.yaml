@@ -14,11 +14,11 @@ spec:
       name: services
       namespace: *ns
       ready: true
-    - apiVersion: v1
-      kind: Secret
-      name: headlamp-oidc
-      namespace: *ns
-      ready: true
+    # - apiVersion: v1
+    #   kind: Secret
+    #   name: headlamp-oidc
+    #   namespace: *ns
+    #   ready: true
   inputsFrom:
     - apiVersion: fluxcd.controlplane.io/v1
       kind: ResourceSetInputProvider
@@ -98,19 +98,19 @@ spec:
               kind: HelmRepository
               name: *app
         interval: 1h
-        valuesFrom:
-          - kind: Secret
-            name: headlamp-oidc
-            valuesKey: clientID
-            targetPath: config.oidc.clientID
-          - kind: Secret
-            name: headlamp-oidc
-            valuesKey: clientSecret
-            targetPath: config.oidc.clientSecret
-          - kind: Secret
-            name: headlamp-oidc
-            valuesKey: issuerURL
-            targetPath: config.oidc.issuerURL
+        # valuesFrom:
+        #   - kind: Secret
+        #     name: headlamp-oidc
+        #     valuesKey: clientID
+        #     targetPath: config.oidc.clientID
+        #   - kind: Secret
+        #     name: headlamp-oidc
+        #     valuesKey: clientSecret
+        #     targetPath: config.oidc.clientSecret
+        #   - kind: Secret
+        #     name: headlamp-oidc
+        #     valuesKey: issuerURL
+        #     targetPath: config.oidc.issuerURL
         values:
           config:
             extraArgs:
