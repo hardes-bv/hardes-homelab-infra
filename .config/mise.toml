@@ -1,4 +1,4 @@
 [tools]
 "github:updatecli/updatecli" = "0.123.0"
-"github:home-operations/flate" = "0.4.12"
-kustomize = "latest"
+"github:home-operations/flate" = "0.7.3"
+kustomize = "5.8.3"
