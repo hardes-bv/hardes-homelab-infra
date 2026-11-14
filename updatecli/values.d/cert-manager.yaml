@@ -1,0 +1,10 @@
+package:
+  name: cert-manager
+from:
+  githubrelease:
+    repository: cert-manager
+    owner: cert-manager
+  stripVersionPrefix: false
+to:
+  yaml:
+    file: cert-manager/cert-manager-inputs.yaml

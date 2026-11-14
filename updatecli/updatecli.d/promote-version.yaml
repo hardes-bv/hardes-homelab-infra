@@ -14,7 +14,7 @@ sources:
     name: Get tested {{ .package.name }} version from `desk8s`
     kind: yaml
     spec:
-      file: kubernetes/infrastructure/desk8s/kube-system/cilium-inputs.yaml
+      file: kubernetes/infrastructure/desk8s/{{ .to.yaml.file }}
       key: '$.spec.defaultValues.tag'
 
 targets:
@@ -23,7 +23,7 @@ targets:
     kind: yaml
     scmid: default
     spec:
-      file: kubernetes/infrastructure/rack8s/kube-system/cilium-inputs.yaml
+      file: kubernetes/infrastructure/rack8s/{{ .to.yaml.file }}
       key: '$.spec.defaultValues.tag'
 
 actions:

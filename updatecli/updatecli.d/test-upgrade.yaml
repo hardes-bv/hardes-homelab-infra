@@ -12,16 +12,18 @@ scms:
 sources:
   latestVersion:
     name: Get latest {{ .package.name }} release
+#{{- if .from.githubrelease }}
     kind: githubrelease
     spec:
-      owner: "{{ .package.name }}"
-      repository: "{{ .package.owner }}"
+      owner: "{{ .from.githubrelease.owner }}"
+      repository: "{{ .from.githubrelease.repository }}"
       typefilter:
         draft: false
         prerelease: false
       versionfilter:
         kind: semver
-#{{- if .package.stripVersionPrefix }}
+#{{- end }}
+#{{- if .from.stripVersionPrefix }}
     transformers:
       - trimprefix: "v"
 #{{- end}}
@@ -32,10 +34,11 @@ targets:
     kind: yaml
     scmid: default
     spec:
-      file: kubernetes/infrastructure/desk8s/kube-system/cilium-inputs.yaml
+      file: kubernetes/infrastructure/desk8s/{{ .to.yaml.file }}
       key: '$.spec.defaultValues.tag'
+#{{- if  eq .package.name "cilium" }}
   bootstrap:
-    name: 'deps: desk8s - update {{ .package.name }} version to {{ source "latestVersion" }} in boostrap README'
+    name: 'deps: desk8s - update {{ .package.name }} version to {{ source "latestVersion" }}'
     kind: file
     scmid: default
     sourceid: latestVersion
@@ -44,6 +47,7 @@ targets:
         - bootstrap/cilium/README.md
       matchpattern: '--version \d*\.\d*\.\d*'
       replacepattern: '--version {{ source "latestVersion" }}'
+#{{- end }}
 
 actions:
   default:

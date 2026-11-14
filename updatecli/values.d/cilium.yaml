@@ -1,4 +1,10 @@
 package:
   name: cilium
-  owner: cilium
+from:
+  githubrelease:
+    repository: cilium
+    owner: cilium
   stripVersionPrefix: true
+to:
+  yaml:
+    file: kube-system/cilium-inputs.yaml
