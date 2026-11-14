@@ -29,6 +29,13 @@ sources:
       url: {{ .from.helmchart.url }}
       name: {{ .from.helmchart.name }}
 #{{- end }}
+#{{- if .from.dockerimage }}
+    kind: dockerimage
+    spec:
+      image: {{ .from.dockerimage.image }}
+      versionfilter:
+        kind: semver
+#{{- end }}
 #{{- if .from.stripVersionPrefix }}
     transformers:
       - trimprefix: "v"
@@ -41,7 +48,8 @@ targets:
     scmid: default
     spec:
       file: kubernetes/infrastructure/desk8s/{{ .to.yaml.file }}
-      key: '$.spec.defaultValues.tag'
+#{{- $key := index .to.yaml "key" }}
+      key: '{{- if $key }}{{ $key }}{{ else }}$.spec.defaultValues.tag{{ end }}'
 #{{- if  eq .package.name "cilium" }}
   bootstrap:
     name: 'deps: desk8s - update {{ .package.name }} version to {{ source "latestVersion" }}'

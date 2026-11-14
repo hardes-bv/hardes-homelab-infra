@@ -1,0 +1,10 @@
+package:
+  name: external-dns
+from:
+  dockerimage:
+    image: ghcr.io/home-operations/charts-mirror/external-dns
+  stripVersionPrefix: false
+to:
+  yaml:
+    file: network/unifi-dns-inputs.yaml
+    key: "$.spec.defaultValues.externalDns.tag"

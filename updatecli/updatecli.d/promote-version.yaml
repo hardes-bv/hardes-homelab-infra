@@ -15,16 +15,18 @@ sources:
     kind: yaml
     spec:
       file: kubernetes/infrastructure/desk8s/{{ .to.yaml.file }}
-      key: '$.spec.defaultValues.tag'
+#{{- $key := index .to.yaml "key" }}
+      key: '{{- if $key }}{{ $key }}{{ else }}$.spec.defaultValues.tag{{ end }}'
 
 targets:
-  ciliumUpgrade:
+  promote:
     name: 'deps: rack8s - update {{ .package.name }} version to {{ source "testedVersion" }}'
     kind: yaml
     scmid: default
     spec:
       file: kubernetes/infrastructure/rack8s/{{ .to.yaml.file }}
-      key: '$.spec.defaultValues.tag'
+#{{- $key := index .to.yaml "key" }}
+      key: '{{- if $key }}{{ $key }}{{ else }}$.spec.defaultValues.tag{{ end }}'
 
 actions:
   default:

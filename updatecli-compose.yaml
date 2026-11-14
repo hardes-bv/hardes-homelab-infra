@@ -34,8 +34,9 @@ policies:
   - name: Test upgrade external-dns
     id: test-upgrade-external-dns
     config:
-      - updatecli/updatecli.d/test-upgrade-external-dns.yaml
+      - updatecli/updatecli.d/test-upgrade.yaml
     values:
+      - updatecli/values.d/external-dns.yaml
       - updatecli/values.d/scm.yaml
 
   - name: Test upgrade external-dns-unifi
@@ -74,8 +75,8 @@ policies:
       - updatecli/values.d/cert-manager.yaml
       - updatecli/values.d/scm.yaml
 
-  - name: Promote upgrade cert-manager-scaleway-webhook
-    id: promote-upgrade-cert-manager-scaleway-webhook
+  - name: Promote cert-manager-scaleway-webhook version
+    id: promote-cert-manager-scaleway-webhook
     config:
       - updatecli/updatecli.d/promote-version.yaml
     values:
@@ -90,36 +91,37 @@ policies:
       - updatecli/values.d/cilium.yaml
       - updatecli/values.d/scm.yaml
 
-  - name: Promote upgrade external-dns
-    id: promote-upgrade-external-dns
+  - name: Promote external-dns version
+    id: promote-external-dns
     config:
-      - updatecli/updatecli.d/promote-upgrade-external-dns.yaml
+      - updatecli/updatecli.d/promote-version.yaml
     values:
+      - updatecli/values.d/external-dns.yaml
       - updatecli/values.d/scm.yaml
 
-  - name: Promote upgrade external-dns-unifi
-    id: promote-upgrade-external-dns-unifi
+  - name: Promote external-dns-unifi version
+    id: promote-external-dns-unifi
     config:
       - updatecli/updatecli.d/promote-upgrade-external-dns-unifi.yaml
     values:
       - updatecli/values.d/scm.yaml
 
-  - name: Promote upgrade kubernetes
-    id: promote-upgrade-kubernetes
+  - name: Promote kubernetes version
+    id: promote-kubernetes
     config:
       - updatecli/updatecli.d/promote-upgrade-kubernetes.yaml
     values:
       - updatecli/values.d/scm.yaml
 
-  - name: Promote upgrade talos
-    id: promote-upgrade-talos
+  - name: Promote talos version
+    id: promote-talos
     config:
       - updatecli/updatecli.d/promote-upgrade-talos.yaml
     values:
       - updatecli/values.d/scm.yaml
 
-  - name: Promote upgrade tuppr
-    id: promote-upgrade-tuppr
+  - name: Promote tuppr version
+    id: promote-tuppr
     config:
       - updatecli/updatecli.d/promote-upgrade-tuppr.yaml
     values:
