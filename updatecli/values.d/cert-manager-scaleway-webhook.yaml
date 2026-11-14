@@ -1,0 +1,10 @@
+package:
+  name: cert-manager-scaleway-webhook
+from:
+  helmchart:
+    url: oci://ghcr.io/scaleway/helm-charts
+    name: scaleway-certmanager-webhook
+  stripVersionPrefix: false
+to:
+  yaml:
+    file: cert-manager/scaleway-webhook-inputs.yaml

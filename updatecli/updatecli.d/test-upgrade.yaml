@@ -23,6 +23,12 @@ sources:
       versionfilter:
         kind: semver
 #{{- end }}
+#{{- if .from.helmchart }}
+    kind: helmchart
+    spec:
+      url: {{ .from.helmchart.url }}
+      name: {{ .from.helmchart.name }}
+#{{- end }}
 #{{- if .from.stripVersionPrefix }}
     transformers:
       - trimprefix: "v"

@@ -18,8 +18,9 @@ policies:
   - name: Test upgrade cert-manager-scaleway-webhook
     id: test-upgrade-cert-manager-scaleway-webhook
     config:
-      - updatecli/updatecli.d/test-upgrade-cert-manager-scaleway-webhook.yaml
+      - updatecli/updatecli.d/test-upgrade.yaml
     values:
+      - updatecli/values.d/cert-manager-scaleway-webhook.yaml
       - updatecli/values.d/scm.yaml
 
   - name: Test upgrade cilium
@@ -76,8 +77,9 @@ policies:
   - name: Promote upgrade cert-manager-scaleway-webhook
     id: promote-upgrade-cert-manager-scaleway-webhook
     config:
-      - updatecli/updatecli.d/promote-upgrade-cert-manager-scaleway-webhook.yaml
+      - updatecli/updatecli.d/promote-version.yaml
     values:
+      - updatecli/values.d/cert-manager-scaleway-webhook.yaml
       - updatecli/values.d/scm.yaml
 
   - name: Promote cilium version
