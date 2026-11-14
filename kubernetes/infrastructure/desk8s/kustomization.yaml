@@ -13,5 +13,5 @@ resources:
   - system-upgrade/tuppr-upgrade-inputs.yaml
   - longhorn-system/longhorn-inputs.yaml
   - cnpg-system/cloudnative-pg-inputs.yaml
-  - security/pocket-id-operator-inputs.yaml
-  - security/pocket-id-identities.yaml
+  # - security/pocket-id-operator-inputs.yaml
+  # - security/pocket-id-identities.yaml
