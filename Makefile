@@ -30,4 +30,8 @@ test-%:
 	kustomize build kubernetes/infrastructure/$(CLUSTER)/$(DEPLOYMENT)/ \
 	    -o build/$(CLUSTER)/infrastructure/$(DEPLOYMENT)
 
-test: $(addprefix test-root-,$(CLUSTERS))
+flate-%: CLUSTER    = $(word 1,$(subst @, ,$*))
+flate-%:
+	flate test -p ./kubernetes/clusters/$(CLUSTER)
+
+test: $(addprefix test-root-,$(CLUSTERS)) $(addprefix flate-,$(CLUSTERS))
