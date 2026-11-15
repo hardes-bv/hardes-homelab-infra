@@ -9,9 +9,8 @@ resources:
   - ./external-secrets
   - ./cert-manager
   - network/unifi-dns-inputs.yaml
-  - system-upgrade/tuppr-inputs.yaml
-  - system-upgrade/tuppr-upgrade-inputs.yaml
-  - longhorn-system/longhorn-inputs.yaml
-  - cnpg-system/cloudnative-pg-inputs.yaml
+  - system-upgrade/ks.yaml
+  - longhorn-system/ks.yaml
+  - cnpg-system/ks.yaml
   # - security/pocket-id-operator-inputs.yaml
   # - security/pocket-id-identities.yaml
