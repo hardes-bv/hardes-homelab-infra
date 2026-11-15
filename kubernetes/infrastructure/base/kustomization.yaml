@@ -6,10 +6,7 @@ kind: Kustomization
 resources:
   - ./kube-system
   - ./flux-system
-  - ./system-upgrade
   - ./external-secrets
   - ./cert-manager
   - ./network
-  - ./longhorn-system
   # - ./security
-  - ./cnpg-system
