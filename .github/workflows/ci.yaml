@@ -6,9 +6,9 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-  pull-requests: write
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -34,6 +34,15 @@ jobs:
     needs:
       - test
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        site:
+          - desk8s
+          - rack8s
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - name: "Checkout"
         uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0" # v7.0.0
@@ -49,5 +58,20 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # only saving the cache in the prerequisites job
           cache_save: true
-      - name: "Post comment for desk8s"
-        run: flate diff all -p ./kubernetes/clusters/desk8s -o github
+      - run: flate diff all --path kubernetes/clusters/${{ matrix.site }} -o github > flate-diff.txt
+
+      - uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
+        # the token of pull requests from forks is read-only
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        with:
+          header: flate-${{ matrix.site }}
+          skip_unchanged: true
+          path: flate-diff.txt
+          message: |
+            ### Flate diff: ${{ matrix.site }}
+
+            Rendered changes against `${{ github.base_ref }}` (empty = no changes).
+
+            ```diff
+            {{{content}}}
+            ```
