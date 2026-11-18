@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: component-test
+  name: flux-runtime-info
 data:
   cluster_name: desk8s
   cluster_environment: test
