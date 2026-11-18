@@ -35,7 +35,7 @@ spec:
             value: []
           - op: add
             path: /spec/components/-
-            value: ../../infrastructure/components/flux-runtime-info.yaml
+            value: ../../infrastructure/components
         target:
           kind: Kustomization
           name: flux-system
