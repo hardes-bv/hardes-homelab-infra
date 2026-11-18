@@ -31,6 +31,9 @@ spec:
     patches:
       - patch: |-
           - op: add
+            path: /spec/targetNamespace
+            value: flux-system
+          - op: add
             path: /spec/components
             value: []
           - op: add
