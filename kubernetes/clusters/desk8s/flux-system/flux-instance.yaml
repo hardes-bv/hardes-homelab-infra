@@ -27,3 +27,15 @@ spec:
     ref: "refs/heads/main"
     path: "kubernetes/clusters/desk8s"
     pullSecret: "flux-system"
+  kustomize:
+    patches:
+      - patch: |-
+          - op: add
+            path: /spec/components
+            value: []
+          - op: add
+            path: /spec/components/-
+            value: ../../infrastructure/components/flux-runtime-info.yaml
+        target:
+          kind: Kustomization
+          name: flux-system

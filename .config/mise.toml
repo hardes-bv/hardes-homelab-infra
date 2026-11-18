@@ -1,4 +1,5 @@
 [tools]
 "github:updatecli/updatecli" = "0.123.0"
+"github:controlplaneio-fluxcd/flux-operator" = "0.62.1"
 "github:home-operations/flate" = "0.7.3"
 kustomize = "5.8.3"
