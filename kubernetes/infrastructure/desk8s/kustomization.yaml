@@ -6,6 +6,7 @@ kind: Kustomization
 resources:
   - ../base
   - ./kube-system
+  - ../base/external-secrets
   - ./external-secrets
   - ./cert-manager
   - network/unifi-dns-inputs.yaml
