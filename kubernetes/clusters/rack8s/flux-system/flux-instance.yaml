@@ -27,3 +27,18 @@ spec:
     ref: "refs/heads/main"
     path: "kubernetes/clusters/rack8s"
     pullSecret: "flux-system"
+  kustomize:
+    patches:
+      - patch: |-
+          - op: add
+            path: /spec/targetNamespace
+            value: flux-system
+          - op: add
+            path: /spec/components
+            value: []
+          - op: add
+            path: /spec/components/-
+            value: ../../components/rack8s
+        target:
+          kind: Kustomization
+          name: flux-system

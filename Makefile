@@ -32,7 +32,7 @@ test-%:
 
 flate-%: CLUSTER    = $(word 1,$(subst @, ,$*))
 flate-%:
-	flate build -p ./kubernetes/clusters/$(CLUSTER) --supply ./test/flux-runtime-info.yaml > build/$(CLUSTER)/flated.yaml
-	flate test -p ./kubernetes/clusters/$(CLUSTER) --supply ./test/flux-runtime-info.yaml
+	flate build -p ./kubernetes/clusters/$(CLUSTER) --supply ./test/$(CLUSTER)/flux-runtime-info.yaml > build/$(CLUSTER)/flated.yaml
+	flate test -p ./kubernetes/clusters/$(CLUSTER) --supply ./test/$(CLUSTER)/flux-runtime-info.yaml
 
 test: $(addprefix test-root-,$(CLUSTERS)) $(addprefix flate-,$(CLUSTERS))
