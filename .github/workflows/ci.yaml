@@ -59,7 +59,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # only saving the cache in the prerequisites job
           cache_save: true
-      - run: flate diff all --path kubernetes/clusters/${{ matrix.site }} --base ${{ github.event.repository.default_branch }} -o github > flate-diff.txt
+      - run: flate diff all --path kubernetes/clusters/${{ matrix.site }} --base ${{ github.event.repository.default_branch }} --supply test/flux-runtime-info.yaml -o github > flate-diff.txt
 
       - uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
         # the token of pull requests from forks is read-only
