@@ -4,6 +4,6 @@ metadata:
   name: flux-runtime-info
   namespace: flux-system
 data:
-  cluster_name: testcluster
+  cluster_name: desk8s
   cluster_environment: test
-  cluster_domain: test.noname.com
+  cluster_domain: test.hardes.be
