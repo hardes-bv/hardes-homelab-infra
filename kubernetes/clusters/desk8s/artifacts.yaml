@@ -12,13 +12,13 @@ spec:
   artifacts:
     ### infrastructure
     # external-secrets + onepassword-sdk-hardes
-    # - name: external-secrets
-    #   originRevision: "@monorepo"
-    #   copy:
-    #     - from: "@monorepo/kubernetes/infrastructure/base/external-secrets/external-secrets/**"
-    #       to: "@artifact/base/external-secrets"
-    #     - from: "@monorepo/kubernetes/infrastructure/desk8s/external-secrets/external-secrets/**"
-    #       to: "@artifact/desk8s/external-secrets"
+    - name: external-secrets
+      originRevision: "@monorepo"
+      copy:
+        - from: "@monorepo/kubernetes/infrastructure/base/external-secrets/external-secrets/**"
+          to: "@artifact/base/external-secrets"
+        - from: "@monorepo/kubernetes/infrastructure/desk8s/external-secrets/external-secrets/**"
+          to: "@artifact/desk8s/external-secrets"
     # old setup including all infrastructure services at once
     - name: infrastructure
       originRevision: "@monorepo"
