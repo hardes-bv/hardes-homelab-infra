@@ -67,7 +67,7 @@ jobs:
         if: github.event.pull_request.head.repo.full_name == github.repository
         with:
           header: flate-${{ matrix.site }}
-          skip_unchanged: true
+          recreate: true
           path: flate-diff.txt
           message: |
             ### Flate diff: ${{ matrix.site }}
