@@ -7,13 +7,16 @@ metadata:
 spec:
   dependsOn:
     - name: infrastructure
+  components:
+  - ../components/desk8s
+  targetNamespace: flux-system
   interval: 1h
   retryInterval: 2m
   timeout: 5m
   sourceRef:
-    kind: ExternalArtifact
-    name: apps
-  path: ./desk8s
+    kind: GitRepository
+    name: flux-system
+  path: ./kubernetes/desk8s
   prune: true
   wait: true
   postBuild:

@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: podinfo
+  namespace: default
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: podinfo
+  interval: 1h
+  values:
+    replicaCount: 2
+    httpRoute:
+      enabled: true
+      parentRefs:
+        - group: gateway.networking.k8s.io
+          kind: ListenerSet
+          name: podinfo
+          namespace: default
+          sectionName: https
+      hostnames:
+        - podinfo.${cluster_domain}
