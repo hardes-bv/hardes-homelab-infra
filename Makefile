@@ -34,6 +34,6 @@ flate-%: CLUSTER    = $(word 1,$(subst @, ,$*))
 flate-%:
 	flate test -p ./kubernetes/clusters/$(CLUSTER) --supply ./test/$(CLUSTER)/flux-runtime-info.yaml
 	flate build -p ./kubernetes/clusters/$(CLUSTER) --supply ./test/$(CLUSTER)/flux-runtime-info.yaml > build/$(CLUSTER)/flate-build.yaml
-	flate diff all -p ./kubernetes/clusters/$(CLUSTER) --supply ./test/$(CLUSTER)/flux-runtime-info.yaml --output diff > build/$(CLUSTER)/flate.diff
+	flate diff all -p ./kubernetes/clusters/$(CLUSTER) --base main --supply ./test/$(CLUSTER)/flux-runtime-info.yaml --output diff > build/$(CLUSTER)/flate.diff
 
 test: $(addprefix test-root-,$(CLUSTERS)) $(addprefix flate-,$(CLUSTERS))
