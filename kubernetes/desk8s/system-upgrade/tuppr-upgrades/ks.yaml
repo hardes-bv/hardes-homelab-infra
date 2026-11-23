@@ -5,6 +5,8 @@ metadata:
   name: &app tuppr-upgrades
   namespace: system-upgrade
 spec:
+  dependsOn:
+    - name: tuppr
   interval: 1h
   retryInterval: 2m
   timeout: 5m
