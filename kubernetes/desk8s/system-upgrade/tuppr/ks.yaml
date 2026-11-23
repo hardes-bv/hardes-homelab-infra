@@ -2,16 +2,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: tuppr
+  name: &app tuppr
   namespace: system-upgrade
 spec:
   interval: 1h
   retryInterval: 2m
+  path: ./desk8s
   timeout: 5m
   sourceRef:
     kind: ExternalArtifact
-    name: infrastructure
+    name: *app
     namespace: flux-system
-  path: ./desk8s/system-upgrade
   prune: true
   wait: true

@@ -7,11 +7,11 @@ metadata:
 spec:
   interval: 1h
   retryInterval: 2m
+  path: ./rack8s
   timeout: 5m
   sourceRef:
     kind: ExternalArtifact
-    name: infrastructure
+    name: tuppr
     namespace: flux-system
-  path: ./rack8s/system-upgrade
   prune: true
   wait: true

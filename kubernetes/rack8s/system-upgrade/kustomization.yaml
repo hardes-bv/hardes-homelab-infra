@@ -5,3 +5,5 @@ kind: Kustomization
 
 resources:
   - ../../base/system-upgrade
+  - tuppr/ks.yaml
+  - tuppr-upgrades/ks.yaml
