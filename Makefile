@@ -38,11 +38,17 @@ $(foreach c,$(CLUSTERS),$(eval test-$(c): build-folder-$(c)))
 flate-build-%: CLUSTER    = $(word 1,$(subst @, ,$*))
 flate-build-%:
 	@echo target: $*
-	flate test -p ./kubernetes/clusters/$(CLUSTER) --supply ./test/$(CLUSTER)/flux-runtime-info.yaml
 	flate build -p ./kubernetes/clusters/$(CLUSTER) --supply ./test/$(CLUSTER)/flux-runtime-info.yaml > build/$(CLUSTER)/flate-build.yaml
 $(foreach c,$(CLUSTERS),$(eval flate-build-$(c): build-folder-$(c)))
 
 flate-build: $(addprefix flate-build-,$(CLUSTERS))
+
+flate-test-%: CLUSTER    = $(word 1,$(subst @, ,$*))
+flate-test-%:
+	flate test -p ./kubernetes/clusters/$(CLUSTER) --supply ./test/$(CLUSTER)/flux-runtime-info.yaml
+$(foreach c,$(CLUSTERS),$(eval flate-test-$(c): build-folder-$(c)))
+
+flate-test: $(addprefix flate-test-,$(CLUSTERS))
 
 flate-diff-%: CLUSTER    = $(word 1,$(subst @, ,$*))
 flate-diff-%:
@@ -53,4 +59,4 @@ $(foreach c,$(CLUSTERS),$(eval flate-diff-$(c): build-folder-$(c)))
 
 flate-diff: $(addprefix flate-diff-,$(CLUSTERS))
 
-test: $(addprefix test-root-,$(CLUSTERS)) flate-build flate-diff
+test: $(addprefix test-root-,$(CLUSTERS)) flate-test flate-build flate-diff
