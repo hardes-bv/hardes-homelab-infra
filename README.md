@@ -51,38 +51,43 @@ ns: default`"];
   end
   
   subgraph Services
-    externalsecrets["`**external-secrets**
-ns: external-secrets`"];
-    onepasswordsdkhardes["`**onepassword-sdk-hardes**
-ns: external-secrets`"];
-    certmanager["`**cert-manager**
-ns: cert-manager`"];
-    scalewaywebhook["`**cert-manager-scaleway-webhook**
-ns: cert-manager`"];
-    trustmanager["`**trust-manager**
-ns: cert-manager`"];
-    cnpg["`**cloudnative-pg**
-ns: cnpg-system`"];
-    gatewayapi["`**gateway-api**
-ns: kube-system`"];
-    cilium["`**cilium**
-ns: kube-system`"];
-    ciliumnetworkconfig["`**cilium-network-config**
-ns: kube-system`"];
-    headlamp["`**headlamp**
-ns: kube-system`"];
-    spegel["`**spegel**
-ns: kube-system`"];
-    longhorn["`**longhorn**
-ns: longhorn-system`"];
-    storageclasses["`**longhorn-storage-classes**
-ns: longhorn-system`"];
-    unifidns["`**external-dns-unifi**
-ns: network`"];
-    tuppr["`**tuppr**
-ns: system-upgrade`"];
-    tupprupgrade["`**tuppr-upgrade**
-ns: system-upgrade`"];
+    subgraph ResourceSet
+      externalsecrets["`**external-secrets**
+  ns: external-secrets`"];
+      onepasswordsdkhardes["`**onepassword-sdk-hardes**
+  ns: external-secrets`"];
+      certmanager["`**cert-manager**
+  ns: cert-manager`"];
+      scalewaywebhook["`**cert-manager-scaleway-webhook**
+  ns: cert-manager`"];
+      trustmanager["`**trust-manager**
+  ns: cert-manager`"];
+      cnpg["`**cloudnative-pg**
+  ns: cnpg-system`"];
+      gatewayapi["`**gateway-api**
+  ns: kube-system`"];
+      cilium["`**cilium**
+  ns: kube-system`"];
+      ciliumnetworkconfig["`**cilium-network-config**
+  ns: kube-system`"];
+      headlamp["`**headlamp**
+  ns: kube-system`"];
+      spegel["`**spegel**
+  ns: kube-system`"];
+      longhorn["`**longhorn**
+  ns: longhorn-system`"];
+      storageclasses["`**longhorn-storage-classes**
+  ns: longhorn-system`"];
+      unifidns["`**external-dns-unifi**
+  ns: network`"];
+    end
+
+    subgraph Kustomize
+      tuppr["`**tuppr**
+  ns: system-upgrade`"];
+      tupprupgrade["`**tuppr-upgrade**
+  ns: system-upgrade`"];
+    end
   end
 
   scalewaywebhook-->onepasswordsdkhardes;
