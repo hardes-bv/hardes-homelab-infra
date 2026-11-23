@@ -7,9 +7,6 @@ metadata:
 spec:
   dependsOn:
     - name: infrastructure
-  components:
-  - ../components/desk8s
-  targetNamespace: flux-system
   interval: 1h
   retryInterval: 2m
   timeout: 5m
@@ -19,8 +16,3 @@ spec:
   path: ./kubernetes/desk8s
   prune: true
   wait: true
-  postBuild:
-    substituteStrategy: Always
-    substituteFrom:
-      - kind: ConfigMap
-        name: flux-runtime-info

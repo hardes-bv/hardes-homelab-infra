@@ -4,6 +4,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: podinfo
+  namespace: default
 spec:
   interval: 1h
   path: ./desk8s
@@ -12,7 +13,6 @@ spec:
     kind: ExternalArtifact
     name: podinfo
     namespace: flux-system
-  targetNamespace: default
   wait: false
   postBuild:
     substituteStrategy: Always

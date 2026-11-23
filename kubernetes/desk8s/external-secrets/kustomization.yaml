@@ -1,0 +1,12 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources: []
+  # - ./external-secrets/ks.yaml
+  # - ./onepassword-sdk-hardes/ks.yaml
+
+# patchesStrategicMerge:
+#   - ./external-secrets-app-patch.yaml
+#   - ./onepassword-sdk-hardes-app-patch.yaml
