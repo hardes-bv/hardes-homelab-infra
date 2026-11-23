@@ -11,13 +11,8 @@ spec:
   retryInterval: 2m
   timeout: 5m
   sourceRef:
-    kind: ExternalArtifact
-    name: apps
-  path: ./rack8s
+    kind: GitRepository
+    name: flux-system
+  path: ./kubernetes/rack8s
   prune: true
   wait: true
-  postBuild:
-    substituteStrategy: Always
-    substituteFrom:
-      - kind: ConfigMap
-        name: flux-runtime-info

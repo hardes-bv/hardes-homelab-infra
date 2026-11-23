@@ -12,4 +12,4 @@ patches:
       version: v1
       kind: OCIRepository
       name: podinfo
-    path: podinfo-oci-repository.yaml
+    path: podinfo-ocirepository.yaml
