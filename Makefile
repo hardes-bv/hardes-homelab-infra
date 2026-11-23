@@ -11,7 +11,6 @@ clean:
 build-folder-%: CLUSTER    = $(word 1,$(subst @, ,$*))
 build-folder-%:
 	mkdir -p build/$(CLUSTER)/infrastructure
-	mkdir -p build/$(CLUSTER)/apps
 
 # Root level validation for each cluster
 test-root-%: CLUSTER    = $(word 1,$(subst @, ,$*))
@@ -19,8 +18,6 @@ test-root-%:
 	@echo target: $*
 	kustomize build kubernetes/infrastructure/$(CLUSTER) \
 	    -o build/$(CLUSTER)/infrastructure
-	kustomize build kubernetes/apps/$(CLUSTER) \
-	    -o build/$(CLUSTER)/apps
 $(foreach c,$(CLUSTERS),$(eval test-root-$(c): build-folder-$(c)))
 
 # Every combination of cluster + deployment
