@@ -37,3 +37,46 @@ kustomize build bootstrap/external-secrets/ | op inject | kubectl apply -f -
 The `op` command is the CLI to fetch the service token from the vault itself and replace the
 `op://...` placeholder with the actual value. The External Secrets Operator can now fetch
 any secrets from the respective vault via `ExternalSecret` custom resources.
+
+## Applications
+
+The following diagram shows the applications & services deployed and
+their dependencies.
+
+```mermaid
+graph TD;
+  subgraph Applications
+    podinfo["`**name: podinfo**\nns: default`"];
+  end
+  
+  subgraph Services
+    externalsecrets["`**external-secrets**\nns: external-secrets`"];
+    onepasswordsdkhardes["`**onepassword-sdk-hardes**\nns: external-secrets`"];
+    certmanager["`**cert-manager**\nns: cert-manager`"];
+    scalewaywebhook["`**cert-manager-scaleway-webhook**\nns: cert-manager`"];
+    trustmanager["`**trust-manager**\nns: cert-manager`"];
+    cnpg["`**cloudnative-pg**\nns: cnpg-system`"];
+    gatewayapi["`**gateway-api**\nns: kube-system`"];
+    cilium["`**cilium**\nns: kube-system`"];
+    ciliumnetworkconfig["`**cilium-network-config**\nns: kube-system`"];
+    headlamp["`**headlamp**\nns: kube-system`"];
+    spegel["`**spegel**\nns: kube-system`"];
+    longhorn["`**longhorn**\nns: longhorn-system`"];
+    storageclasses["`**longhorn-storage-classes**\nns: longhorn-system`"];
+    unifidns["`**external-dns-unifi**\nns: network`"];
+    tuppr["`**tuppr**\nns: system-upgrade`"];
+    tupprupgrade["`**tuppr-upgrade**\nns: system-upgrade`"];
+  end
+
+  scalewaywebhook-->onepasswordsdkhardes;
+  onepasswordsdkhardes-->externalsecrets;
+  scalewaywebhook-->certmanager;
+  trustmanager-->certmanager
+  cilium-->gatewayapi
+  ciliumnetworkconfig-->cilium;
+  longhorn-->certmanager
+  storageclasses-->longhorn;
+  unifidns-->onepasswordsdkhardes;
+  podinfo-->scalewaywebhook;
+  tupprupgrade-->tuppr;
+```
