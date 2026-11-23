@@ -60,6 +60,14 @@ policies:
       - updatecli/values.d/podinfo.yaml
       - updatecli/values.d/scm.yaml
 
+  - name: Test upgrade tuppr
+    id: test-upgrade-tuppr
+    config:
+      - updatecli/updatecli.d/test-upgrade.yaml
+    values:
+      - updatecli/values.d/tuppr.yaml
+      - updatecli/values.d/scm.yaml
+
   - name: Test upgrade kubernetes
     id: test-upgrade-kubernetes
     config:
@@ -71,13 +79,6 @@ policies:
     id: test-upgrade-talos
     config:
       - updatecli/updatecli.d/test-upgrade-talos.yaml
-    values:
-      - updatecli/values.d/scm.yaml
-
-  - name: Test upgrade tuppr
-    id: test-upgrade-tuppr
-    config:
-      - updatecli/updatecli.d/test-upgrade-tuppr.yaml
     values:
       - updatecli/values.d/scm.yaml
 
@@ -134,6 +135,14 @@ policies:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/legacy.yaml
 
+  - name: Promote tuppr version
+    id: promote-tuppr
+    config:
+      - updatecli/updatecli.d/promote-version.yaml
+    values:
+      - updatecli/values.d/tuppr.yaml
+      - updatecli/values.d/scm.yaml
+
   - name: Promote kubernetes version
     id: promote-kubernetes
     config:
@@ -145,12 +154,5 @@ policies:
     id: promote-talos
     config:
       - updatecli/updatecli.d/promote-upgrade-talos.yaml
-    values:
-      - updatecli/values.d/scm.yaml
-
-  - name: Promote tuppr version
-    id: promote-tuppr
-    config:
-      - updatecli/updatecli.d/promote-upgrade-tuppr.yaml
     values:
       - updatecli/values.d/scm.yaml

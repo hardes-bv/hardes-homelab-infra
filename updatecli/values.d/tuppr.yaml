@@ -1,0 +1,10 @@
+package:
+  name: tuppr
+from:
+  dockerimage:
+    image: ghcr.io/home-operations/charts/tuppr
+  stripVersionPrefix: false
+to:
+  yaml:
+    file: system-upgrade/tuppr/tuppr-ocirepository.yaml
+    key: "$.spec.ref.tag"

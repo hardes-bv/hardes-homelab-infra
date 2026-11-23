@@ -19,6 +19,22 @@ spec:
           to: "@artifact/base/"
         - from: "@monorepo/kubernetes/infrastructure/desk8s/**"
           to: "@artifact/desk8s/"
+    # tuppr & tuppr-upgrades deployment
+    - name: tuppr
+      originRevision: "@monorepo"
+      copy:
+        - from: "@monorepo/kubernetes/base/system-upgrade/tuppr/**"
+          to: "@artifact/base/"
+        - from: "@monorepo/kubernetes/desk8s/system-upgrade/tuppr/**"
+          to: "@artifact/desk8s/"
+    # tuppr-upgrades deployment
+    - name: tuppr-upgrades
+      originRevision: "@monorepo"
+      copy:
+        - from: "@monorepo/kubernetes/base/system-upgrade/tuppr-upgrades/**"
+          to: "@artifact/base/"
+        - from: "@monorepo/kubernetes/desk8s/system-upgrade/tuppr-upgrades/**"
+          to: "@artifact/desk8s/"
     ### apps
     # podinfo test deployment
     - name: podinfo

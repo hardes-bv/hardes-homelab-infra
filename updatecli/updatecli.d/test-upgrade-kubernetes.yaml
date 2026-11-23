@@ -37,13 +37,13 @@ sources:
 
 targets:
   fluxPatch:
-    name: 'deps: desk8s - update Kubernetes version to {{ source "latestVersion" }} in `ResourceSetInputProvider` resource'
+    name: 'deps: desk8s - update Kubernetes version to {{ source "latestVersion" }}'
     kind: yaml
     scmid: default
     sourceid: latestVersion
     spec:
-      file: kubernetes/infrastructure/desk8s/system-upgrade/tuppr-upgrade-inputs.yaml
-      key: "$.spec.defaultValues.kubernetes.tag"
+      file: kubernetes/desk8s/system-upgrade/tuppr-upgrades/kubernetes-upgrade-version.yaml
+      key: "$.spec.kubernetes.version"
   readme:
     name: 'deps: desk8s - update Kubernetes version to {{ source "latestTrimmedVersion" }} in cluster README'
     kind: file
