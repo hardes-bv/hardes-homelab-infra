@@ -8,6 +8,9 @@ metadata:
     fluxcd.controlplane.io/reconcileEvery: "15m"
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:
+  commonMetadata:
+      annotations:
+        fluxcd.controlplane.io/prune: disabled
   dependsOn:
     - apiVersion: fluxcd.controlplane.io/v1
       kind: ResourceSet
