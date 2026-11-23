@@ -1,0 +1,10 @@
+package:
+  name: podinfo
+from:
+  dockerimage:
+    image: ghcr.io/stefanprodan/charts/podinfo
+  stripVersionPrefix: false
+to:
+  yaml:
+    file: default/podinfo/podinfo-ocirepository.yaml
+    key: "$.spec.ref.tag"

@@ -14,6 +14,7 @@ policies:
     values:
       - updatecli/values.d/cert-manager.yaml
       - updatecli/values.d/scm.yaml
+      - updatecli/values.d/legacy.yaml
 
   - name: Test upgrade cert-manager-scaleway-webhook
     id: test-upgrade-cert-manager-scaleway-webhook
@@ -22,6 +23,7 @@ policies:
     values:
       - updatecli/values.d/cert-manager-scaleway-webhook.yaml
       - updatecli/values.d/scm.yaml
+      - updatecli/values.d/legacy.yaml
 
   - name: Test upgrade cilium
     id: test-upgrade-cilium
@@ -30,6 +32,7 @@ policies:
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/cilium.yaml
+      - updatecli/values.d/legacy.yaml
 
   - name: Test upgrade external-dns
     id: test-upgrade-external-dns
@@ -38,6 +41,7 @@ policies:
     values:
       - updatecli/values.d/external-dns.yaml
       - updatecli/values.d/scm.yaml
+      - updatecli/values.d/legacy.yaml
 
   - name: Test upgrade external-dns-unifi
     id: test-upgrade-external-dns-unifi
@@ -45,6 +49,15 @@ policies:
       - updatecli/updatecli.d/test-upgrade.yaml
     values:
       - updatecli/values.d/external-dns-unifi.yaml
+      - updatecli/values.d/scm.yaml
+      - updatecli/values.d/legacy.yaml
+
+  - name: Test upgrade podinfo
+    id: test-upgrade-podinfo
+    config:
+      - updatecli/updatecli.d/test-upgrade.yaml
+    values:
+      - updatecli/values.d/podinfo.yaml
       - updatecli/values.d/scm.yaml
 
   - name: Test upgrade kubernetes
@@ -75,6 +88,7 @@ policies:
     values:
       - updatecli/values.d/cert-manager.yaml
       - updatecli/values.d/scm.yaml
+      - updatecli/values.d/legacy.yaml
 
   - name: Promote cert-manager-scaleway-webhook version
     id: promote-cert-manager-scaleway-webhook
@@ -83,6 +97,7 @@ policies:
     values:
       - updatecli/values.d/cert-manager-scaleway-webhook.yaml
       - updatecli/values.d/scm.yaml
+      - updatecli/values.d/legacy.yaml
 
   - name: Promote cilium version
     id: promote-cilium
@@ -91,6 +106,7 @@ policies:
     values:
       - updatecli/values.d/cilium.yaml
       - updatecli/values.d/scm.yaml
+      - updatecli/values.d/legacy.yaml
 
   - name: Promote external-dns version
     id: promote-external-dns
@@ -98,6 +114,15 @@ policies:
       - updatecli/updatecli.d/promote-version.yaml
     values:
       - updatecli/values.d/external-dns.yaml
+      - updatecli/values.d/scm.yaml
+      - updatecli/values.d/legacy.yaml
+
+  - name: Promote podinfo version
+    id: promote-external-podinfo
+    config:
+      - updatecli/updatecli.d/promote-version.yaml
+    values:
+      - updatecli/values.d/podinfo.yaml
       - updatecli/values.d/scm.yaml
 
   - name: Promote external-dns-unifi version
@@ -107,6 +132,7 @@ policies:
     values:
       - updatecli/values.d/external-dns-unifi.yaml
       - updatecli/values.d/scm.yaml
+      - updatecli/values.d/legacy.yaml
 
   - name: Promote kubernetes version
     id: promote-kubernetes
