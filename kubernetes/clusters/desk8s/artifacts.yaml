@@ -10,6 +10,8 @@ spec:
       kind: GitRepository
       name: flux-system
   artifacts:
+    ### infrastructure
+    # old setup including all infrastructure services at once
     - name: infrastructure
       originRevision: "@monorepo"
       copy:
@@ -17,10 +19,12 @@ spec:
           to: "@artifact/base/"
         - from: "@monorepo/kubernetes/infrastructure/desk8s/**"
           to: "@artifact/desk8s/"
-    - name: apps
+    ### apps
+    # podinfo test deployment
+    - name: podinfo
       originRevision: "@monorepo"
       copy:
-        - from: "@monorepo/kubernetes/apps/base/**"
+        - from: "@monorepo/kubernetes/base/default/podinfo/**"
           to: "@artifact/base/"
-        - from: "@monorepo/kubernetes/apps/desk8s/**"
+        - from: "@monorepo/kubernetes/desk8s/default/podinfo/**"
           to: "@artifact/desk8s/"

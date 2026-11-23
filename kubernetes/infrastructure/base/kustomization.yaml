@@ -6,7 +6,6 @@ kind: Kustomization
 resources:
   - ./kube-system
   - ./flux-system
-  - ./external-secrets
   - ./cert-manager
   - ./network
   # - ./security
