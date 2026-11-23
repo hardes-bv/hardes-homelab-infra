@@ -5,5 +5,3 @@ kind: Kustomization
 
 resources:
   - ../../base/system-upgrade
-  - tuppr-inputs.yaml
-  - tuppr-upgrade-inputs.yaml
