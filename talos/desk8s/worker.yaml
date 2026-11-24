@@ -47,15 +47,6 @@ cluster:
   controlPlane:
     endpoint: https://desk8s.home.atriso.be:6443 # Endpoint is the canonical controlplane endpoint, which can be an IP address or a DNS hostname.
   clusterName: desk8s # Configures the cluster's name.
-  # Provides cluster specific network configuration options.
-  network:
-    dnsDomain: cluster.local # The domain used by Kubernetes DNS.
-    # The pod subnet CIDR.
-    podSubnets:
-      - 10.244.0.0/16
-    # The service subnet CIDR.
-    serviceSubnets:
-      - 10.96.0.0/12
 
   token: bzix3z.4nc3x2x493bn345y # The [bootstrap token](https://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/) used to join the cluster.
   # The base64 encoded root certificate authority used by Kubernetes.
