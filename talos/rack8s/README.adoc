@@ -47,8 +47,7 @@ talosctl apply-config -n 172.16.30.11 \
     -p @patches/all-longhorn.yaml \
     -p @patches/all-spegel.yaml \
     -p @patches/all-tuppr.yaml \
-    -p @patches/controlplane-exclude-lb.yaml \
-    -p @patches/c01/hostname.yaml \
+    -p @patches/controlplane.yaml \
     -p @patches/c01/linkaliasconfig.yaml \
     -p @patches/c01/linkconfig.yaml
 ----
@@ -66,7 +65,7 @@ talosctl apply-config -n 172.16.30.12 \
     -p @patches/all-longhorn.yaml \
     -p @patches/all-spegel.yaml \
     -p @patches/all-tuppr.yaml \
-    -p @patches/controlplane-exclude-lb.yaml \
+    -p @patches/controlplane.yaml \
     -p @patches/c02/hostname.yaml \
     -p @patches/c02/linkaliasconfig.yaml \
     -p @patches/c02/linkconfig.yaml
@@ -85,7 +84,7 @@ talosctl apply-config -n 172.16.30.13 \
     -p @patches/all-longhorn.yaml \
     -p @patches/all-spegel.yaml \
     -p @patches/all-tuppr.yaml \
-    -p @patches/controlplane-exclude-lb.yaml \
+    -p @patches/controlplane.yaml \
     -p @patches/c03/hostname.yaml \
     -p @patches/c03/linkaliasconfig.yaml \
     -p @patches/c03/linkconfig.yaml
