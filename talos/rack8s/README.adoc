@@ -48,6 +48,7 @@ talosctl apply-config -n 172.16.30.11 \
     -p @patches/all-spegel.yaml \
     -p @patches/all-tuppr.yaml \
     -p @patches/controlplane.yaml \
+    -p @patches/c01/hostname.yaml \
     -p @patches/c01/linkaliasconfig.yaml \
     -p @patches/c01/linkconfig.yaml
 ----
