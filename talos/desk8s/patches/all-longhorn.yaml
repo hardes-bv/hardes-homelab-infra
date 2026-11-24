@@ -1,5 +1,6 @@
 # https://longhorn.io/docs/1.12.1/advanced-resources/os-distro-specific/talos-linux-support/
 # https://docs.siderolabs.com/kubernetes-guides/csi/longhorn
+---
 apiVersion: v1alpha1
 kind: RawVolumeConfig
 name: longhorn
@@ -7,3 +8,31 @@ provisioning:
   diskSelector:
     match: disk.transport == 'nvme' && !system_disk
   minSize: 1TiB
+---
+apiVersion: v1alpha1
+kind: SysctlConfig
+params:
+    vm.nr_hugepages: "1024"
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nvme_tcp
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: vfio_pci
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: uio_pci_generic
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: ublk_drv
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+labels:
+  node.longhorn.io/create-default-disk: "config"
+annotations:
+  node.longhorn.io/default-disks-config: '[{"name":"longhorn-v2","path":"/dev/disk/by-partlabel/r-longhorn","diskType":"block","allowScheduling":true}]'
