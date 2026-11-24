@@ -25,11 +25,6 @@ machine:
   # Provides machine specific network configuration options.
   network: {}
 
-  # Used to provide instructions for installations.
-  install:
-    disk: /dev/mmcblk0 # The disk used for installations.
-    wipe: false # Indicates if the installation disk should be wiped at installation time.
-
   # Used to configure the machine's container image registry mirrors.
   registries: {}
 

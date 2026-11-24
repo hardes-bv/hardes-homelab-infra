@@ -22,11 +22,6 @@ machine:
     defaultRuntimeSeccompProfileEnabled: true # Enable container runtime default Seccomp profile.
     disableManifestsDirectory: true # The `disableManifestsDirectory` field configures the kubelet to get static pod manifests from the /etc/kubernetes/manifests directory.
 
-  # Used to provide instructions for installations.
-  install:
-    disk: /dev/mmcblk0 # The disk used for installations.
-    wipe: false # Indicates if the installation disk should be wiped at installation time.
-
   # Used to configure the machine's container image registry mirrors.
   registries: {}
 

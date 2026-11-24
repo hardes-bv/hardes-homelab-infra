@@ -21,15 +21,10 @@ machine:
         image: ghcr.io/siderolabs/kubelet:v1.36.4 # The `image` field is an optional reference to an alternative kubelet image.
         defaultRuntimeSeccompProfileEnabled: true # Enable container runtime default Seccomp profile.
         disableManifestsDirectory: true # The `disableManifestsDirectory` field configures the kubelet to get static pod manifests from the /etc/kubernetes/manifests directory.
-        
+
     # Provides machine specific network configuration options.
     network: {}
 
-    # Used to provide instructions for installations.
-    install:
-        disk: /dev/mmcblk0 # The disk used for installations.
-        wipe: false # Indicates if the installation disk should be wiped at installation time.
-        
     # Used to configure the machine's container image registry mirrors.
     registries: {}
 
@@ -46,11 +41,11 @@ machine:
         hostDNS:
             enabled: true # Enable host DNS caching resolver.
             forwardKubeDNSToHost: true # Use the host DNS resolver as upstream for Kubernetes CoreDNS pods.
-        
+
     # Configures the node labels for the machine.
     nodeLabels:
         node.kubernetes.io/exclude-from-external-load-balancers: ""
-    
+
 # Provides cluster specific configuration options.
 cluster:
     id: ANvfJhqP2XiDtPhJTCyF403pxw3my7lnFyR-_DECPMw= # Globally unique identifier for this cluster (base64 encoded random 32 bytes).
@@ -68,7 +63,7 @@ cluster:
         # The service subnet CIDR.
         serviceSubnets:
             - 10.96.0.0/12
-        
+
     token: 0vrn5w.gqna9gpg2kttik5r # The [bootstrap token](https://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/) used to join the cluster.
     secretboxEncryptionSecret: DzCkM/V26B63N2k39SjL7ZiiTTJQaz9SCFKIdohCocA= # A key used for the [encryption of secret data at rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/).
     # The base64 encoded root certificate authority used by Kubernetes.
@@ -114,14 +109,14 @@ cluster:
             kind: Policy
             rules:
                 - level: Metadata
-        
+
     # Controller manager server specific configuration options.
     controllerManager:
         image: registry.k8s.io/kube-controller-manager:v1.36.4 # The container image used in the controller manager manifest.
     # Kube-proxy server-specific configuration options
     proxy:
         image: registry.k8s.io/kube-proxy:v1.36.4 # The container image used in the kube-proxy manifest.
-        
+
         # # Disable kube-proxy deployment on cluster bootstrap.
         # disabled: false
     # Scheduler server specific configuration options.
@@ -144,7 +139,7 @@ cluster:
         ca:
             crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJmVENDQVNPZ0F3SUJBZ0lRVG9DQVhnb213cjJ2bGtEQ2pJbCtiREFLQmdncWhrak9QUVFEQWpBUE1RMHcKQ3dZRFZRUUtFd1JsZEdOa01CNFhEVEkxTVRJeU1URTBNekV4TVZvWERUTTFNVEl4T1RFME16RXhNVm93RHpFTgpNQXNHQTFVRUNoTUVaWFJqWkRCWk1CTUdCeXFHU000OUFnRUdDQ3FHU000OUF3RUhBMElBQkpsQU8vaFMxa1lPCmxrUzRHeDdZazdpSVc2b0MwUldNdGZON2ZQUGtpcVhCTW83d3dpRlI5YnVtTUY0bUhjcW9hQjc0WHhBYVAvWmIKb1VyNEd3ZjZabHlqWVRCZk1BNEdBMVVkRHdFQi93UUVBd0lDaERBZEJnTlZIU1VFRmpBVUJnZ3JCZ0VGQlFjRApBUVlJS3dZQkJRVUhBd0l3RHdZRFZSMFRBUUgvQkFVd0F3RUIvekFkQmdOVkhRNEVGZ1FVc0s4cjU5QXVncTFSCjEzcjBLS01JM2ZjV1RRQXdDZ1lJS29aSXpqMEVBd0lEU0FBd1JRSWdWbXg3U0RjMFhFTUxHMVNWT2JXdHhkWmMKYVduWjJzOGxacUFtNTdsak1pY0NJUURYVnM3SWxVTSsyOWlqRThlL2QvYXZJODNnNzl0VEp2OXBMNVA3YWdHSQpWZz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
             key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU0weDVCQzBIbXJSYlFSZFc2V3Z0RkxqVGRYbTVXRGJ0QWpId1YycEZGdUhvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFbVVBNytGTFdSZzZXUkxnYkh0aVR1SWhicWdMUkZZeTE4M3Q4OCtTS3BjRXlqdkRDSVZIMQp1Nll3WGlZZHlxaG9IdmhmRUJvLzlsdWhTdmdiQi9wbVhBPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
-        
+
     # A list of urls that point to additional manifests.
     extraManifests: []
 
