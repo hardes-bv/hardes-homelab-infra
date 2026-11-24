@@ -16,17 +16,6 @@ machine:
   #   - 172.16.0.10
   #   - 192.168.0.10
 
-  # Used to provide additional options to the kubelet.
-  kubelet:
-    image: ghcr.io/siderolabs/kubelet:v1.36.4 # The `image` field is an optional reference to an alternative kubelet image.
-    defaultRuntimeSeccompProfileEnabled: true # Enable container runtime default Seccomp profile.
-    disableManifestsDirectory: true # The `disableManifestsDirectory` field configures the kubelet to get static pod manifests from the /etc/kubernetes/manifests directory.
-
-  # Used to provide instructions for installations.
-  install:
-    disk: /dev/mmcblk0 # The disk used for installations.
-    wipe: false # Indicates if the installation disk should be wiped at installation time.
-
   # Used to configure the machine's container image registry mirrors.
   registries: {}
 
@@ -35,10 +24,6 @@ machine:
     rbac: true # Enable role-based access control (RBAC).
     apidCheckExtKeyUsage: true # Enable checks for extended key usage of client certificates in apid.
     diskQuotaSupport: true # Enable XFS project quota support for EPHEMERAL partition and user disks.
-    # KubePrism - local proxy/load balancer on defined port that will distribute
-    kubePrism:
-      enabled: true # Enable KubePrism support - will start local load balancing proxy.
-      port: 7445 # KubePrism port.
     # Configures host DNS caching resolver.
     hostDNS:
       enabled: true # Enable host DNS caching resolver.
@@ -52,15 +37,6 @@ cluster:
   controlPlane:
     endpoint: https://desk8s.home.atriso.be:6443 # Endpoint is the canonical controlplane endpoint, which can be an IP address or a DNS hostname.
   clusterName: desk8s # Configures the cluster's name.
-  # Provides cluster specific network configuration options.
-  network:
-    dnsDomain: cluster.local # The domain used by Kubernetes DNS.
-    # The pod subnet CIDR.
-    podSubnets:
-      - 10.244.0.0/16
-    # The service subnet CIDR.
-    serviceSubnets:
-      - 10.96.0.0/12
 
   token: bzix3z.4nc3x2x493bn345y # The [bootstrap token](https://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/) used to join the cluster.
   # The base64 encoded root certificate authority used by Kubernetes.

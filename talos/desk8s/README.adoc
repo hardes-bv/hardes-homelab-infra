@@ -40,14 +40,14 @@ DHCP assigned IP addresses can be found in the Ubiquiti Unifi Controller portal.
 ----
 talosctl apply-config -n 172.16.35.5 \
     --file controlplane.yaml \
+    -p @patches/all.yaml \
     -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
-    -p @patches/all-longhorn-legacy.yaml \
     -p @patches/all-spegel.yaml \
     -p @patches/all-tuppr.yaml \
-    -p @patches/controlplane-are-workers.yaml \
+    -p @patches/controlplane.yaml \
     -p @patches/c1/hostname.yaml \
     -p @patches/c1/linkaliasconfig.yaml \
     -p @patches/c1/linkconfig.yaml
@@ -59,14 +59,14 @@ talosctl apply-config -n 172.16.35.5 \
 ----
 talosctl apply-config -n 172.16.35.6 \
     --file controlplane.yaml \
+    -p @patches/all.yaml \
     -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
-    -p @patches/all-longhorn-legacy.yaml \
     -p @patches/all-spegel.yaml \
     -p @patches/all-tuppr.yaml \
-    -p @patches/controlplane-are-workers.yaml \
+    -p @patches/controlplane.yaml \
     -p @patches/c2/hostname.yaml \
     -p @patches/c2/linkaliasconfig.yaml \
     -p @patches/c2/linkconfig.yaml
@@ -78,14 +78,14 @@ talosctl apply-config -n 172.16.35.6 \
 ----
 talosctl apply-config -n 172.16.35.7 \
     --file controlplane.yaml \
+    -p @patches/all.yaml \
     -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
-    -p @patches/all-longhorn-legacy.yaml \
     -p @patches/all-spegel.yaml \
     -p @patches/all-tuppr.yaml \
-    -p @patches/controlplane-are-workers.yaml \
+    -p @patches/controlplane.yaml \
     -p @patches/c3/hostname.yaml \
     -p @patches/c3/linkaliasconfig.yaml \
     -p @patches/c3/linkconfig.yaml
@@ -97,11 +97,11 @@ talosctl apply-config -n 172.16.35.7 \
 ----
 talosctl apply-config -n 172.16.35.8 \
     --file worker.yaml \
+    -p @patches/all.yaml \
     -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
-    -p @patches/all-longhorn-legacy.yaml \
     -p @patches/all-spegel.yaml \
     -p @patches/w4/hostname.yaml \
     -p @patches/w4/linkaliasconfig.yaml \
@@ -114,11 +114,11 @@ talosctl apply-config -n 172.16.35.8 \
 ----
 talosctl apply-config -n 172.16.35.9 \
     --file worker.yaml \
+    -p @patches/all.yaml \
     -p @patches/all-install-image.yaml \
     -p @patches/all-network.yaml \
     -p @patches/all-resolver.yaml \
     -p @patches/all-longhorn.yaml \
-    -p @patches/all-longhorn-legacy.yaml \
     -p @patches/all-spegel.yaml \
     -p @patches/w5/hostname.yaml \
     -p @patches/w5/linkaliasconfig.yaml \

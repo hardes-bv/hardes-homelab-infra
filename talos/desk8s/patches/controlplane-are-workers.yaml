@@ -1,3 +1,0 @@
-cluster:
-    # Allows running workload on control-plane nodes.
-    allowSchedulingOnControlPlanes: true

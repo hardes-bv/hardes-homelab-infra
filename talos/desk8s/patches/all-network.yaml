@@ -1,11 +1,12 @@
-cluster:
-    # https://docs.siderolabs.com/kubernetes-guides/cni/deploying-cilium#without-kube-proxy
-    # Provides cluster specific network configuration options.
-    network:
-        # The CNI used.
-        cni:
-            name: none # Name of CNI to use.
-    # Kube-proxy server-specific configuration options
-    proxy:
-        # Disable kube-proxy deployment on cluster bootstrap.
-        disabled: true
+---
+apiVersion: v1alpha1
+kind: KubeNetworkConfig
+dnsDomain: cluster.local
+podSubnets:
+    - 10.244.0.0/16
+serviceSubnets:
+    - 10.96.0.0/12
+---
+apiVersion: v1alpha1
+kind: KubeFlannelCNIConfig
+$patch: delete
