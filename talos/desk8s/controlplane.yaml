@@ -16,15 +16,6 @@ machine:
   #   - 172.16.0.10
   #   - 192.168.0.10
 
-  # Used to provide additional options to the kubelet.
-  kubelet:
-    image: ghcr.io/siderolabs/kubelet:v1.36.4 # The `image` field is an optional reference to an alternative kubelet image.
-    defaultRuntimeSeccompProfileEnabled: true # Enable container runtime default Seccomp profile.
-    disableManifestsDirectory: true # The `disableManifestsDirectory` field configures the kubelet to get static pod manifests from the /etc/kubernetes/manifests directory.
-
-  # Provides machine specific network configuration options.
-  network: {}
-
   # Used to configure the machine's container image registry mirrors.
   registries: {}
 
@@ -33,10 +24,6 @@ machine:
     rbac: true # Enable role-based access control (RBAC).
     apidCheckExtKeyUsage: true # Enable checks for extended key usage of client certificates in apid.
     diskQuotaSupport: true # Enable XFS project quota support for EPHEMERAL partition and user disks.
-    # KubePrism - local proxy/load balancer on defined port that will distribute
-    kubePrism:
-      enabled: true # Enable KubePrism support - will start local load balancing proxy.
-      port: 7445 # KubePrism port.
     # Configures host DNS caching resolver.
     hostDNS:
       enabled: true # Enable host DNS caching resolver.
