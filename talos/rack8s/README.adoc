@@ -193,7 +193,7 @@ talosctl apply-config -n 172.16.30.19 \
     -p @patches/w09/linkconfig.yaml
 ----
 
-The 10th blade is a free device for now and not used as a Kubernetes worker node.
+The 10th blade is not used as a Kubernetes worker node. It runs Home Assistant OS directly.
 
 == Bootstrapping the Kubernetes Cluster
 
