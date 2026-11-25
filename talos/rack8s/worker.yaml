@@ -24,8 +24,6 @@ machine:
 
 # Provides cluster specific configuration options.
 cluster:
-    id: ANvfJhqP2XiDtPhJTCyF403pxw3my7lnFyR-_DECPMw= # Globally unique identifier for this cluster (base64 encoded random 32 bytes).
-    secret: 82S0/Ka7Ha1TqbHo59njb+hB+kzwhOzXHvWnjmfJHSo= # Shared secret of cluster (base64 encoded random 32 bytes).
     # Provides control plane specific configuration options.
     controlPlane:
         endpoint: https://172.16.30.11:6443 # Endpoint is the canonical controlplane endpoint, which can be an IP address or a DNS hostname.
@@ -36,13 +34,3 @@ cluster:
     ca:
         crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJpakNDQVRDZ0F3SUJBZ0lSQU1tVjBvd0h1MUw2Z0ZhNi8vT0lvL1F3Q2dZSUtvWkl6ajBFQXdJd0ZURVQKTUJFR0ExVUVDaE1LYTNWaVpYSnVaWFJsY3pBZUZ3MHlOVEV5TWpFeE5ETXhNVEZhRncwek5URXlNVGt4TkRNeApNVEZhTUJVeEV6QVJCZ05WQkFvVENtdDFZbVZ5Ym1WMFpYTXdXVEFUQmdjcWhrak9QUUlCQmdncWhrak9QUU1CCkJ3TkNBQVJsWlN0Zi9QR1dVelY3TEIzY2Y4VzNrWEVEdmx2aEhxQUlQSnVYOS9CcTVqWXcvR2JDL3FnYUhrb3MKZ3VrY0d5Ry8yUUpnTzYydGFML0dtTitBUWNsTG8yRXdYekFPQmdOVkhROEJBZjhFQkFNQ0FvUXdIUVlEVlIwbApCQll3RkFZSUt3WUJCUVVIQXdFR0NDc0dBUVVGQndNQ01BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0hRWURWUjBPCkJCWUVGRmJCbnRTdkZVMGVHemtUZDFyWitvOXNmWEVWTUFvR0NDcUdTTTQ5QkFNQ0EwZ0FNRVVDSVFDNG5sVHQKNG5kSTN1UE1XM2ZXeUQ5RGhhV2dzcG80cDdIMjZjSlNIZ2lMNWdJZ0h6YmplNVIycU9jRG1xZnBYeXFnVEh5cQpzaTYxak56ZE8rU0NZeGNxaG84PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
         key: ""
-    # Configures cluster member discovery.
-    discovery:
-        enabled: true # Enable the cluster membership discovery feature.
-        # Configure registries used for cluster member discovery.
-        registries:
-            # Kubernetes registry uses Kubernetes API server to discover cluster members and stores additional information
-            kubernetes:
-                disabled: true # Disable Kubernetes discovery registry.
-            # Service registry is using an external service to push and pull information about cluster members.
-            service: {}
