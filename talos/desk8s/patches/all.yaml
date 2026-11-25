@@ -7,3 +7,13 @@ defaultRuntimeSeccompProfileEnabled: true
 apiVersion: v1alpha1
 kind: KubePrismConfig
 port: 7445
+---
+apiVersion: v1alpha1
+kind: DiscoveryIdentityConfig
+clusterID: wdcsLPYoDm2FAJlKHtGBH7HFKrKpDnvn1EG0Ej714A4= # Globally unique identifier for this cluster (base64 encoded random 32 bytes).
+clusterSecret: Zj1E0qC1BRcUwJPZB3yHyRrbmwZfhGNX+31iR20d9V8= # Shared secret of cluster (base64 encoded random 32 bytes).
+---
+apiVersion: v1alpha1
+kind: DiscoveryServiceConfig
+name: default
+endpoint: https://discovery.talos.dev/
