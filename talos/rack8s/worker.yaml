@@ -16,9 +16,6 @@ machine:
     #   - 172.16.0.10
     #   - 192.168.0.10
 
-    # Used to configure the machine's container image registry mirrors.
-    registries: {}
-
     # Features describe individual Talos features that can be switched on or off.
     features:
         rbac: true # Enable role-based access control (RBAC).
