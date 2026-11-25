@@ -3,3 +3,6 @@ kind: ResolverConfig
 # A list of nameservers (DNS servers) to use for resolving domain names.
 nameservers:
     - address: 172.16.30.1 # Unifi Gateway hosting DNS
+hostDNS:
+    enabled: true
+    forwardKubeDNSToHost: true

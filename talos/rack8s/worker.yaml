@@ -21,10 +21,6 @@ machine:
         rbac: true # Enable role-based access control (RBAC).
         apidCheckExtKeyUsage: true # Enable checks for extended key usage of client certificates in apid.
         diskQuotaSupport: true # Enable XFS project quota support for EPHEMERAL partition and user disks.
-        # Configures host DNS caching resolver.
-        hostDNS:
-            enabled: true # Enable host DNS caching resolver.
-            forwardKubeDNSToHost: true # Use the host DNS resolver as upstream for Kubernetes CoreDNS pods.
 
 # Provides cluster specific configuration options.
 cluster:
