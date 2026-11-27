@@ -1,7 +1,7 @@
 apiVersion: v1alpha1
 kind: UnattendedInstallConfig
 installer:
-    image: factory.talos.dev/metal-installer/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d:v1.14.6
+    image: factory.talos.dev/metal-installer/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d:v1.14.7
 provisioning:
     diskSelector:
         match: disk.dev_path == "/dev/mmcblk0"
