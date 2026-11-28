@@ -8,3 +8,195 @@ labels:
 apiVersion: v1alpha1
 kind: KubeProxyConfig
 enabled: false
+---
+apiVersion: v1alpha1
+kind: KubeAPIServerCAConfig
+# Migrated from the deprecated `cluster.ca` field (control plane only, PEM encoded).
+issuingCA:
+  cert: |
+    -----BEGIN CERTIFICATE-----
+    MIIBiDCCAS+gAwIBAgIQHlYoQVm6PUHlk4PUaJPoqTAKBggqhkjOPQQDAjAVMRMw
+    EQYDVQQKEwprdWJlcm5ldGVzMB4XDTI0MDkyOTEwMTQ1M1oXDTM0MDkyNzEwMTQ1
+    M1owFTETMBEGA1UEChMKa3ViZXJuZXRlczBZMBMGByqGSM49AgEGCCqGSM49AwEH
+    A0IABGoLPdI2HKE+92y8F7uCdLZGJSrM2wbi0+DxAGcnh4+4HVj2AbxjB26c+lRS
+    7mOk3moS+rQYxRcGwFoZw2Dky/ijYTBfMA4GA1UdDwEB/wQEAwIChDAdBgNVHSUE
+    FjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4E
+    FgQUpq7L7fP7Dv71MjMPdYmfNpCtXgMwCgYIKoZIzj0EAwIDRwAwRAIgGGOSfFm/
+    lN8u7F+JA9T/O8LwMPWOkiQSDKT7bptFKBUCIAdmIIT5VqsercFhaqeg5/E1ygpD
+    CgrJx0Y21/hOb3Bm
+    -----END CERTIFICATE-----
+  key: |
+    -----BEGIN EC PRIVATE KEY-----
+    MHcCAQEEIEd6iX1UzmG1ZoCFhGVjr6vEcAtA0o2k/i65q25TftJ6oAoGCCqGSM49
+    AwEHoUQDQgAEags90jYcoT73bLwXu4J0tkYlKszbBuLT4PEAZyeHj7gdWPYBvGMH
+    bpz6VFLuY6TeahL6tBjFFwbAWhnDYOTL+A==
+    -----END EC PRIVATE KEY-----
+---
+apiVersion: v1alpha1
+kind: KubeAggregatorCAConfig
+# Migrated from the deprecated `cluster.aggregatorCA` field (PEM encoded).
+issuingCA:
+  cert: |
+    -----BEGIN CERTIFICATE-----
+    MIIBYDCCAQWgAwIBAgIQcR5vsdPjaXx/324njm5LOjAKBggqhkjOPQQDAjAAMB4X
+    DTI0MDkyOTEwMTQ1M1oXDTM0MDkyNzEwMTQ1M1owADBZMBMGByqGSM49AgEGCCqG
+    SM49AwEHA0IABBzCbsRCup3FOct7tBRq51zT2rekf5q5aVWQN8m6rUO8rUPA1nv6
+    FjEPttMBvnflcdvTSEj2Ox3loIIYer5NoAGjYTBfMA4GA1UdDwEB/wQEAwIChDAd
+    BgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwDwYDVR0TAQH/BAUwAwEB/zAd
+    BgNVHQ4EFgQU125IBIFIz70kIv011pI+Dfay3OEwCgYIKoZIzj0EAwIDSQAwRgIh
+    AJWODqej4DLo7q1ddNEnqJJLnQYXa7JM8GooM4nMj1V8AiEA1mL75Z2Yszu4bhv3
+    YgDNR1Epp7kuhgpkg7cPjM+B7us=
+    -----END CERTIFICATE-----
+  key: |
+    -----BEGIN EC PRIVATE KEY-----
+    MHcCAQEEII+mjVI5+dOCQGK2oepFqH5UqHKJuTicN6v1fxsrnklzoAoGCCqGSM49
+    AwEHoUQDQgAEHMJuxEK6ncU5y3u0FGrnXNPat6R/mrlpVZA3ybqtQ7ytQ8DWe/oW
+    MQ+20wG+d+Vx29NISPY7HeWgghh6vk2gAQ==
+    -----END EC PRIVATE KEY-----
+---
+apiVersion: v1alpha1
+kind: KubeServiceAccountConfig
+# Migrated from the deprecated `cluster.serviceAccount.key` field (PEM encoded).
+issuer:
+  privateKey: |
+    -----BEGIN RSA PRIVATE KEY-----
+    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
+    -----END RSA PRIVATE KEY-----
+  issuerURL: https://k8s.test.hardes.be:6443
+---
+apiVersion: v1alpha1
+kind: KubeEtcdEncryptionConfig
+# Migrated from the deprecated `cluster.secretboxEncryptionSecret` field.
+# The key name `key2` matches what the legacy v1alpha1 field rendered, so existing
+# encrypted secrets keep decrypting.
+config:
+  resources:
+    - providers:
+        - secretbox:
+            keys:
+              - name: key2
+                secret: 1ABKVRwl0KNhENYv5rpbKymBprGUom7IeMqCr2ePEN4=
+          resources:
+            - secrets
+---
+apiVersion: v1alpha1
+kind: KubeAPIServerConfig
+# Migrated from the deprecated `cluster.apiServer` fields.
+image: registry.k8s.io/kube-apiserver:v1.36.4
+certExtraSANs: # renamed from `cluster.apiServer.certSANs`
+  - desk8s.home.atriso.be
+# `disablePodSecurityPolicy` has no v1.14 equivalent (PodSecurityPolicy was removed from Kubernetes).
+---
+apiVersion: v1alpha1
+kind: KubeAdmissionControlConfig
+# Migrated from `cluster.apiServer.admissionControl`.
+name: PodSecurity
+configuration:
+  apiVersion: pod-security.admission.config.k8s.io/v1alpha1
+  defaults:
+    audit: restricted
+    audit-version: latest
+    enforce: baseline
+    enforce-version: latest
+    warn: restricted
+    warn-version: latest
+  exemptions:
+    namespaces:
+      - kube-system
+    runtimeClasses: []
+    usernames: []
+  kind: PodSecurityConfiguration
+---
+apiVersion: v1alpha1
+kind: KubeAuditPolicyConfig
+# Migrated from `cluster.apiServer.auditPolicy`.
+configuration:
+  apiVersion: audit.k8s.io/v1
+  kind: Policy
+  rules:
+    - level: Metadata
+---
+apiVersion: v1alpha1
+kind: KubeControllerManagerConfig
+# Migrated from the deprecated `cluster.controllerManager` field.
+image: registry.k8s.io/kube-controller-manager:v1.36.4
+---
+apiVersion: v1alpha1
+kind: KubeSchedulerConfig
+# Migrated from the deprecated `cluster.scheduler` field.
+image: registry.k8s.io/kube-scheduler:v1.36.4
+---
+apiVersion: v1alpha1
+kind: KubeAuthenticationConfig
+# The v1alpha1 `cluster.apiServer` implicitly used these defaults; the new
+# documents must state them explicitly (anonymous access for health endpoints
+# only, service-account JWT auth comes from KubeServiceAccountConfig).
+configuration:
+  anonymous:
+    enabled: true
+    conditions:
+      - path: /livez
+      - path: /readyz
+      - path: /healthz
+  jwt: []
+---
+apiVersion: v1alpha1
+kind: KubeAuthorizerConfig
+# Was the implicit v1alpha1 default `--authorization-mode=Node,RBAC`; without
+# these documents kube-apiserver refuses to start ("at least one authorization
+# mode must be defined").
+name: node
+type: Node
+---
+apiVersion: v1alpha1
+kind: KubeAuthorizerConfig
+name: rbac
+type: RBAC

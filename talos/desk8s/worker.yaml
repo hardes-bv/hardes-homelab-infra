@@ -24,13 +24,4 @@ machine:
 
 # Provides cluster specific configuration options.
 cluster:
-  # Provides control plane specific configuration options.
-  controlPlane:
-    endpoint: https://desk8s.home.atriso.be:6443 # Endpoint is the canonical controlplane endpoint, which can be an IP address or a DNS hostname.
-  clusterName: desk8s # Configures the cluster's name.
-
   token: bzix3z.4nc3x2x493bn345y # The [bootstrap token](https://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/) used to join the cluster.
-  # The base64 encoded root certificate authority used by Kubernetes.
-  ca:
-    crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJpRENDQVMrZ0F3SUJBZ0lRSGxZb1FWbTZQVUhsazRQVWFKUG9xVEFLQmdncWhrak9QUVFEQWpBVk1STXcKRVFZRFZRUUtFd3ByZFdKbGNtNWxkR1Z6TUI0WERUSTBNRGt5T1RFd01UUTFNMW9YRFRNME1Ea3lOekV3TVRRMQpNMW93RlRFVE1CRUdBMVVFQ2hNS2EzVmlaWEp1WlhSbGN6QlpNQk1HQnlxR1NNNDlBZ0VHQ0NxR1NNNDlBd0VICkEwSUFCR29MUGRJMkhLRSs5Mnk4Rjd1Q2RMWkdKU3JNMndiaTArRHhBR2NuaDQrNEhWajJBYnhqQjI2YytsUlMKN21PazNtb1MrclFZeFJjR3dGb1p3MkRreS9pallUQmZNQTRHQTFVZER3RUIvd1FFQXdJQ2hEQWRCZ05WSFNVRQpGakFVQmdnckJnRUZCUWNEQVFZSUt3WUJCUVVIQXdJd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBZEJnTlZIUTRFCkZnUVVwcTdMN2ZQN0R2NzFNak1QZFltZk5wQ3RYZ013Q2dZSUtvWkl6ajBFQXdJRFJ3QXdSQUlnR0dPU2ZGbS8KbE44dTdGK0pBOVQvTzhMd01QV09raVFTREtUN2JwdEZLQlVDSUFkbUlJVDVWcXNlcmNGaGFxZWc1L0UxeWdwRApDZ3JKeDBZMjEvaE9iM0JtCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
-    key: ""

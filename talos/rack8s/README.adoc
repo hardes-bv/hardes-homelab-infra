@@ -3,7 +3,7 @@
 
 See the `00 - Talos Linux` page in Obsidian
 
-https://docs.siderolabs.com/talos/v1.13/getting-started/support-matrix[Support matrix] between underlying Talos Linux version & supported Kubernetes versions.
+https://docs.siderolabs.com/talos/v1.14/getting-started/support-matrix[Support matrix] between underlying Talos Linux version & supported Kubernetes versions.
 
 == Image & Extensions
 
@@ -25,7 +25,7 @@ To upgrade Talos Linux on the machine, use the following command:
 
     talosctl upgrade -n 172.16.30.[11-19] --image factory.talos.dev/metal-installer/f8a903f101ce10f686476024898734bb6b36353cc4d41f348514db9004ec0a9d:v1.14.6
 
-The full upgrade command can be found in the https://docs.siderolabs.com/talos/v1.13/configure-your-talos-cluster/lifecycle-management/upgrading-talos#talosctl-upgrade[official Talos documentation].
+The full upgrade command can be found in the https://docs.siderolabs.com/talos/v1.14/configure-your-talos-cluster/lifecycle-management/upgrading-talos#talosctl-upgrade[official Talos documentation].
 
 https://docs.siderolabs.com/kubernetes-guides/advanced-guides/upgrading-kubernetes[Upgrading Kubernetes] needs to be done separately.
 
@@ -221,12 +221,11 @@ The command below is a copy from the docs:
 talosctl --nodes 172.16.30.11 upgrade-k8s --to 1.36.4
 ----
 
-To keep the manual config in sync with the executed command, update the following properties to the same image version:
+To keep the manual config in sync with the executed command, update the `image` of the following configuration documents to the same image version:
 
-* `machine.kubelet.image`
-* `cluster.apiServer.image`
-* `cluster.controllermanager.image`
-* `cluster.scheduler.image`
-* `cluster.proxy.image`
+* `KubeletConfig` in `patches/all.yaml`
+* `KubeAPIServerConfig`, `KubeControllerManagerConfig` and `KubeSchedulerConfig` in `patches/controlplane.yaml`
 
-in `controlplane.yaml` and `worker.yaml` files.
+(`KubeProxyConfig` in `patches/controlplane.yaml` is disabled, so it carries no image.)
+
+This is done automatically by the UpdateCLI manifests in `updatecli/updatecli.d/` (`promote-upgrade-kubernetes.yaml` for this cluster, `test-upgrade-kubernetes.yaml` for `desk8s`).

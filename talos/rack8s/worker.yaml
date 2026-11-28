@@ -24,13 +24,4 @@ machine:
 
 # Provides cluster specific configuration options.
 cluster:
-    # Provides control plane specific configuration options.
-    controlPlane:
-        endpoint: https://172.16.30.11:6443 # Endpoint is the canonical controlplane endpoint, which can be an IP address or a DNS hostname.
-    clusterName: rack8s # Configures the cluster's name.
-
     token: 0vrn5w.gqna9gpg2kttik5r # The [bootstrap token](https://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/) used to join the cluster.
-    # The base64 encoded root certificate authority used by Kubernetes.
-    ca:
-        crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJpakNDQVRDZ0F3SUJBZ0lSQU1tVjBvd0h1MUw2Z0ZhNi8vT0lvL1F3Q2dZSUtvWkl6ajBFQXdJd0ZURVQKTUJFR0ExVUVDaE1LYTNWaVpYSnVaWFJsY3pBZUZ3MHlOVEV5TWpFeE5ETXhNVEZhRncwek5URXlNVGt4TkRNeApNVEZhTUJVeEV6QVJCZ05WQkFvVENtdDFZbVZ5Ym1WMFpYTXdXVEFUQmdjcWhrak9QUUlCQmdncWhrak9QUU1CCkJ3TkNBQVJsWlN0Zi9QR1dVelY3TEIzY2Y4VzNrWEVEdmx2aEhxQUlQSnVYOS9CcTVqWXcvR2JDL3FnYUhrb3MKZ3VrY0d5Ry8yUUpnTzYydGFML0dtTitBUWNsTG8yRXdYekFPQmdOVkhROEJBZjhFQkFNQ0FvUXdIUVlEVlIwbApCQll3RkFZSUt3WUJCUVVIQXdFR0NDc0dBUVVGQndNQ01BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0hRWURWUjBPCkJCWUVGRmJCbnRTdkZVMGVHemtUZDFyWitvOXNmWEVWTUFvR0NDcUdTTTQ5QkFNQ0EwZ0FNRVVDSVFDNG5sVHQKNG5kSTN1UE1XM2ZXeUQ5RGhhV2dzcG80cDdIMjZjSlNIZ2lMNWdJZ0h6YmplNVIycU9jRG1xZnBYeXFnVEh5cQpzaTYxak56ZE8rU0NZeGNxaG84PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
-        key: ""
