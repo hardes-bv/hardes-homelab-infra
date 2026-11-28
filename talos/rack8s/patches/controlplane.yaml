@@ -173,3 +173,30 @@ apiVersion: v1alpha1
 kind: KubeSchedulerConfig
 # Migrated from the deprecated `cluster.scheduler` field.
 image: registry.k8s.io/kube-scheduler:v1.36.4
+---
+apiVersion: v1alpha1
+kind: KubeAuthenticationConfig
+# The v1alpha1 `cluster.apiServer` implicitly used these defaults; the new
+# documents must state them explicitly (anonymous access for health endpoints
+# only, service-account JWT auth comes from KubeServiceAccountConfig).
+configuration:
+  anonymous:
+    enabled: true
+    conditions:
+      - path: /livez
+      - path: /readyz
+      - path: /healthz
+  jwt: []
+---
+apiVersion: v1alpha1
+kind: KubeAuthorizerConfig
+# Was the implicit v1alpha1 default `--authorization-mode=Node,RBAC`; without
+# these documents kube-apiserver refuses to start ("at least one authorization
+# mode must be defined").
+name: node
+type: Node
+---
+apiVersion: v1alpha1
+kind: KubeAuthorizerConfig
+name: rbac
+type: RBAC
