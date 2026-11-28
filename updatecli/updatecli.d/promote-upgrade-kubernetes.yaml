@@ -51,8 +51,8 @@ targets:
     sourceid: testedVersion
     spec:
       files:
-        - talos/rack8s/controlplane.yaml
-        - talos/rack8s/worker.yaml
+        - talos/rack8s/patches/all.yaml
+        - talos/rack8s/patches/controlplane.yaml
       matchpattern: 'image: (ghcr\.io/siderolabs|registry\.k8s\.io)/(k[^:\s]+):v\d+\.\d+\.\d+'
       replacepattern: 'image: $1/$2:{{ source "testedVersion" }}'
 

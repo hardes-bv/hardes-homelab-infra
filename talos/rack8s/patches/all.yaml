@@ -17,3 +17,27 @@ apiVersion: v1alpha1
 kind: DiscoveryServiceConfig
 name: default
 endpoint: https://discovery.talos.dev/
+---
+apiVersion: v1alpha1
+kind: KubeClusterConfig
+# Migrated from the deprecated `cluster.controlPlane.endpoint` and `cluster.clusterName` fields.
+clusterName: rack8s
+endpoint: https://k8s.home.hardes.be:6443
+---
+apiVersion: v1alpha1
+kind: KubeAPIServerCAConfig
+# Migrated from the deprecated `cluster.ca` field: every node carries the Kubernetes
+# CA certificate; control plane nodes add the issuing CA (cert + key) via patches/controlplane.yaml.
+acceptedCAs:
+  - |
+    -----BEGIN CERTIFICATE-----
+    MIIBijCCATCgAwIBAgIRAMmV0owHu1L6gFa6//OIo/QwCgYIKoZIzj0EAwIwFTET
+    MBEGA1UEChMKa3ViZXJuZXRlczAeFw0yNTEyMjExNDMxMTFaFw0zNTEyMTkxNDMx
+    MTFaMBUxEzARBgNVBAoTCmt1YmVybmV0ZXMwWTATBgcqhkjOPQIBBggqhkjOPQMB
+    BwNCAARlZStf/PGWUzV7LB3cf8W3kXEDvlvhHqAIPJuX9/Bq5jYw/GbC/qgaHkos
+    gukcGyG/2QJgO62taL/GmN+AQclLo2EwXzAOBgNVHQ8BAf8EBAMCAoQwHQYDVR0l
+    BBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0O
+    BBYEFFbBntSvFU0eGzkTd1rZ+o9sfXEVMAoGCCqGSM49BAMCA0gAMEUCIQC4nlTt
+    4ndI3uPMW3fWyD9DhaWgspo4p7H26cJSHgiL5gIgHzbje5R2qOcDmqfpXyqgTHyq
+    si61jNzdO+SCYxcqho8=
+    -----END CERTIFICATE-----
